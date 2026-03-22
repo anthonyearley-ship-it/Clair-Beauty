@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clair — Your Personal Beauty Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FDF9F4;
+    --gold: #C9A96E;
+    --gold-light: #E8D5B0;
+    --deep: #1A1410;
+    --charcoal: #2D2520;
+    --muted: #8A7E74;
+    --blush: #E8D5C4;
+    --border: rgba(201,169,110,0.2);
+  }
+  html, body { height: 100%; background: var(--deep); font-family: 'Jost', sans-serif; color: var(--cream); overflow: hidden; }
+  .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease, transform 0.8s ease; }
+  .screen.hidden { opacity: 0; pointer-events: none; transform: translateY(16px); }
+  #welcome { background: var(--deep); text-align: center; padding: 40px; }
+  .welcome-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 9vw, 80px); font-weight: 300; letter-spacing: 0.18em; color: var(--gold); animation: fadeUp 1.2s ease forwards; opacity: 0; position: relative; }
+  .logo-tag { font-size: 11px; letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-top: 4px; animation: fadeUp 1.2s 0.3s ease forwards; opacity: 0; position: relative; }
+  .divider { width: 1px; height: 56px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 36px auto; animation: fadeUp 1.2s 0.6s ease forwards; opacity: 0; position: relative; }
+  .welcome-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 3.5vw, 32px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 500px; line-height: 1.55; animation: fadeUp 1.2s 0.9s ease forwards; opacity: 0; position: relative; }
+  .welcome-sub { font-size: 12px; letter-spacing: 0.1em; color: var(--muted); margin-top: 14px; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; }
+  .begin-btn { margin-top: 44px; padding: 15px 52px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; }
+  .begin-btn:hover { background: var(--gold); color: var(--deep); }
+  .disclaimer { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--muted); opacity: 0.6; max-width: 520px; text-align: center; line-height: 1.6; animation: fadeUp 1.2s 1.6s ease forwards; }
+  #chat { background: var(--warm-white); flex-direction: column; padding: 0; overflow: hidden; }
+  .chat-header { width: 100%; padding: 18px 32px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: rgba(253,249,244,0.97); backdrop-filter: blur(10px); flex-shrink: 0; }
+  .chat-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--charcoal); letter-spacing: 0.12em; }
+  .chat-logo span { color: var(--gold); font-style: italic; }
+  .chat-badge { margin-left: 12px; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 3px 8px; }
+  .chat-progress { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+  .progress-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background 0.4s; }
+  .progress-dot.done { background: var(--gold); }
+  .chat-messages { flex: 1; overflow-y: auto; padding: 28px 32px; display: flex; flex-direction: column; gap: 18px; color: var(--charcoal); }
+  .chat-messages::-webkit-scrollbar { width: 3px; }
+  .chat-messages::-webkit-scrollbar-thumb { background: var(--gold-light); }
+  .msg { display: flex; gap: 10px; animation: fadeUp 0.5s ease forwards; opacity: 0; max-width: 700px; }
+  .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+  .msg-avatar { width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 15px; }
+  .ai-avatar { background: var(--deep); color: var(--gold); font-style: italic; }
+  .user-avatar { background: var(--blush); color: var(--charcoal); font-size: 11px; font-family: 'Jost', sans-serif; }
+  .msg-bubble { padding: 13px 17px; font-size: 14.5px; line-height: 1.7; max-width: 500px; }
+  .ai .msg-bubble { background: white; color: var(--charcoal); border: 1px solid rgba(0,0,0,0.06); border-radius: 0 12px 12px 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
+  .user .msg-bubble { background: var(--charcoal); color: var(--cream); border-radius: 12px 0 12px 12px; }
+  .typing-wrap { display: flex; gap: 10px; animation: fadeUp 0.4s ease forwards; opacity: 0; }
+  .typing { display: flex; gap: 5px; align-items: center; padding: 13px 17px; background: white; border: 1px solid rgba(0,0,0,0.06); border-radius: 0 12px 12px 12px; }
+  .typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: bounce 1.2s infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  .chat-input-area { padding: 18px 32px; border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; }
+  .chat-input-wrap { display: flex; gap: 10px; align-items: flex-end; max-width: 700px; margin: 0 auto; }
+  .chat-input { flex: 1; padding: 12px 16px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 14px; outline: none; resize: none; min-height: 44px; max-height: 120px; border-radius: 4px; transition: border 0.3s; }
+  .chat-input:focus { border-color: var(--gold); }
+  .chat-input::placeholder { color: var(--muted); }
+  .send-btn { padding: 12px 24px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 44px; }
+  .send-btn:hover { background: var(--gold); color: var(--deep); }
+  .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  #generating { background: var(--deep); text-align: center; padding: 40px; }
+  .gen-logo { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 8px; }
+  .gen-text { font-size: 12px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 48px; }
+  .gen-bar-wrap { width: 200px; height: 1px; background: rgba(201,169,110,0.2); margin: 0 auto; overflow: hidden; }
+  .gen-bar { height: 100%; background: var(--gold); animation: loadBar 3s ease forwards; width: 0%; }
+  .gen-sub { font-size: 16px; color: var(--muted); margin-top: 24px; font-style: italic; font-family: 'Cormorant Garamond', serif; }
+  #report { background: var(--cream); flex-direction: column; overflow: hidden; }
+  .report-header { width: 100%; padding: 18px 40px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: white; flex-shrink: 0; }
+  .report-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--charcoal); letter-spacing: 0.12em; }
+  .report-logo span { color: var(--gold); font-style: italic; }
+  .report-meta { margin-left: auto; text-align: right; }
+  .report-meta-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+  .report-meta-name { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--charcoal); }
+  .report-body { flex: 1; overflow-y: auto; padding: 40px; color: var(--charcoal); }
+  .report-body::-webkit-scrollbar { width: 3px; }
+  .report-body::-webkit-scrollbar-thumb { background: var(--gold-light); }
+  .report-inner { max-width: 780px; margin: 0 auto; }
+  .report-hero { text-align: center; padding: 24px 0 40px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+  .report-hero-eyebrow { font-size: 10px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .report-hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 5vw, 46px); font-weight: 300; color: var(--charcoal); line-height: 1.25; }
+  .report-hero-sub { font-size: 13px; color: var(--muted); margin-top: 10px; }
+  .report-section { margin-bottom: 44px; }
+  .section-eyebrow { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+  .section-body { font-size: 14.5px; line-height: 1.85; color: var(--charcoal); }
+  .section-body p { margin-bottom: 14px; }
+  .section-body ul { padding-left: 20px; }
+  .section-body li { margin-bottom: 10px; }
+  .section-body strong { font-weight: 500; }
+  .section-body h3 { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; margin: 20px 0 8px; color: var(--charcoal); }
+  .report-footer { text-align: center; padding: 32px 0 8px; border-top: 1px solid var(--border); margin-top: 20px; }
+  .report-footer-text { font-size: 10px; color: var(--muted); letter-spacing: 0.05em; line-height: 1.7; max-width: 560px; margin: 0 auto; }
+  .restart-btn { margin-top: 20px; padding: 12px 36px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .restart-btn:hover { border-color: var(--gold); color: var(--gold); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+  @keyframes loadBar { 0% { width: 0%; } 40% { width: 60%; } 80% { width: 85%; } 100% { width: 100%; } }
+</style>
+</head>
+<body>
+
+<div class="screen" id="welcome">
+  <div class="welcome-glow"></div>
+  <div class="logo">Clair</div>
+  <div class="logo-tag">Beauty Intelligence</div>
+  <div class="divider"></div>
+  <div class="welcome-headline">The most personalized beauty intelligence you've ever had.</div>
+  <div class="welcome-sub">Brand-agnostic · Research-backed · Made for you</div>
+  <button class="begin-btn" onclick="startChat()">Begin</button>
+  <div class="disclaimer">Clair is a beauty and lifestyle intelligence tool for cosmetic purposes only. Content provided is not medical advice and does not constitute a professional consultation. Always consult a qualified healthcare provider for medical skin concerns.</div>
+</div>
+
+<div class="screen hidden" id="chat">
+  <div class="chat-header">
+    <div class="chat-logo">C<span>lair</span></div>
+    <div class="chat-badge">Beauty Intelligence</div>
+    <div class="chat-progress" id="progressDots">
+      <div class="progress-dot" id="d1"></div>
+      <div class="progress-dot" id="d2"></div>
+      <div class="progress-dot" id="d3"></div>
+      <div class="progress-dot" id="d4"></div>
+      <div class="progress-dot" id="d5"></div>
+      <div class="progress-dot" id="d6"></div>
+    </div>
+  </div>
+  <div class="chat-messages" id="messages"></div>
+  <div class="chat-input-area">
+    <div class="chat-input-wrap">
+      <textarea class="chat-input" id="userInput" placeholder="Share your thoughts..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+</div>
+
+<div class="screen hidden" id="generating">
+  <div class="gen-logo">Clair</div>
+  <div class="gen-text">Preparing your report</div>
+  <div class="gen-bar-wrap"><div class="gen-bar"></div></div>
+  <div class="gen-sub">Analysing your skin story...</div>
+</div>
+
+<div class="screen hidden" id="report">
+  <div class="report-header">
+    <div class="report-logo">C<span>lair</span></div>
+    <div class="report-meta">
+      <div class="report-meta-label">Beauty Intelligence Report</div>
+      <div class="report-meta-name" id="reportName"></div>
+    </div>
+  </div>
+  <div class="report-body">
+    <div class="report-inner">
+      <div class="report-hero">
+        <div class="report-hero-eyebrow">Your Personal Report</div>
+        <div class="report-hero-title" id="reportTitle"></div>
+        <div class="report-hero-sub" id="reportSub"></div>
+      </div>
+      <div id="reportContent"></div>
+      <div class="report-footer">
+        <div class="report-footer-text">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice. Product availability and formulations may change — verify details with retailers before purchasing. Consult a dermatologist for medical skin concerns.</div>
+        <button class="restart-btn" onclick="restart()">Start a New Consultation</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const SYSTEM_PROMPT = `You are Clair, an elite personal beauty intelligence concierge. You are warm, sophisticated, knowledgeable, and feel like a brilliant trusted friend who happens to know everything about beauty, skincare, ingredients, and wellness.
+
+Your role is to conduct a luxurious conversational onboarding with the user — asking one thoughtful question at a time — to gather the information needed to create a deeply personalized beauty intelligence report.
+
+CONVERSATION STRUCTURE (follow this order):
+1. Ask their first name warmly
+2. Ask where they live (for climate context)
+3. Ask how they would describe where they are in their skin journey right now
+4. Ask what their skin would complain about most if it could talk (give 4-5 options they can choose from or describe freely)
+5. Ask about their current morning skincare routine briefly
+6. Ask about their sleep and stress lately
+7. Ask if they are on any skincare prescriptions or hormone therapy (yes/no is fine)
+8. Ask what ONE thing they would most want to fix about their skin in the next 90 days
+9. Ask their monthly skincare budget (what they actually spend)
+10. Give a warm elegant closing message then write exactly: REPORT_READY
+
+RULES:
+- Ask ONLY ONE question per message
+- Keep responses concise, warm, and elegant — never clinical
+- Acknowledge their answer briefly before moving to the next question
+- Use their name naturally once you know it
+- Never use bullet points or numbered lists in conversation
+- Sound like a knowledgeable friend, not a chatbot
+- After the budget question write REPORT_READY at the end of your closing message
+
+When generating the REPORT produce beautiful HTML using only h3, p, ul, li, strong tags with these sections:
+1. Your Skin Profile
+2. What is Already Working
+3. The Gaps
+4. Your Top 5 Product Recommendations (real products, brands, prices, why it works for her)
+5. Your 90-Day Focus`;
+
+  let conversationHistory = [];
+  let userName = '';
+  let questionCount = 0;
+  let isWaiting = false;
+
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  function startChat() {
+    show('chat');
+    setTimeout(() => sendAI(''), 400);
+  }
+
+  function restart() {
+    conversationHistory = [];
+    userName = '';
+    questionCount = 0;
+    isWaiting = false;
+    document.getElementById('messages').innerHTML = '';
+    updateProgress(0);
+    show('welcome');
+  }
+
+  function updateProgress(n) {
+    for (let i = 1; i <= 6; i++) {
+      document.getElementById('d' + i).classList.toggle('done', i <= n);
+    }
+  }
+
+  function addMessage(text, role) {
+    const messages = document.getElementById('messages');
+    const wrap = document.createElement('div');
+    wrap.className = 'msg ' + role;
+    const avatar = document.createElement('div');
+    avatar.className = 'msg-avatar ' + (role === 'ai' ? 'ai-avatar' : 'user-avatar');
+    avatar.textContent = role === 'ai' ? 'C' : (userName ? userName[0].toUpperCase() : 'Y');
+    const bubble = document.createElement('div');
+    bubble.className = 'msg-bubble';
+    bubble.innerHTML = text.replace(/\n/g, '<br>');
+    wrap.appendChild(avatar);
+    wrap.appendChild(bubble);
+    messages.appendChild(wrap);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function showTyping() {
+    const messages = document.getElementById('messages');
+    const wrap = document.createElement('div');
+    wrap.className = 'typing-wrap';
+    wrap.id = 'typingIndicator';
+    const avatar = document.createElement('div');
+    avatar.className = 'msg-avatar ai-avatar';
+    avatar.textContent = 'C';
+    const typing = document.createElement('div');
+    typing.className = 'typing';
+    typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    wrap.appendChild(avatar);
+    wrap.appendChild(typing);
+    messages.appendChild(wrap);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function removeTyping() {
+    const t = document.getElementById('typingIndicator');
+    if (t) t.remove();
+  }
+
+  async function callClaude(messages) {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': window.ANTHROPIC_API_KEY || '',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-allow-browser': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM_PROMPT,
+        messages: messages
+      })
+    });
+    const data = await response.json();
+    if (data.error) throw new Error(data.error.message);
+    return data.content[0].text;
+  }
+
+  async function generateReport() {
+    const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong tags. Make it warm, specific, and luxurious.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': window.ANTHROPIC_API_KEY || '',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-allow-browser': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 2500,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await response.json();
+    return data.content[0].text;
+  }
+
+  async function sendAI(userMessage) {
+    if (userMessage) conversationHistory.push({ role: 'user', content: userMessage });
+    setInputEnabled(false);
+    showTyping();
+    try {
+      const msgs = conversationHistory.length > 0 ? conversationHistory : [{ role: 'user', content: 'Begin the consultation.' }];
+      const reply = await callClaude(msgs);
+      removeTyping();
+      if (reply.includes('REPORT_READY')) {
+        const clean = reply.replace('REPORT_READY', '').trim();
+        addMessage(clean, 'ai');
+        conversationHistory.push({ role: 'assistant', content: reply });
+        updateProgress(6);
+        setTimeout(() => { show('generating'); generateAndShowReport(); }, 2200);
+      } else {
+        addMessage(reply, 'ai');
+        conversationHistory.push({ role: 'assistant', content: reply });
+        questionCount++;
+        updateProgress(Math.min(Math.floor(questionCount / 1.5), 5));
+        if (questionCount === 1) {
+          const first = conversationHistory.find(m => m.role === 'user');
+          if (first) { const w = first.content.trim().split(' '); if (w.length <= 3) userName = w[0]; }
+        }
+        setInputEnabled(true);
+        document.getElementById('userInput').focus();
+      }
+    } catch (err) {
+      removeTyping();
+      addMessage('Something went wrong. Please check your connection and try again.', 'ai');
+      setInputEnabled(true);
+    }
+  }
+
+  async function generateAndShowReport() {
+    try {
+      const html = await generateReport();
+      document.getElementById('reportName').textContent = userName || 'Your Report';
+      document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
+      document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + ' · ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      document.getElementById('reportContent').innerHTML = '<div class="section-body">' + html + '</div>';
+      show('report');
+    } catch (err) {
+      document.getElementById('reportContent').innerHTML = '<p style="color:var(--muted)">There was an issue generating your report. Please try again.</p>';
+      show('report');
+    }
+  }
+
+  function sendMessage() {
+    const input = document.getElementById('userInput');
+    const text = input.value.trim();
+    if (!text || isWaiting) return;
+    addMessage(text, 'user');
+    input.value = '';
+    input.style.height = 'auto';
+    sendAI(text);
+  }
+
+  function handleKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  }
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+  }
+
+  function setInputEnabled(enabled) {
+    isWaiting = !enabled;
+    document.getElementById('sendBtn').disabled = !enabled;
+    document.getElementById('userInput').disabled = !enabled;
+  }
+</script>
+</body>
+</html>
