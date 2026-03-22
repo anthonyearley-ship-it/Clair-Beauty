@@ -270,7 +270,7 @@ When generating the REPORT produce beautiful HTML using only h3, p, ul, li, stro
   }
 
   async function callClaude(messages) {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https:///api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -292,7 +292,7 @@ When generating the REPORT produce beautiful HTML using only h3, p, ul, li, stro
 
   async function generateReport() {
     const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong tags. Make it warm, specific, and luxurious.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https:///api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
