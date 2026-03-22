@@ -272,7 +272,7 @@ When generating the REPORT produce beautiful HTML using only h3, p, ul, li, stro
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-opus-4-5',
         max_tokens: 1000,
         system: SYSTEM_PROMPT,
         messages: messages
@@ -289,7 +289,7 @@ When generating the REPORT produce beautiful HTML using only h3, p, ul, li, stro
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-opus-4-5',
         max_tokens: 2500,
         system: SYSTEM_PROMPT,
         messages: [{ role: 'user', content: prompt }]
