@@ -22,8 +22,6 @@
   html, body { height: 100%; height: -webkit-fill-available; background: var(--deep); font-family: 'Jost', sans-serif; color: var(--cream); overflow: hidden; }
   .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease, transform 0.8s ease; padding: 20px; }
   .screen.hidden { opacity: 0; pointer-events: none; transform: translateY(16px); }
-
-  /* WELCOME */
   #welcome { background: var(--deep); text-align: center; }
   .welcome-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
   .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 12vw, 80px); font-weight: 300; letter-spacing: 0.18em; color: var(--gold); animation: fadeUp 1.2s ease forwards; opacity: 0; position: relative; }
@@ -35,8 +33,6 @@
   .begin-btn { margin-top: 32px; padding: 14px 44px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; }
   .begin-btn:hover, .begin-btn:active { background: var(--gold); color: var(--deep); }
   .disclaimer { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); opacity: 0.6; max-width: 90vw; text-align: center; line-height: 1.6; animation: fadeUp 1.2s 1.6s ease forwards; width: 100%; padding: 0 20px; }
-
-  /* CHAT */
   #chat { background: var(--warm-white); flex-direction: column; padding: 0; overflow: hidden; }
   .chat-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: rgba(253,249,244,0.97); backdrop-filter: blur(10px); flex-shrink: 0; }
   .chat-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--charcoal); letter-spacing: 0.12em; }
@@ -75,16 +71,12 @@
   .send-btn { padding: 10px 18px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 42px; -webkit-appearance: none; }
   .send-btn:hover, .send-btn:active { background: var(--gold); color: var(--deep); }
   .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-  /* GENERATING */
   #generating { background: var(--deep); text-align: center; }
   .gen-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 8vw, 36px); font-weight: 300; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 8px; }
   .gen-text { font-size: clamp(10px, 2.5vw, 12px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 40px; }
   .gen-bar-wrap { width: 160px; height: 1px; background: rgba(201,169,110,0.2); margin: 0 auto; overflow: hidden; }
   .gen-bar { height: 100%; background: var(--gold); animation: loadBar 3s ease forwards; width: 0%; }
   .gen-sub { font-size: clamp(14px, 3.5vw, 16px); color: var(--muted); margin-top: 20px; font-style: italic; font-family: 'Cormorant Garamond', serif; }
-
-  /* SIGNUP */
   #signup { background: var(--deep); text-align: center; }
   .signup-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
   .signup-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
@@ -97,8 +89,18 @@
   .signup-btn:active { background: var(--gold-light); }
   .signup-skip { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
   .signup-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
-
-  /* REPORT */
+  #email-capture { background: var(--deep); text-align: center; }
+  .email-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
+  .email-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
+  .email-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.05em; margin-bottom: 24px; line-height: 1.6; }
+  .email-input { width: 100%; padding: 12px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .email-input:focus { border-color: var(--gold); }
+  .email-input::placeholder { color: var(--muted); }
+  .email-send-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
+  .email-send-btn:active { background: var(--gold-light); }
+  .email-skip { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
+  .email-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
+  .email-success { font-size: 12px; color: #7CB987; margin-top: 8px; min-height: 18px; }
   #report { background: var(--cream); flex-direction: column; overflow: hidden; padding: 0; }
   .report-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: white; flex-shrink: 0; }
   .report-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--charcoal); letter-spacing: 0.12em; }
@@ -122,9 +124,11 @@
   .section-body h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 4.5vw, 20px); font-weight: 400; margin: 18px 0 8px; color: var(--charcoal); }
   .report-footer { text-align: center; padding: 24px 0 8px; border-top: 1px solid var(--border); margin-top: 16px; }
   .report-footer-text { font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); letter-spacing: 0.05em; line-height: 1.7; max-width: 560px; margin: 0 auto; }
-  .restart-btn { margin-top: 16px; padding: 12px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .report-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  .restart-btn { padding: 12px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .restart-btn:active { border-color: var(--gold); color: var(--gold); }
-
+  .email-report-btn { padding: 12px 32px; background: var(--deep); border: 1px solid var(--deep); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .email-report-btn:hover, .email-report-btn:active { background: var(--gold); color: var(--deep); border-color: var(--gold); }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
   @keyframes loadBar { 0% { width: 0%; } 40% { width: 60%; } 80% { width: 85%; } 100% { width: 100%; } }
@@ -186,6 +190,19 @@
   </div>
 </div>
 
+<div class="screen hidden" id="email-capture">
+  <div class="signup-glow"></div>
+  <div class="email-box">
+    <div class="email-title">Email My Report</div>
+    <div class="email-sub">Enter your email and we'll send your Beauty Intelligence Report straight to your inbox.</div>
+    <input class="email-input" id="emailCaptureInput" type="email" placeholder="Your email address" autocomplete="email" />
+    <div class="email-error" id="emailError"></div>
+    <div class="email-success" id="emailSuccess"></div>
+    <button class="email-send-btn" onclick="sendReportEmail()">Send My Report</button>
+    <span class="email-skip" onclick="show('report')">Go back to my report</span>
+  </div>
+</div>
+
 <div class="screen hidden" id="report">
   <div class="report-header">
     <div class="report-logo">C<span>lair</span></div>
@@ -204,7 +221,10 @@
       <div id="reportContent"></div>
       <div class="report-footer">
         <div class="report-footer-text">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice. Product availability and formulations may change — verify details with retailers before purchasing. Consult a dermatologist for medical skin concerns.</div>
-        <button class="restart-btn" onclick="restart()">Start a New Consultation</button>
+        <div class="report-actions">
+          <button class="email-report-btn" onclick="show('email-capture')">Email My Report</button>
+          <button class="restart-btn" onclick="restart()">Start a New Consultation</button>
+        </div>
       </div>
     </div>
   </div>
@@ -263,6 +283,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with five sections:
   let questionCount = 0;
   let isWaiting = false;
   let quickWinContent = '';
+  let reportHTML = '';
   let userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
 
   function show(id) {
@@ -281,11 +302,15 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with five sections:
     questionCount = 0;
     isWaiting = false;
     quickWinContent = '';
+    reportHTML = '';
     userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
     document.getElementById('messages').innerHTML = '';
     document.getElementById('signupEmail').value = '';
     document.getElementById('signupPassword').value = '';
     document.getElementById('signupError').textContent = '';
+    document.getElementById('emailCaptureInput').value = '';
+    document.getElementById('emailError').textContent = '';
+    document.getElementById('emailSuccess').textContent = '';
     updateProgress(0);
     show('welcome');
   }
@@ -395,6 +420,70 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with five sections:
     return data.content[0].text;
   }
 
+  async function sendReportEmail() {
+    const email = document.getElementById('emailCaptureInput').value.trim();
+    const errorEl = document.getElementById('emailError');
+    const successEl = document.getElementById('emailSuccess');
+    errorEl.textContent = '';
+    successEl.textContent = '';
+
+    if (!email) { errorEl.textContent = 'Please enter your email address.'; return; }
+    if (!email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
+
+    const btn = document.querySelector('.email-send-btn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+
+    const emailHTML = `
+      <!DOCTYPE html>
+      <html>
+      <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+      <body style="margin:0;padding:0;background:#FAF7F2;font-family:'Georgia',serif;">
+        <div style="max-width:600px;margin:0 auto;padding:40px 20px;">
+          <div style="text-align:center;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.3);margin-bottom:32px;">
+            <h1 style="font-family:Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.15em;color:#C9A96E;margin:0;">Clair</h1>
+            <p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#8A7E74;margin:4px 0 0;">Beauty Intelligence</p>
+          </div>
+          <div style="text-align:center;margin-bottom:32px;">
+            <p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin-bottom:12px;">Your Personal Report</p>
+            <h2 style="font-family:Georgia,serif;font-size:28px;font-weight:300;color:#2D2520;margin:0;">Your Beauty Intelligence Report</h2>
+            <p style="font-size:13px;color:#8A7E74;margin-top:8px;">Curated exclusively for ${userName || 'you'}</p>
+          </div>
+          <div style="font-size:15px;line-height:1.85;color:#2D2520;">
+            ${reportHTML}
+          </div>
+          <div style="text-align:center;padding-top:32px;border-top:1px solid rgba(201,169,110,0.3);margin-top:32px;">
+            <p style="font-size:10px;color:#8A7E74;line-height:1.7;">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice. Always consult a qualified healthcare provider for medical skin concerns.</p>
+          </div>
+        </div>
+      </body>
+      </html>`;
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'send_email',
+          email: email,
+          subject: `Your Clair Beauty Intelligence Report${userName ? ', ' + userName : ''}`,
+          html: emailHTML
+        })
+      });
+      const data = await response.json();
+      if (data.error) {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+      } else {
+        successEl.textContent = 'Your report has been sent! Check your inbox.';
+        btn.textContent = 'Sent!';
+      }
+    } catch (err) {
+      errorEl.textContent = 'Something went wrong. Please try again.';
+      btn.textContent = 'Send My Report';
+      btn.disabled = false;
+    }
+  }
+
   async function sendAI(userMessage) {
     if (userMessage) conversationHistory.push({ role: 'user', content: userMessage });
     setInputEnabled(false);
@@ -471,6 +560,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with five sections:
   async function generateAndShowReport() {
     try {
       const html = await generateReport();
+      reportHTML = html;
       document.getElementById('reportName').textContent = userName || 'Your Report';
       document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
       document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + ' · ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
