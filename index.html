@@ -28,9 +28,13 @@
   .logo-tag { font-size: clamp(9px, 2.5vw, 11px); letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-top: 4px; animation: fadeUp 1.2s 0.3s ease forwards; opacity: 0; position: relative; }
   .divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 24px auto; animation: fadeUp 1.2s 0.6s ease forwards; opacity: 0; position: relative; }
   .welcome-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 5vw, 32px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 500px; line-height: 1.55; animation: fadeUp 1.2s 0.9s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
-  .welcome-sub { font-size: clamp(10px, 2.8vw, 12px); letter-spacing: 0.1em; color: var(--muted); margin-top: 12px; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; }
-  .welcome-agnostic { font-size: clamp(10px, 2.5vw, 11px); color: var(--gold); margin-top: 10px; letter-spacing: 0.05em; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
-  .begin-btn { margin-top: 32px; padding: 14px 44px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; }
+  .welcome-explainer { font-size: clamp(11px, 2.8vw, 13px); color: var(--muted); margin-top: 16px; max-width: 420px; line-height: 1.7; animation: fadeUp 1.2s 1.0s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
+  .welcome-tiers { display: flex; gap: 12px; margin-top: 20px; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
+  .welcome-tier { background: rgba(201,169,110,0.08); border: 1px solid var(--border); padding: 14px 18px; max-width: 180px; text-align: left; }
+  .tier-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .tier-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .welcome-agnostic { font-size: clamp(10px, 2.5vw, 11px); color: var(--gold); margin-top: 14px; letter-spacing: 0.05em; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
+  .begin-btn { margin-top: 24px; padding: 14px 44px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; }
   .begin-btn:hover, .begin-btn:active { background: var(--gold); color: var(--deep); }
   .disclaimer { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); opacity: 0.6; max-width: 90vw; text-align: center; line-height: 1.6; animation: fadeUp 1.2s 1.6s ease forwards; width: 100%; padding: 0 20px; }
   #chat { background: var(--warm-white); flex-direction: column; padding: 0; overflow: hidden; }
@@ -142,8 +146,17 @@
   <div class="logo-tag">Beauty Intelligence</div>
   <div class="divider"></div>
   <div class="welcome-headline">The most personalized beauty intelligence you've ever had.</div>
-  <div class="welcome-sub">Brand-agnostic · Research-backed · Made for you</div>
-  <div class="welcome-agnostic">No brand partnerships. No sponsored recommendations. Just what actually works for you.</div>
+  <div class="welcome-explainer">Clair is a brand-agnostic AI beauty concierge. No sponsored recommendations. No brand allegiances. Just expert, personalized guidance built entirely around you.</div>
+  <div class="welcome-tiers">
+    <div class="welcome-tier">
+      <div class="tier-label">Quick Win</div>
+      <div class="tier-desc">2 minutes. Instant personalized recommendations for your biggest skin concern.</div>
+    </div>
+    <div class="welcome-tier">
+      <div class="tier-label">Deep Analysis</div>
+      <div class="tier-desc">10 minutes. A complete Beauty Intelligence Report built around your full skin profile.</div>
+    </div>
+  </div>
   <button class="begin-btn" onclick="startChat()">Begin</button>
   <div class="disclaimer">Clair is a beauty and lifestyle intelligence tool for cosmetic purposes only. Not medical advice. Always consult a qualified healthcare provider for medical skin concerns.</div>
 </div>
@@ -256,28 +269,39 @@ After receiving the answer to Question 5 you MUST immediately deliver the QUICK 
 You MUST end your Quick Insight message with this exact token on its own line with nothing after it:
 QUICK_WIN_DONE
 
-PHASE 2 — FULL REPORT (only begin if user clicks Go Deeper or says yes):
-Question 6: Where they live for climate context
-Question 7: Sleep and stress lately
-Question 8: Skincare prescriptions or hormone therapy — yes or no
-Question 9: ONE thing they want to fix in 90 days
-After Question 9: Give a warm closing message and write exactly: REPORT_READY
+PHASE 2 — DEEP ANALYSIS (only begin if user clicks Go Deeper or says yes):
+Ask these questions one at a time. All questions are open ended — let the user respond freely in their own words. Acknowledge each answer warmly before moving to the next.
+
+Question 6: Ask where they live and what their climate is like day to day
+Question 7: Ask about their sleep quality and stress levels lately — how their lifestyle feels overall
+Question 8: Ask about their health history as it relates to their skin — any conditions, medications, or treatments that affect how their skin behaves
+Question 9: Ask about any known allergies, sensitivities, or ingredients that have caused reactions in the past
+Question 10: Ask how their skin responds to sun exposure — does it burn easily, tan, rarely burn — and how they'd describe their natural skin tone
+Question 11: Ask whether their skin has felt reactive, sensitive, or easily irritated lately — whether certain products sting or their skin feels easily disrupted
+Question 12: Ask what one thing they would most love to change about their skin in the next 90 days if they could change anything at all
+
+After Question 12: Give a warm, elegant closing message telling them their full Beauty Intelligence Report is being prepared. Then write exactly: REPORT_READY
 
 CRITICAL RULES:
 - Ask ONLY ONE question per message — never two
 - After Question 5 you MUST output the Quick Insight followed by QUICK_WIN_DONE — do not ask Question 6 first
 - Never tell users there is no account or login system — there is one
-- Use the user's name only once — right when you first learn it. Never use it again after that. It should feel natural not robotic.
+- Use the user's name only once — right when you first learn it. Never use it again after that.
 - Never use bullet points in conversation
-- Always match products exactly to stated budget
+- All Phase 2 questions are open ended — never give multiple choice options in Phase 2
+- Listen carefully to what the user shares and let their answers inform the depth and specificity of the final report
+- Infer Fitzpatrick skin type from their answer to Question 10 without using clinical terminology
+- Infer barrier health from their answer to Question 11 without diagnosing
+- Always match product recommendations exactly to stated budget
 - Sound like a warm brilliant friend not a chatbot
 
-REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with five sections:
-1. Your Skin Profile
+REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six sections:
+1. Your Skin Profile — include inferred Fitzpatrick type, barrier health assessment, and full lifestyle context
 2. What is Already Working
-3. The Gaps
-4. Your Top 5 Product Recommendations with brands, prices within budget, and why it works for her
-5. Your 90-Day Focus`;
+3. The Gaps — include any allergy or sensitivity flags
+4. Your Top 5 Product Recommendations with brands, prices within budget, and why each works specifically for her
+5. Ingredients to Seek and Ingredients to Avoid — based on her profile and sensitivities
+6. Your 90-Day Focus`;
 
   let conversationHistory = [];
   let userName = '';
@@ -364,7 +388,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with five sections:
 
   function goDeeper() {
     show('chat');
-    sendAI('Yes I would like to go deeper and get my full report.');
+    sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.');
   }
 
   function showTyping() {
@@ -406,13 +430,13 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with five sections:
   }
 
   async function generateReport() {
-    const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong tags. Make it warm, specific, and luxurious. Match all product recommendations to the user's stated budget.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
+    const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong tags. Make it warm, specific, and luxurious. Match all product recommendations to the user's stated budget. Include inferred Fitzpatrick skin type and barrier health assessment based on what the user shared. Include a dedicated section on ingredients to seek and ingredients to avoid based on their sensitivities.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-opus-4-5',
-        max_tokens: 2500,
+        max_tokens: 3000,
         system: SYSTEM_PROMPT,
         messages: [{ role: 'user', content: prompt }]
       })
