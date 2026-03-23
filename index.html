@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Clair — Your Personal Beauty Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -28,6 +29,7 @@
   .divider { width: 1px; height: 56px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 36px auto; animation: fadeUp 1.2s 0.6s ease forwards; opacity: 0; position: relative; }
   .welcome-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 3.5vw, 32px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 500px; line-height: 1.55; animation: fadeUp 1.2s 0.9s ease forwards; opacity: 0; position: relative; }
   .welcome-sub { font-size: 12px; letter-spacing: 0.1em; color: var(--muted); margin-top: 14px; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; }
+  .welcome-agnostic { font-size: 11px; color: var(--gold); margin-top: 12px; letter-spacing: 0.08em; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; }
   .begin-btn { margin-top: 44px; padding: 15px 52px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; }
   .begin-btn:hover { background: var(--gold); color: var(--deep); }
   .disclaimer { position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--muted); opacity: 0.6; max-width: 520px; text-align: center; line-height: 1.6; animation: fadeUp 1.2s 1.6s ease forwards; }
@@ -55,6 +57,11 @@
   .typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: bounce 1.2s infinite; }
   .typing-dot:nth-child(2) { animation-delay: 0.2s; }
   .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  .action-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; padding-left: 44px; animation: fadeUp 0.5s ease forwards; opacity: 0; }
+  .action-btn { padding: 10px 20px; border: 1px solid var(--gold); background: transparent; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 2px; }
+  .action-btn:hover { background: var(--gold); color: var(--deep); }
+  .action-btn.primary { background: var(--deep); color: var(--gold); border-color: var(--deep); }
+  .action-btn.primary:hover { background: var(--gold); color: var(--deep); }
   .chat-input-area { padding: 18px 32px; border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; }
   .chat-input-wrap { display: flex; gap: 10px; align-items: flex-end; max-width: 700px; margin: 0 auto; }
   .chat-input { flex: 1; padding: 12px 16px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 14px; outline: none; resize: none; min-height: 44px; max-height: 120px; border-radius: 4px; transition: border 0.3s; }
@@ -69,6 +76,19 @@
   .gen-bar-wrap { width: 200px; height: 1px; background: rgba(201,169,110,0.2); margin: 0 auto; overflow: hidden; }
   .gen-bar { height: 100%; background: var(--gold); animation: loadBar 3s ease forwards; width: 0%; }
   .gen-sub { font-size: 16px; color: var(--muted); margin-top: 24px; font-style: italic; font-family: 'Cormorant Garamond', serif; }
+  #signup { background: var(--deep); text-align: center; padding: 40px; }
+  .signup-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
+  .signup-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 48px 40px; max-width: 420px; width: 100%; position: relative; }
+  .signup-title { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 300; color: var(--gold); margin-bottom: 8px; }
+  .signup-sub { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; margin-bottom: 32px; line-height: 1.6; }
+  .signup-input { width: 100%; padding: 12px 16px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 14px; outline: none; margin-bottom: 12px; transition: border 0.3s; }
+  .signup-input:focus { border-color: var(--gold); }
+  .signup-input::placeholder { color: var(--muted); }
+  .signup-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; }
+  .signup-btn:hover { background: var(--gold-light); }
+  .signup-skip { font-size: 11px; color: var(--muted); margin-top: 16px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
+  .signup-skip:hover { color: var(--gold); }
+  .signup-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
   #report { background: var(--cream); flex-direction: column; overflow: hidden; }
   .report-header { width: 100%; padding: 18px 40px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: white; flex-shrink: 0; }
   .report-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--charcoal); letter-spacing: 0.12em; }
@@ -108,8 +128,9 @@
   <div class="divider"></div>
   <div class="welcome-headline">The most personalized beauty intelligence you've ever had.</div>
   <div class="welcome-sub">Brand-agnostic · Research-backed · Made for you</div>
+  <div class="welcome-agnostic">No brand partnerships. No sponsored recommendations. Just what actually works for you.</div>
   <button class="begin-btn" onclick="startChat()">Begin</button>
-  <div class="disclaimer">Clair is a beauty and lifestyle intelligence tool for cosmetic purposes only. Content provided is not medical advice and does not constitute a professional consultation. Always consult a qualified healthcare provider for medical skin concerns.</div>
+  <div class="disclaimer">Clair is a beauty and lifestyle intelligence tool for cosmetic purposes only. Not medical advice. Always consult a qualified healthcare provider for medical skin concerns.</div>
 </div>
 
 <div class="screen hidden" id="chat">
@@ -141,6 +162,19 @@
   <div class="gen-sub">Analysing your skin story...</div>
 </div>
 
+<div class="screen hidden" id="signup">
+  <div class="signup-glow"></div>
+  <div class="signup-box">
+    <div class="signup-title">Save Your Results</div>
+    <div class="signup-sub">Create your Clair account to save your quick win, track your progress, and return anytime.</div>
+    <input class="signup-input" id="signupEmail" type="email" placeholder="Your email address" />
+    <input class="signup-input" id="signupPassword" type="password" placeholder="Create a password" />
+    <div class="signup-error" id="signupError"></div>
+    <button class="signup-btn" onclick="createAccount()">Create My Account</button>
+    <span class="signup-skip" onclick="skipSignup()">Skip for now — go deeper instead</span>
+  </div>
+</div>
+
 <div class="screen hidden" id="report">
   <div class="report-header">
     <div class="report-logo">C<span>lair</span></div>
@@ -166,30 +200,35 @@
 </div>
 
 <script>
-  const SYSTEM_PROMPT = `You are Clair, an elite personal beauty intelligence concierge. You are warm, sophisticated, and feel like a brilliant trusted friend who knows everything about beauty, skincare, ingredients, and wellness.
+  const SUPABASE_URL = 'https://ruukxsypjoxvlrtgmeir.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1dWt4c3lwam94dmxydGdtZWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODg5MjksImV4cCI6MjA4OTc2NDkyOX0._us8Sb8qdxJc3gAbGvSIX-A4P6im4e15DnE3O3L28UA';
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const SYSTEM_PROMPT = `You are Clair, an elite personal beauty intelligence concierge. You are warm, sophisticated, and feel like a brilliant trusted friend who knows everything about beauty, skincare, ingredients, and wellness. You never represent any brand and all recommendations are completely independent.
 
 Your conversation has TWO phases:
 
-PHASE 1 — QUICK WIN (3 questions then deliver immediate value):
+PHASE 1 — QUICK WIN (5 questions then deliver immediate value):
 1. Ask their first name warmly and welcome them to Clair
-2. Ask what their single biggest skin concern is right now — give these 5 options they can choose from or describe freely: fine lines and loss of firmness, dullness and uneven tone, dryness and dehydration, breakouts and congestion, or hyperpigmentation and dark spots
-3. Ask them to describe their current routine in one sentence — even if it is just a cleanser and moisturizer
+2. Ask their age range — give these options: 35-44, 45-54, 55-64, or 65+
+3. Ask their monthly skincare budget — give these options: under $50, $50-150, $150-300, or $300+
+4. Ask what their single biggest skin concern is right now — give these 5 options they can choose from or describe freely: fine lines and loss of firmness, dullness and uneven tone, dryness and dehydration, breakouts and congestion, or hyperpigmentation and dark spots
+5. Ask them to describe their current routine in one sentence — even if it is just a cleanser and moisturizer
 
-After question 3, deliver a QUICK INSIGHT — a warm, specific, immediately useful response that includes:
-- A one paragraph explanation of what is actually happening with their concern
-- Two or three specific product recommendations with real brand names, key ingredients, and approximate prices
+After question 5, deliver a QUICK INSIGHT — a warm, specific, immediately useful response that includes:
+- A one paragraph explanation of what is actually happening with their concern given their age range
+- Two or three specific product recommendations matched exactly to their budget range with real brand names, key ingredients, and approximate prices
 - One simple routine tip they can implement today
 
-End the Quick Insight with exactly this: "That is your quick win. I could also build you a complete Beauty Intelligence Report — a deeply personalized guide covering everything from your full routine gaps to your top 5 products for the next 90 days. It takes about 5 more minutes. Would you like to go deeper?"
+End the Quick Insight with exactly this token on its own line: QUICK_WIN_DONE
 
-PHASE 2 — FULL REPORT (only if user says yes or similar affirmative):
+PHASE 2 — FULL REPORT (only if user chooses to go deeper):
 Continue with these questions one at a time:
-4. Ask where they live for climate context
-5. Ask about their sleep and stress lately
-6. Ask if they are on any skincare prescriptions or hormone therapy — yes or no is fine
-7. Ask what ONE thing they would most want to fix in the next 90 days
-8. Ask their monthly skincare budget — what they actually spend
-9. Give a warm elegant closing message then write exactly: REPORT_READY
+6. Ask where they live for climate context
+7. Ask about their sleep and stress lately
+8. Ask if they are on any skincare prescriptions or hormone therapy — yes or no is fine
+9. Ask what ONE thing they would most want to fix in the next 90 days
+10. Give a warm elegant closing message then write exactly: REPORT_READY
 
 RULES FOR BOTH PHASES:
 - Ask ONLY ONE question per message
@@ -198,18 +237,21 @@ RULES FOR BOTH PHASES:
 - Use their name naturally once you know it
 - Never use bullet points or numbered lists in conversation
 - Sound like a brilliant knowledgeable friend not a chatbot
+- Always match product recommendations exactly to the stated budget
 
 REPORT FORMAT: When generating the report produce beautiful HTML using only h3, p, ul, li, strong tags with these five sections:
 1. Your Skin Profile
 2. What is Already Working
 3. The Gaps
-4. Your Top 5 Product Recommendations with real products, brands, prices, and why it works for her specifically
+4. Your Top 5 Product Recommendations with real products, brands, prices within their budget, and why it works for her specifically
 5. Your 90-Day Focus`;
 
   let conversationHistory = [];
   let userName = '';
   let questionCount = 0;
   let isWaiting = false;
+  let quickWinContent = '';
+  let userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
 
   function show(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
@@ -226,7 +268,12 @@ REPORT FORMAT: When generating the report produce beautiful HTML using only h3, 
     userName = '';
     questionCount = 0;
     isWaiting = false;
+    quickWinContent = '';
+    userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
     document.getElementById('messages').innerHTML = '';
+    document.getElementById('signupEmail').value = '';
+    document.getElementById('signupPassword').value = '';
+    document.getElementById('signupError').textContent = '';
     updateProgress(0);
     show('welcome');
   }
@@ -251,6 +298,35 @@ REPORT FORMAT: When generating the report produce beautiful HTML using only h3, 
     wrap.appendChild(bubble);
     messages.appendChild(wrap);
     messages.scrollTop = messages.scrollHeight;
+  }
+
+  function showActionButtons() {
+    const messages = document.getElementById('messages');
+    const wrap = document.createElement('div');
+    wrap.className = 'action-btns';
+    wrap.id = 'actionButtons';
+    const saveBtn = document.createElement('button');
+    saveBtn.className = 'action-btn primary';
+    saveBtn.textContent = 'Save My Results';
+    saveBtn.onclick = () => { removeActionButtons(); show('signup'); };
+    const deeperBtn = document.createElement('button');
+    deeperBtn.className = 'action-btn';
+    deeperBtn.textContent = 'Go Deeper';
+    deeperBtn.onclick = () => { removeActionButtons(); goDeeper(); };
+    wrap.appendChild(saveBtn);
+    wrap.appendChild(deeperBtn);
+    messages.appendChild(wrap);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function removeActionButtons() {
+    const btns = document.getElementById('actionButtons');
+    if (btns) btns.remove();
+  }
+
+  function goDeeper() {
+    show('chat');
+    sendAI('Yes I would like to go deeper and get my full report.');
   }
 
   function showTyping() {
@@ -281,7 +357,7 @@ REPORT FORMAT: When generating the report produce beautiful HTML using only h3, 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: 'claude-opus-4-5',
-        max_tokens: 1000,
+        max_tokens: 1200,
         system: SYSTEM_PROMPT,
         messages: messages
       })
@@ -292,7 +368,7 @@ REPORT FORMAT: When generating the report produce beautiful HTML using only h3, 
   }
 
   async function generateReport() {
-    const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong tags. Make it warm, specific, and luxurious.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
+    const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong tags. Make it warm, specific, and luxurious. Match all product recommendations to the user's stated budget.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -320,13 +396,21 @@ REPORT FORMAT: When generating the report produce beautiful HTML using only h3, 
         conversationHistory.push({ role: 'assistant', content: reply });
         updateProgress(6);
         setTimeout(() => { show('generating'); generateAndShowReport(); }, 2200);
+      } else if (reply.includes('QUICK_WIN_DONE')) {
+        const clean = reply.replace('QUICK_WIN_DONE', '').trim();
+        quickWinContent = clean;
+        addMessage(clean, 'ai');
+        conversationHistory.push({ role: 'assistant', content: reply });
+        updateProgress(5);
+        setInputEnabled(false);
+        setTimeout(() => showActionButtons(), 600);
       } else {
         addMessage(reply, 'ai');
         conversationHistory.push({ role: 'assistant', content: reply });
         questionCount++;
-        updateProgress(Math.min(Math.floor(questionCount / 1.5), 5));
+        updateProgress(Math.min(questionCount, 4));
         if (questionCount === 1) {
-          const first = conversationHistory.find(m => m.role === 'user');
+          const first = conversationHistory.find(m => m.role === 'user' && m.content !== 'Begin the consultation.');
           if (first) { const w = first.content.trim().split(' '); if (w.length <= 3) userName = w[0]; }
         }
         setInputEnabled(true);
@@ -337,6 +421,39 @@ REPORT FORMAT: When generating the report produce beautiful HTML using only h3, 
       addMessage('Something went wrong. Please check your connection and try again.', 'ai');
       setInputEnabled(true);
     }
+  }
+
+  async function createAccount() {
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value.trim();
+    const errorEl = document.getElementById('signupError');
+    errorEl.textContent = '';
+    if (!email || !password) { errorEl.textContent = 'Please enter your email and a password.'; return; }
+    if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
+    try {
+      const { data, error } = await supabase.auth.signUp({ email, password });
+      if (error) { errorEl.textContent = error.message; return; }
+      if (data.user) {
+        await supabase.from('profiles').insert({
+          id: data.user.id,
+          email: email,
+          name: userName,
+          age_range: userProfile.age_range,
+          budget: userProfile.budget,
+          concern: userProfile.concern,
+          routine: userProfile.routine,
+          quick_win: quickWinContent
+        });
+      }
+      goDeeper();
+    } catch (err) {
+      errorEl.textContent = 'Something went wrong. Please try again.';
+    }
+  }
+
+  function skipSignup() {
+    show('chat');
+    goDeeper();
   }
 
   async function generateAndShowReport() {
