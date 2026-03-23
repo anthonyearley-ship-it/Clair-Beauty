@@ -202,7 +202,7 @@
 <script>
   const SUPABASE_URL = 'https://ruukxsypjoxvlrtgmeir.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1dWt4c3lwam94dmxydGdtZWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODg5MjksImV4cCI6MjA4OTc2NDkyOX0._us8Sb8qdxJc3gAbGvSIX-A4P6im4e15DnE3O3L28UA';
-  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
   const SYSTEM_PROMPT = `You are Clair, an elite personal beauty intelligence concierge. You are warm, sophisticated, and feel like a brilliant trusted friend who knows everything about beauty, skincare, ingredients, and wellness. You never represent any brand and all recommendations are completely independent.
 
@@ -431,10 +431,10 @@ REPORT FORMAT: When generating the report produce beautiful HTML using only h3, 
     if (!email || !password) { errorEl.textContent = 'Please enter your email and a password.'; return; }
     if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
     try {
-      const { data, error } = await supabase.auth.signUp({ email, password });
+      const { data, error } = await supabaseClient.auth.signUp({ email, password });
       if (error) { errorEl.textContent = error.message; return; }
       if (data.user) {
-        await supabase.from('profiles').insert({
+        await supabaseClient.from('profiles').insert({
           id: data.user.id,
           email: email,
           name: userName,
