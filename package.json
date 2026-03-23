@@ -1,0 +1,14 @@
+{
+  "name": "clair-beauty",
+  "version": "1.0.0",
+  "description": "Clair - Your Personal Beauty Intelligence",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static HTML - no build needed'",
+    "lint": "echo 'No linter configured'"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
