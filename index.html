@@ -33,7 +33,6 @@
   .welcome-tier { background: rgba(201,169,110,0.08); border: 1px solid var(--border); padding: 14px 18px; max-width: 180px; text-align: left; }
   .tier-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .tier-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
-  .welcome-agnostic { font-size: clamp(10px, 2.5vw, 11px); color: var(--gold); margin-top: 14px; letter-spacing: 0.05em; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
   .welcome-btns { display: flex; gap: 12px; margin-top: 24px; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
   .begin-btn { padding: 14px 44px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
   .begin-btn:hover, .begin-btn:active { background: var(--gold); color: var(--deep); }
@@ -144,12 +143,12 @@
   .section-body a:hover { color: #2D2520; }
   .report-footer { text-align: center; padding: 24px 0 8px; border-top: 1px solid var(--border); margin-top: 16px; }
   .report-footer-text { font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); letter-spacing: 0.05em; line-height: 1.7; max-width: 560px; margin: 0 auto; }
+  .affiliate-note { font-size: 9px; color: var(--muted); text-align: center; margin-top: 12px; opacity: 0.7; }
   .report-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
   .restart-btn { padding: 12px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .restart-btn:active { border-color: var(--gold); color: var(--gold); }
   .email-report-btn { padding: 12px 32px; background: var(--deep); border: 1px solid var(--deep); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .email-report-btn:hover, .email-report-btn:active { background: var(--gold); color: var(--deep); border-color: var(--gold); }
-  .affiliate-note { font-size: 9px; color: var(--muted); text-align: center; margin-top: 12px; opacity: 0.7; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
   @keyframes loadBar { 0% { width: 0%; } 40% { width: 60%; } 80% { width: 85%; } 100% { width: 100%; } }
@@ -281,7 +280,6 @@
   const SUPABASE_URL = 'https://ruukxsypjoxvlrtgmeir.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1dWt4c3lwam94dmxydGdtZWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODg5MjksImV4cCI6MjA4OTc2NDkyOX0._us8Sb8qdxJc3gAbGvSIX-A4P6im4e15DnE3O3L28UA';
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const AMAZON_TAG = 'clairbeauty-20';
 
   const SYSTEM_PROMPT = `You are Clair, an elite personal beauty intelligence concierge. You are warm, sophisticated, and feel like a brilliant trusted friend who knows everything about beauty, skincare, ingredients, and wellness. You never represent any brand and all recommendations are completely independent.
 
@@ -537,6 +535,9 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     const btn = document.querySelector('.email-send-btn');
     btn.textContent = 'Sending...';
     btn.disabled = true;
+    try {
+      await supabaseClient.from('leads').insert({ email: email, name: userName || '' });
+    } catch(e) { console.log('Lead save:', e); }
     const emailHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="margin:0;padding:0;background:#FAF7F2;font-family:'Georgia',serif;"><div style="max-width:600px;margin:0 auto;padding:40px 20px;"><div style="text-align:center;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.3);margin-bottom:32px;"><h1 style="font-family:Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.15em;color:#C9A96E;margin:0;">Clair</h1><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#8A7E74;margin:4px 0 0;">Beauty Intelligence</p></div><div style="text-align:center;margin-bottom:32px;"><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin-bottom:12px;">Your Personal Report</p><h2 style="font-family:Georgia,serif;font-size:28px;font-weight:300;color:#2D2520;margin:0;">Your Beauty Intelligence Report</h2><p style="font-size:13px;color:#8A7E74;margin-top:8px;">Curated exclusively for ${userName || 'you'}</p></div><div style="font-size:15px;line-height:1.85;color:#2D2520;">${reportHTML}</div><div style="text-align:center;padding-top:32px;border-top:1px solid rgba(201,169,110,0.3);margin-top:32px;"><p style="font-size:10px;color:#8A7E74;line-height:1.7;">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice. Some links are affiliate links — Clair may earn a small commission at no extra cost to you.</p></div></div></body></html>`;
     try {
       const response = await fetch('/api/chat', {
