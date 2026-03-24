@@ -17,7 +17,7 @@ export default async function handler(req, res) {
           'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
         },
         body: JSON.stringify({
-          from: 'Clair Beauty Intelligence <onboarding@resend.dev>',
+          from: 'Clair Beauty Intelligence <hello@clairbeautyco.com>',
           to: email,
           subject: subject,
           html: html
