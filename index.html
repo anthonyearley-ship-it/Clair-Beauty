@@ -34,8 +34,11 @@
   .tier-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
   .tier-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
   .welcome-agnostic { font-size: clamp(10px, 2.5vw, 11px); color: var(--gold); margin-top: 14px; letter-spacing: 0.05em; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
-  .begin-btn { margin-top: 24px; padding: 14px 44px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; }
+  .welcome-btns { display: flex; gap: 12px; margin-top: 24px; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
+  .begin-btn { padding: 14px 44px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
   .begin-btn:hover, .begin-btn:active { background: var(--gold); color: var(--deep); }
+  .signin-btn { padding: 14px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
+  .signin-btn:hover, .signin-btn:active { border-color: var(--gold); color: var(--gold); }
   .disclaimer { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); opacity: 0.6; max-width: 90vw; text-align: center; line-height: 1.6; animation: fadeUp 1.2s 1.6s ease forwards; width: 100%; padding: 0 20px; }
   #chat { background: var(--warm-white); flex-direction: column; padding: 0; overflow: hidden; }
   .chat-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: rgba(253,249,244,0.97); backdrop-filter: blur(10px); flex-shrink: 0; }
@@ -93,6 +96,17 @@
   .signup-btn:active { background: var(--gold-light); }
   .signup-skip { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
   .signup-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
+  #signin { background: var(--deep); text-align: center; }
+  .signin-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
+  .signin-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
+  .signin-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.05em; margin-bottom: 24px; line-height: 1.6; }
+  .signin-input { width: 100%; padding: 12px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .signin-input:focus { border-color: var(--gold); }
+  .signin-input::placeholder { color: var(--muted); }
+  .signin-submit-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
+  .signin-submit-btn:active { background: var(--gold-light); }
+  .signin-back { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
+  .signin-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
   #email-capture { background: var(--deep); text-align: center; }
   .email-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
   .email-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
@@ -157,7 +171,10 @@
       <div class="tier-desc">10 minutes. A complete Beauty Intelligence Report built around your full skin profile.</div>
     </div>
   </div>
-  <button class="begin-btn" onclick="startChat()">Begin</button>
+  <div class="welcome-btns">
+    <button class="begin-btn" onclick="startChat()">Begin</button>
+    <button class="signin-btn" onclick="show('signin')">Sign In</button>
+  </div>
   <div class="disclaimer">Clair is a beauty and lifestyle intelligence tool for cosmetic purposes only. Not medical advice. Always consult a qualified healthcare provider for medical skin concerns.</div>
 </div>
 
@@ -200,6 +217,19 @@
     <div class="signup-error" id="signupError"></div>
     <button class="signup-btn" onclick="createAccount()">Create My Account</button>
     <span class="signup-skip" onclick="skipSignup()">Skip for now — go deeper instead</span>
+  </div>
+</div>
+
+<div class="screen hidden" id="signin">
+  <div class="signup-glow"></div>
+  <div class="signin-box">
+    <div class="signin-title">Welcome Back</div>
+    <div class="signin-sub">Sign in to view your saved Beauty Intelligence Report and continue your skin journey.</div>
+    <input class="signin-input" id="signinEmail" type="email" placeholder="Your email address" autocomplete="email" />
+    <input class="signin-input" id="signinPassword" type="password" placeholder="Your password" autocomplete="current-password" />
+    <div class="signin-error" id="signinError"></div>
+    <button class="signin-submit-btn" onclick="signIn()">Sign In</button>
+    <span class="signin-back" onclick="show('welcome')">Back to welcome</span>
   </div>
 </div>
 
@@ -276,11 +306,11 @@ Question 6: Ask where they live and what their climate is like day to day
 Question 7: Ask about their sleep quality and stress levels lately — how their lifestyle feels overall
 Question 8: Ask about their health history as it relates to their skin — any conditions, medications, or treatments that affect how their skin behaves
 Question 9: Ask about any known allergies, sensitivities, or ingredients that have caused reactions in the past
-Question 10: Ask how their skin responds to sun exposure — does it burn easily, tan, rarely burn — and how they'd describe their natural skin tone
+Question 10: Ask how their skin responds to sun exposure — does it burn easily, tan, rarely burn — and how they would describe their natural skin tone
 Question 11: Ask whether their skin has felt reactive, sensitive, or easily irritated lately — whether certain products sting or their skin feels easily disrupted
 Question 12: Ask what one thing they would most love to change about their skin in the next 90 days if they could change anything at all
 
-After Question 12: Give a warm, elegant closing message telling them their full Beauty Intelligence Report is being prepared. Then write exactly: REPORT_READY
+After Question 12: Give a warm elegant closing message then write exactly: REPORT_READY
 
 CRITICAL RULES:
 - Ask ONLY ONE question per message — never two
@@ -289,18 +319,17 @@ CRITICAL RULES:
 - Use the user's name only once — right when you first learn it. Never use it again after that.
 - Never use bullet points in conversation
 - All Phase 2 questions are open ended — never give multiple choice options in Phase 2
-- Listen carefully to what the user shares and let their answers inform the depth and specificity of the final report
-- Infer Fitzpatrick skin type from their answer to Question 10 without using clinical terminology
-- Infer barrier health from their answer to Question 11 without diagnosing
 - Always match product recommendations exactly to stated budget
 - Sound like a warm brilliant friend not a chatbot
+- Infer Fitzpatrick skin type from Question 10 without using clinical terminology
+- Infer barrier health from Question 11 without diagnosing
 
 REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six sections:
-1. Your Skin Profile — include inferred Fitzpatrick type, barrier health assessment, and full lifestyle context
+1. Your Skin Profile — include inferred Fitzpatrick type, barrier health, and full lifestyle context
 2. What is Already Working
-3. The Gaps — include any allergy or sensitivity flags
-4. Your Top 5 Product Recommendations with brands, prices within budget, and why each works specifically for her
-5. Ingredients to Seek and Ingredients to Avoid — based on her profile and sensitivities
+3. The Gaps — include allergy and sensitivity flags
+4. Your Top 5 Product Recommendations with brands, prices within budget, and why each works for her
+5. Ingredients to Seek and Ingredients to Avoid
 6. Your 90-Day Focus`;
 
   let conversationHistory = [];
@@ -309,6 +338,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six section
   let isWaiting = false;
   let quickWinContent = '';
   let reportHTML = '';
+  let currentUserId = null;
   let userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
 
   function show(id) {
@@ -328,11 +358,15 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six section
     isWaiting = false;
     quickWinContent = '';
     reportHTML = '';
+    currentUserId = null;
     userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
     document.getElementById('messages').innerHTML = '';
     document.getElementById('signupEmail').value = '';
     document.getElementById('signupPassword').value = '';
     document.getElementById('signupError').textContent = '';
+    document.getElementById('signinEmail').value = '';
+    document.getElementById('signinPassword').value = '';
+    document.getElementById('signinError').textContent = '';
     document.getElementById('emailCaptureInput').value = '';
     document.getElementById('emailError').textContent = '';
     document.getElementById('emailSuccess').textContent = '';
@@ -430,7 +464,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six section
   }
 
   async function generateReport() {
-    const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong tags. Make it warm, specific, and luxurious. Match all product recommendations to the user's stated budget. Include inferred Fitzpatrick skin type and barrier health assessment based on what the user shared. Include a dedicated section on ingredients to seek and ingredients to avoid based on their sensitivities.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
+    const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong tags. Make it warm, specific, and luxurious. Match all product recommendations to the user's stated budget. Include inferred Fitzpatrick skin type and barrier health. Include ingredients to seek and avoid.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -445,6 +479,48 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six section
     return data.content[0].text;
   }
 
+  async function saveReportToSupabase(html) {
+    if (!currentUserId) return;
+    try {
+      await supabaseClient.from('profiles').update({
+        report: html,
+        report_date: new Date().toISOString()
+      }).eq('id', currentUserId);
+    } catch (err) {
+      console.log('Report save error:', err);
+    }
+  }
+
+  async function signIn() {
+    const email = document.getElementById('signinEmail').value.trim();
+    const password = document.getElementById('signinPassword').value.trim();
+    const errorEl = document.getElementById('signinError');
+    errorEl.textContent = '';
+    if (!email || !password) { errorEl.textContent = 'Please enter your email and password.'; return; }
+    try {
+      const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+      if (error) { errorEl.textContent = 'Incorrect email or password.'; return; }
+      currentUserId = data.user.id;
+      const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', data.user.id).single();
+      if (profile) {
+        userName = profile.name || '';
+        if (profile.report) {
+          reportHTML = profile.report;
+          document.getElementById('reportName').textContent = userName || 'Your Report';
+          document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
+          document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + (profile.report_date ? ' · ' + new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '');
+          document.getElementById('reportContent').innerHTML = '<div class="section-body">' + profile.report + '</div>';
+          show('report');
+        } else {
+          show('chat');
+          setTimeout(() => sendAI('Begin the consultation.'), 400);
+        }
+      }
+    } catch (err) {
+      errorEl.textContent = 'Something went wrong. Please try again.';
+    }
+  }
+
   async function sendReportEmail() {
     const email = document.getElementById('emailCaptureInput').value.trim();
     const errorEl = document.getElementById('emailError');
@@ -456,7 +532,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six section
     const btn = document.querySelector('.email-send-btn');
     btn.textContent = 'Sending...';
     btn.disabled = true;
-    const emailHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="margin:0;padding:0;background:#FAF7F2;font-family:'Georgia',serif;"><div style="max-width:600px;margin:0 auto;padding:40px 20px;"><div style="text-align:center;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.3);margin-bottom:32px;"><h1 style="font-family:Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.15em;color:#C9A96E;margin:0;">Clair</h1><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#8A7E74;margin:4px 0 0;">Beauty Intelligence</p></div><div style="text-align:center;margin-bottom:32px;"><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin-bottom:12px;">Your Personal Report</p><h2 style="font-family:Georgia,serif;font-size:28px;font-weight:300;color:#2D2520;margin:0;">Your Beauty Intelligence Report</h2><p style="font-size:13px;color:#8A7E74;margin-top:8px;">Curated exclusively for ${userName || 'you'}</p></div><div style="font-size:15px;line-height:1.85;color:#2D2520;">${reportHTML}</div><div style="text-align:center;padding-top:32px;border-top:1px solid rgba(201,169,110,0.3);margin-top:32px;"><p style="font-size:10px;color:#8A7E74;line-height:1.7;">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice. Always consult a qualified healthcare provider for medical skin concerns.</p></div></div></body></html>`;
+    const emailHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="margin:0;padding:0;background:#FAF7F2;font-family:'Georgia',serif;"><div style="max-width:600px;margin:0 auto;padding:40px 20px;"><div style="text-align:center;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.3);margin-bottom:32px;"><h1 style="font-family:Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.15em;color:#C9A96E;margin:0;">Clair</h1><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#8A7E74;margin:4px 0 0;">Beauty Intelligence</p></div><div style="text-align:center;margin-bottom:32px;"><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin-bottom:12px;">Your Personal Report</p><h2 style="font-family:Georgia,serif;font-size:28px;font-weight:300;color:#2D2520;margin:0;">Your Beauty Intelligence Report</h2><p style="font-size:13px;color:#8A7E74;margin-top:8px;">Curated exclusively for ${userName || 'you'}</p></div><div style="font-size:15px;line-height:1.85;color:#2D2520;">${reportHTML}</div><div style="text-align:center;padding-top:32px;border-top:1px solid rgba(201,169,110,0.3);margin-top:32px;"><p style="font-size:10px;color:#8A7E74;line-height:1.7;">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice.</p></div></div></body></html>`;
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -535,6 +611,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six section
       const { data, error } = await supabaseClient.auth.signUp({ email, password });
       if (error) { errorEl.textContent = error.message; return; }
       if (data.user) {
+        currentUserId = data.user.id;
         await supabaseClient.from('profiles').insert({
           id: data.user.id,
           email: email,
@@ -565,6 +642,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong tags with these six section
       document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
       document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + ' · ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
       document.getElementById('reportContent').innerHTML = '<div class="section-body">' + html + '</div>';
+      await saveReportToSupabase(html);
       show('report');
     } catch (err) {
       document.getElementById('reportContent').innerHTML = '<p style="color:var(--muted)">There was an issue generating your report. Please try again.</p>';
