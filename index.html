@@ -78,11 +78,24 @@
   .send-btn:hover, .send-btn:active { background: var(--gold); color: var(--deep); }
   .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   #generating { background: var(--deep); text-align: center; }
-  .gen-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 8vw, 36px); font-weight: 300; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 8px; }
-  .gen-text { font-size: clamp(10px, 2.5vw, 12px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); margin-bottom: 40px; }
-  .gen-bar-wrap { width: 160px; height: 1px; background: rgba(201,169,110,0.2); margin: 0 auto; overflow: hidden; }
-  .gen-bar { height: 100%; background: var(--gold); animation: loadBar 3s ease forwards; width: 0%; }
-  .gen-sub { font-size: clamp(14px, 3.5vw, 16px); color: var(--muted); margin-top: 20px; font-style: italic; font-family: 'Cormorant Garamond', serif; }
+  .gen-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.06) 0%, transparent 70%); pointer-events: none; }
+  .gen-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 9vw, 52px); font-weight: 300; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 6px; animation: pulse 3s ease-in-out infinite; position: relative; }
+  .gen-logo-tag { font-size: 9px; letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-bottom: 48px; position: relative; }
+  .gen-orbs { display: flex; gap: 10px; justify-content: center; margin-bottom: 40px; position: relative; }
+  .gen-orb { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); opacity: 0.3; animation: orbPulse 1.8s ease-in-out infinite; }
+  .gen-orb:nth-child(2) { animation-delay: 0.3s; }
+  .gen-orb:nth-child(3) { animation-delay: 0.6s; }
+  .gen-orb:nth-child(4) { animation-delay: 0.9s; }
+  .gen-orb:nth-child(5) { animation-delay: 1.2s; }
+  .gen-bar-wrap { width: 200px; height: 1px; background: rgba(201,169,110,0.15); margin: 0 auto 28px; overflow: hidden; position: relative; }
+  .gen-bar { height: 100%; background: linear-gradient(to right, transparent, var(--gold), transparent); animation: shimmer 2s ease-in-out infinite; width: 60%; }
+  .gen-status { font-size: clamp(13px, 3.5vw, 15px); color: var(--muted); font-style: italic; font-family: 'Cormorant Garamond', serif; min-height: 28px; transition: opacity 0.6s ease; position: relative; }
+  .gen-status.fade { opacity: 0; }
+  .gen-steps { display: flex; flex-direction: column; gap: 8px; margin-top: 32px; position: relative; }
+  .gen-step { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; gap: 8px; justify-content: center; }
+  .gen-step.visible { opacity: 0.5; }
+  .gen-step.done { opacity: 1; color: var(--gold); }
+  .gen-step-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
   #signup { background: var(--deep); text-align: center; }
   .signup-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
   .signup-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
@@ -151,7 +164,9 @@
   .email-report-btn:hover, .email-report-btn:active { background: var(--gold); color: var(--deep); border-color: var(--gold); }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
-  @keyframes loadBar { 0% { width: 0%; } 40% { width: 60%; } 80% { width: 85%; } 100% { width: 100%; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(201,169,110,0); } 50% { opacity: 0.85; text-shadow: 0 0 40px rgba(201,169,110,0.3); } }
+  @keyframes orbPulse { 0%, 100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 0.8; transform: scale(1.3); } }
+  @keyframes shimmer { 0% { transform: translateX(-200%); } 100% { transform: translateX(400%); } }
 </style>
 </head>
 <body>
@@ -203,10 +218,25 @@
 </div>
 
 <div class="screen hidden" id="generating">
+  <div class="gen-glow"></div>
   <div class="gen-logo">Clair</div>
-  <div class="gen-text">Preparing your report</div>
+  <div class="gen-logo-tag">Beauty Intelligence</div>
+  <div class="gen-orbs">
+    <div class="gen-orb"></div>
+    <div class="gen-orb"></div>
+    <div class="gen-orb"></div>
+    <div class="gen-orb"></div>
+    <div class="gen-orb"></div>
+  </div>
   <div class="gen-bar-wrap"><div class="gen-bar"></div></div>
-  <div class="gen-sub">Analysing your skin story...</div>
+  <div class="gen-status" id="genStatus">Reading your skin story...</div>
+  <div class="gen-steps">
+    <div class="gen-step" id="step1"><div class="gen-step-dot"></div>Skin profile</div>
+    <div class="gen-step" id="step2"><div class="gen-step-dot"></div>Lifestyle analysis</div>
+    <div class="gen-step" id="step3"><div class="gen-step-dot"></div>Ingredient mapping</div>
+    <div class="gen-step" id="step4"><div class="gen-step-dot"></div>Product matching</div>
+    <div class="gen-step" id="step5"><div class="gen-step-dot"></div>Report composition</div>
+  </div>
 </div>
 
 <div class="screen hidden" id="signup">
@@ -352,7 +382,72 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
   let quickWinContent = '';
   let reportHTML = '';
   let currentUserId = null;
+  let generatingInterval = null;
   let userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
+
+  const genMessages = [
+    'Reading your skin story...',
+    'Reviewing your lifestyle and health context...',
+    'Identifying your optimal ingredients...',
+    'Selecting your top product matches...',
+    'Composing your personal report...',
+    'Adding the finishing details...'
+  ];
+
+  const genStepTimings = [0, 4000, 9000, 14000, 19000];
+
+  function startGeneratingAnimation() {
+    let msgIndex = 0;
+    const statusEl = document.getElementById('genStatus');
+    const steps = ['step1','step2','step3','step4','step5'];
+
+    steps.forEach(s => {
+      const el = document.getElementById(s);
+      if (el) { el.classList.remove('visible','done'); }
+    });
+
+    statusEl.textContent = genMessages[0];
+    statusEl.classList.remove('fade');
+
+    generatingInterval = setInterval(() => {
+      statusEl.classList.add('fade');
+      setTimeout(() => {
+        msgIndex = (msgIndex + 1) % genMessages.length;
+        statusEl.textContent = genMessages[msgIndex];
+        statusEl.classList.remove('fade');
+      }, 600);
+    }, 3500);
+
+    genStepTimings.forEach((t, i) => {
+      setTimeout(() => {
+        const el = document.getElementById(steps[i]);
+        if (el) {
+          if (i > 0) {
+            const prev = document.getElementById(steps[i-1]);
+            if (prev) prev.classList.add('done');
+          }
+          el.classList.add('visible');
+        }
+      }, t);
+    });
+  }
+
+  function stopGeneratingAnimation() {
+    if (generatingInterval) { clearInterval(generatingInterval); generatingInterval = null; }
+    const steps = ['step1','step2','step3','step4','step5'];
+    steps.forEach(s => {
+      const el = document.getElementById(s);
+      if (el) el.classList.add('done');
+    });
+    const statusEl = document.getElementById('genStatus');
+    if (statusEl) {
+      statusEl.classList.add('fade');
+      setTimeout(() => {
+        statusEl.textContent = 'Your report is ready.';
+        statusEl.classList.remove('fade');
+      }, 600);
+    }
+  }
 
   function show(id) {
     document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
@@ -372,6 +467,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     quickWinContent = '';
     reportHTML = '';
     currentUserId = null;
+    if (generatingInterval) { clearInterval(generatingInterval); generatingInterval = null; }
     userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
     document.getElementById('messages').innerHTML = '';
     document.getElementById('signupEmail').value = '';
@@ -588,7 +684,11 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
         addMessage(clean, 'ai');
         conversationHistory.push({ role: 'assistant', content: reply });
         updateProgress(6);
-        setTimeout(() => { show('generating'); generateAndShowReport(); }, 2200);
+        setTimeout(() => {
+          show('generating');
+          startGeneratingAnimation();
+          generateAndShowReport();
+        }, 2200);
       } else if (reply.includes('QUICK_WIN_DONE')) {
         const clean = reply.replace('QUICK_WIN_DONE', '').trim();
         quickWinContent = clean;
@@ -654,6 +754,8 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     try {
       const html = await generateReport();
       reportHTML = html;
+      stopGeneratingAnimation();
+      await new Promise(r => setTimeout(r, 1200));
       document.getElementById('reportName').textContent = userName || 'Your Report';
       document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
       document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + ' · ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
@@ -661,6 +763,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
       await saveReportToSupabase(html);
       show('report');
     } catch (err) {
+      stopGeneratingAnimation();
       document.getElementById('reportContent').innerHTML = '<p style="color:var(--muted)">There was an issue generating your report. Please try again.</p>';
       show('report');
     }
