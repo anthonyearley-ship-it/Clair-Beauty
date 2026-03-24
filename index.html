@@ -6,6 +6,7 @@
 <title>Clair — Your Personal Beauty Intelligence</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://js.stripe.com/v3/"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -22,23 +23,30 @@
   html, body { height: 100%; height: -webkit-fill-available; background: var(--deep); font-family: 'Jost', sans-serif; color: var(--cream); overflow: hidden; }
   .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease, transform 0.8s ease; padding: 20px; }
   .screen.hidden { opacity: 0; pointer-events: none; transform: translateY(16px); }
+
+  /* WELCOME */
   #welcome { background: var(--deep); text-align: center; }
   .welcome-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
   .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 12vw, 80px); font-weight: 300; letter-spacing: 0.18em; color: var(--gold); animation: fadeUp 1.2s ease forwards; opacity: 0; position: relative; }
   .logo-tag { font-size: clamp(9px, 2.5vw, 11px); letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-top: 4px; animation: fadeUp 1.2s 0.3s ease forwards; opacity: 0; position: relative; }
   .divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 24px auto; animation: fadeUp 1.2s 0.6s ease forwards; opacity: 0; position: relative; }
   .welcome-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 5vw, 32px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 500px; line-height: 1.55; animation: fadeUp 1.2s 0.9s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
-  .welcome-explainer { font-size: clamp(11px, 2.8vw, 13px); color: var(--muted); margin-top: 16px; max-width: 420px; line-height: 1.7; animation: fadeUp 1.2s 1.0s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
-  .welcome-tiers { display: flex; gap: 12px; margin-top: 20px; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
-  .welcome-tier { background: rgba(201,169,110,0.08); border: 1px solid var(--border); padding: 14px 18px; max-width: 180px; text-align: left; }
-  .tier-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-  .tier-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .welcome-explainer { font-size: clamp(11px, 2.8vw, 13px); color: var(--muted); margin-top: 14px; max-width: 440px; line-height: 1.75; animation: fadeUp 1.2s 1.0s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
+  .welcome-flow { display: flex; align-items: center; gap: 8px; margin-top: 24px; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
+  .flow-step { text-align: center; }
+  .flow-step-num { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
+  .flow-step-label { font-size: clamp(10px, 2.5vw, 11px); color: var(--cream); letter-spacing: 0.05em; }
+  .flow-step-sub { font-size: 9px; color: var(--muted); margin-top: 3px; }
+  .flow-arrow { color: var(--gold); opacity: 0.4; font-size: 14px; margin-top: -8px; }
+  .welcome-agnostic { font-size: clamp(9px, 2.2vw, 10px); color: var(--gold); margin-top: 16px; letter-spacing: 0.08em; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; padding: 0 10px; opacity: 0; }
   .welcome-btns { display: flex; gap: 12px; margin-top: 24px; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
   .begin-btn { padding: 14px 44px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
   .begin-btn:hover, .begin-btn:active { background: var(--gold); color: var(--deep); }
   .signin-btn { padding: 14px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
   .signin-btn:hover, .signin-btn:active { border-color: var(--gold); color: var(--gold); }
   .disclaimer { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); opacity: 0.6; max-width: 90vw; text-align: center; line-height: 1.6; animation: fadeUp 1.2s 1.6s ease forwards; width: 100%; padding: 0 20px; }
+
+  /* CHAT */
   #chat { background: var(--warm-white); flex-direction: column; padding: 0; overflow: hidden; }
   .chat-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: rgba(253,249,244,0.97); backdrop-filter: blur(10px); flex-shrink: 0; }
   .chat-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--charcoal); letter-spacing: 0.12em; }
@@ -77,6 +85,8 @@
   .send-btn { padding: 10px 18px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 42px; -webkit-appearance: none; }
   .send-btn:hover, .send-btn:active { background: var(--gold); color: var(--deep); }
   .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  /* GENERATING */
   #generating { background: var(--deep); text-align: center; }
   .gen-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.06) 0%, transparent 70%); pointer-events: none; }
   .gen-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 9vw, 52px); font-weight: 300; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 6px; animation: pulse 3s ease-in-out infinite; position: relative; }
@@ -96,29 +106,43 @@
   .gen-step.visible { opacity: 0.5; }
   .gen-step.done { opacity: 1; color: var(--gold); }
   .gen-step-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+  /* PAYWALL */
+  #paywall { background: var(--deep); text-align: center; }
+  .paywall-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(201,169,110,0.08) 0%, transparent 70%); pointer-events: none; }
+  .paywall-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 48px 36px; max-width: 480px; width: 100%; position: relative; }
+  .paywall-eyebrow { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .paywall-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 6vw, 36px); font-weight: 300; color: var(--cream); margin-bottom: 12px; line-height: 1.2; }
+  .paywall-sub { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+  .paywall-features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; text-align: left; }
+  .paywall-feature { display: flex; align-items: flex-start; gap: 10px; font-size: clamp(12px, 3vw, 13px); color: var(--cream); }
+  .paywall-feature-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
+  .paywall-price { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 8vw, 48px); font-weight: 300; color: var(--gold); margin-bottom: 4px; }
+  .paywall-price-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 24px; }
+  .paywall-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .paywall-btn:hover, .paywall-btn:active { background: var(--gold-light); }
+  .paywall-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .paywall-skip { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
+  .paywall-skip:hover { color: var(--gold); }
+  .paywall-error { font-size: 12px; color: #e07070; margin-top: 10px; min-height: 18px; }
+
+  /* SIGNUP / SIGNIN */
   #signup { background: var(--deep); text-align: center; }
+  #signin { background: var(--deep); text-align: center; }
   .signup-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
   .signup-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
-  .signup-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
-  .signup-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.05em; margin-bottom: 24px; line-height: 1.6; }
-  .signup-input { width: 100%; padding: 12px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
-  .signup-input:focus { border-color: var(--gold); }
-  .signup-input::placeholder { color: var(--muted); }
-  .signup-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
-  .signup-btn:active { background: var(--gold-light); }
-  .signup-skip { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
-  .signup-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
-  #signin { background: var(--deep); text-align: center; }
   .signin-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
-  .signin-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
-  .signin-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.05em; margin-bottom: 24px; line-height: 1.6; }
-  .signin-input { width: 100%; padding: 12px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
-  .signin-input:focus { border-color: var(--gold); }
-  .signin-input::placeholder { color: var(--muted); }
-  .signin-submit-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
-  .signin-submit-btn:active { background: var(--gold-light); }
-  .signin-back { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
-  .signin-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
+  .signup-title, .signin-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
+  .signup-sub, .signin-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.05em; margin-bottom: 24px; line-height: 1.6; }
+  .signup-input, .signin-input { width: 100%; padding: 12px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .signup-input:focus, .signin-input:focus { border-color: var(--gold); }
+  .signup-input::placeholder, .signin-input::placeholder { color: var(--muted); }
+  .signup-btn, .signin-submit-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
+  .signup-btn:active, .signin-submit-btn:active { background: var(--gold-light); }
+  .signup-skip, .signin-back { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
+  .signup-error, .signin-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
+
+  /* EMAIL CAPTURE */
   #email-capture { background: var(--deep); text-align: center; }
   .email-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
   .email-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
@@ -131,6 +155,8 @@
   .email-skip { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
   .email-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
   .email-success { font-size: 12px; color: #7CB987; margin-top: 8px; min-height: 18px; }
+
+  /* REPORT */
   #report { background: var(--cream); flex-direction: column; overflow: hidden; padding: 0; }
   .report-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: white; flex-shrink: 0; }
   .report-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--charcoal); letter-spacing: 0.12em; }
@@ -162,6 +188,7 @@
   .restart-btn:active { border-color: var(--gold); color: var(--gold); }
   .email-report-btn { padding: 12px 32px; background: var(--deep); border: 1px solid var(--deep); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .email-report-btn:hover, .email-report-btn:active { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
   @keyframes pulse { 0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(201,169,110,0); } 50% { opacity: 0.85; text-shadow: 0 0 40px rgba(201,169,110,0.3); } }
@@ -171,30 +198,41 @@
 </head>
 <body>
 
+<!-- WELCOME -->
 <div class="screen" id="welcome">
   <div class="welcome-glow"></div>
   <div class="logo">Clair</div>
   <div class="logo-tag">Beauty Intelligence</div>
   <div class="divider"></div>
   <div class="welcome-headline">The most personalized beauty intelligence you've ever had.</div>
-  <div class="welcome-explainer">Clair is a brand-agnostic AI beauty concierge. No sponsored recommendations. No brand allegiances. Just expert, personalized guidance built entirely around you.</div>
-  <div class="welcome-tiers">
-    <div class="welcome-tier">
-      <div class="tier-label">Quick Win</div>
-      <div class="tier-desc">2 minutes. Instant personalized recommendations for your biggest skin concern.</div>
+  <div class="welcome-explainer">Answer five quick questions and walk away with instant personalized recommendations. Go deeper with seven more and receive your complete Beauty Intelligence Report — skin profile, ingredient guide, and 90-day plan.</div>
+  <div class="welcome-flow">
+    <div class="flow-step">
+      <div class="flow-step-num">Step 1</div>
+      <div class="flow-step-label">Quick Win</div>
+      <div class="flow-step-sub">5 questions · 2 min</div>
     </div>
-    <div class="welcome-tier">
-      <div class="tier-label">Deep Analysis</div>
-      <div class="tier-desc">10 minutes. A complete Beauty Intelligence Report built around your full skin profile.</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-step-num">Step 2</div>
+      <div class="flow-step-label">Deep Analysis</div>
+      <div class="flow-step-sub">7 more · 10 min</div>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-step-num">Result</div>
+      <div class="flow-step-label">Full Report</div>
+      <div class="flow-step-sub">Yours to keep</div>
     </div>
   </div>
   <div class="welcome-btns">
     <button class="begin-btn" onclick="startChat()">Begin</button>
     <button class="signin-btn" onclick="show('signin')">Sign In</button>
   </div>
-  <div class="disclaimer">Clair is a beauty and lifestyle intelligence tool for cosmetic purposes only. Not medical advice. Always consult a qualified healthcare provider for medical skin concerns.</div>
+  <div class="disclaimer">No brand partnerships. No sponsored recommendations. Clair is for cosmetic guidance only — not medical advice.</div>
 </div>
 
+<!-- CHAT -->
 <div class="screen hidden" id="chat">
   <div class="chat-header">
     <div class="chat-logo">C<span>lair</span></div>
@@ -217,6 +255,7 @@
   </div>
 </div>
 
+<!-- GENERATING -->
 <div class="screen hidden" id="generating">
   <div class="gen-glow"></div>
   <div class="gen-logo">Clair</div>
@@ -239,11 +278,34 @@
   </div>
 </div>
 
+<!-- PAYWALL -->
+<div class="screen hidden" id="paywall">
+  <div class="paywall-glow"></div>
+  <div class="paywall-box">
+    <div class="paywall-eyebrow">Clair Pro</div>
+    <div class="paywall-title">Your full Beauty Intelligence Report awaits.</div>
+    <div class="paywall-sub">Seven deeper questions. A complete picture of your skin, your lifestyle, and exactly what to do next.</div>
+    <ul class="paywall-features">
+      <li class="paywall-feature"><div class="paywall-feature-dot"></div>Complete skin profile with Fitzpatrick and barrier analysis</li>
+      <li class="paywall-feature"><div class="paywall-feature-dot"></div>Top 5 product recommendations matched to your budget</li>
+      <li class="paywall-feature"><div class="paywall-feature-dot"></div>Ingredients to seek and ingredients to avoid</li>
+      <li class="paywall-feature"><div class="paywall-feature-dot"></div>Your personal 90-day skin focus</li>
+      <li class="paywall-feature"><div class="paywall-feature-dot"></div>Email your report to keep forever</li>
+    </ul>
+    <div class="paywall-price">$29</div>
+    <div class="paywall-price-sub">per month · cancel anytime</div>
+    <button class="paywall-btn" id="paywallBtn" onclick="startCheckout()">Unlock My Full Report</button>
+    <div class="paywall-error" id="paywallError"></div>
+    <span class="paywall-skip" onclick="removeActionButtons(); goDeeper()">Continue without subscribing →</span>
+  </div>
+</div>
+
+<!-- SIGNUP -->
 <div class="screen hidden" id="signup">
   <div class="signup-glow"></div>
   <div class="signup-box">
     <div class="signup-title">Save Your Results</div>
-    <div class="signup-sub">Create your Clair account to save your quick win, track your progress, and return anytime.</div>
+    <div class="signup-sub">Create your Clair account to save your quick win and return anytime.</div>
     <input class="signup-input" id="signupEmail" type="email" placeholder="Your email address" autocomplete="email" />
     <input class="signup-input" id="signupPassword" type="password" placeholder="Create a password" autocomplete="new-password" />
     <div class="signup-error" id="signupError"></div>
@@ -252,11 +314,12 @@
   </div>
 </div>
 
+<!-- SIGNIN -->
 <div class="screen hidden" id="signin">
   <div class="signup-glow"></div>
   <div class="signin-box">
     <div class="signin-title">Welcome Back</div>
-    <div class="signin-sub">Sign in to view your saved Beauty Intelligence Report and continue your skin journey.</div>
+    <div class="signin-sub">Sign in to view your saved Beauty Intelligence Report.</div>
     <input class="signin-input" id="signinEmail" type="email" placeholder="Your email address" autocomplete="email" />
     <input class="signin-input" id="signinPassword" type="password" placeholder="Your password" autocomplete="current-password" />
     <div class="signin-error" id="signinError"></div>
@@ -265,6 +328,7 @@
   </div>
 </div>
 
+<!-- EMAIL CAPTURE -->
 <div class="screen hidden" id="email-capture">
   <div class="signup-glow"></div>
   <div class="email-box">
@@ -278,6 +342,7 @@
   </div>
 </div>
 
+<!-- REPORT -->
 <div class="screen hidden" id="report">
   <div class="report-header">
     <div class="report-logo">C<span>lair</span></div>
@@ -307,9 +372,14 @@
 </div>
 
 <script>
+  // ─── CONFIG ───────────────────────────────────────────────────────────
+  const PAYWALL_ACTIVE = false; // Set to true to enable Stripe payment gate
+  const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TESd7KelhJah2c4Eyqf4fh6CLI2MLuL41KTS2xP0TFZy16u2992Jwmip0hf04f0DiLBG9NlvQ6NhoQivEY3DdQP00CLWAuDfb';
   const SUPABASE_URL = 'https://ruukxsypjoxvlrtgmeir.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1dWt4c3lwam94dmxydGdtZWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODg5MjksImV4cCI6MjA4OTc2NDkyOX0._us8Sb8qdxJc3gAbGvSIX-A4P6im4e15DnE3O3L28UA';
+
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
   const SYSTEM_PROMPT = `You are Clair, an elite personal beauty intelligence concierge. You are warm, sophisticated, and feel like a brilliant trusted friend who knows everything about beauty, skincare, ingredients, and wellness. You never represent any brand and all recommendations are completely independent.
 
@@ -400,15 +470,9 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     let msgIndex = 0;
     const statusEl = document.getElementById('genStatus');
     const steps = ['step1','step2','step3','step4','step5'];
-
-    steps.forEach(s => {
-      const el = document.getElementById(s);
-      if (el) { el.classList.remove('visible','done'); }
-    });
-
+    steps.forEach(s => { const el = document.getElementById(s); if (el) el.classList.remove('visible','done'); });
     statusEl.textContent = genMessages[0];
     statusEl.classList.remove('fade');
-
     generatingInterval = setInterval(() => {
       statusEl.classList.add('fade');
       setTimeout(() => {
@@ -417,15 +481,11 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
         statusEl.classList.remove('fade');
       }, 600);
     }, 3500);
-
     genStepTimings.forEach((t, i) => {
       setTimeout(() => {
         const el = document.getElementById(steps[i]);
         if (el) {
-          if (i > 0) {
-            const prev = document.getElementById(steps[i-1]);
-            if (prev) prev.classList.add('done');
-          }
+          if (i > 0) { const prev = document.getElementById(steps[i-1]); if (prev) prev.classList.add('done'); }
           el.classList.add('visible');
         }
       }, t);
@@ -435,17 +495,11 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
   function stopGeneratingAnimation() {
     if (generatingInterval) { clearInterval(generatingInterval); generatingInterval = null; }
     const steps = ['step1','step2','step3','step4','step5'];
-    steps.forEach(s => {
-      const el = document.getElementById(s);
-      if (el) el.classList.add('done');
-    });
+    steps.forEach(s => { const el = document.getElementById(s); if (el) el.classList.add('done'); });
     const statusEl = document.getElementById('genStatus');
     if (statusEl) {
       statusEl.classList.add('fade');
-      setTimeout(() => {
-        statusEl.textContent = 'Your report is ready.';
-        statusEl.classList.remove('fade');
-      }, 600);
+      setTimeout(() => { statusEl.textContent = 'Your report is ready.'; statusEl.classList.remove('fade'); }, 600);
     }
   }
 
@@ -479,6 +533,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     document.getElementById('emailCaptureInput').value = '';
     document.getElementById('emailError').textContent = '';
     document.getElementById('emailSuccess').textContent = '';
+    document.getElementById('paywallError').textContent = '';
     updateProgress(0);
     show('welcome');
   }
@@ -517,7 +572,14 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     const deeperBtn = document.createElement('button');
     deeperBtn.className = 'action-btn';
     deeperBtn.textContent = 'Go Deeper';
-    deeperBtn.onclick = () => { removeActionButtons(); goDeeper(); };
+    deeperBtn.onclick = () => {
+      removeActionButtons();
+      if (PAYWALL_ACTIVE) {
+        show('paywall');
+      } else {
+        goDeeper();
+      }
+    };
     wrap.appendChild(saveBtn);
     wrap.appendChild(deeperBtn);
     messages.appendChild(wrap);
@@ -532,6 +594,32 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
   function goDeeper() {
     show('chat');
     sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.');
+  }
+
+  async function startCheckout() {
+    const btn = document.getElementById('paywallBtn');
+    const errorEl = document.getElementById('paywallError');
+    btn.textContent = 'Preparing checkout...';
+    btn.disabled = true;
+    errorEl.textContent = '';
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'create_checkout',
+          origin: window.location.origin,
+          customerEmail: document.getElementById('signupEmail')?.value || ''
+        })
+      });
+      const session = await response.json();
+      if (session.error) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Unlock My Full Report'; btn.disabled = false; return; }
+      await stripe.redirectToCheckout({ sessionId: session.id });
+    } catch (err) {
+      errorEl.textContent = 'Something went wrong. Please try again.';
+      btn.textContent = 'Unlock My Full Report';
+      btn.disabled = false;
+    }
   }
 
   function showTyping() {
@@ -560,12 +648,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-opus-4-5',
-        max_tokens: 1200,
-        system: SYSTEM_PROMPT,
-        messages: messages
-      })
+      body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 1200, system: SYSTEM_PROMPT, messages })
     });
     const data = await response.json();
     if (data.error) throw new Error(data.error.message);
@@ -577,12 +660,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-opus-4-5',
-        max_tokens: 3000,
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: prompt }]
-      })
+      body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 3000, system: SYSTEM_PROMPT, messages: [{ role: 'user', content: prompt }] })
     });
     const data = await response.json();
     return data.content[0].text;
@@ -591,13 +669,8 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
   async function saveReportToSupabase(html) {
     if (!currentUserId) return;
     try {
-      await supabaseClient.from('profiles').update({
-        report: html,
-        report_date: new Date().toISOString()
-      }).eq('id', currentUserId);
-    } catch (err) {
-      console.log('Report save error:', err);
-    }
+      await supabaseClient.from('profiles').update({ report: html, report_date: new Date().toISOString() }).eq('id', currentUserId);
+    } catch (err) { console.log('Report save error:', err); }
   }
 
   async function signIn() {
@@ -625,9 +698,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
           setTimeout(() => sendAI('Begin the consultation.'), 400);
         }
       }
-    } catch (err) {
-      errorEl.textContent = 'Something went wrong. Please try again.';
-    }
+    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; }
   }
 
   async function sendReportEmail() {
@@ -641,35 +712,18 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     const btn = document.querySelector('.email-send-btn');
     btn.textContent = 'Sending...';
     btn.disabled = true;
-    try {
-      await supabaseClient.from('leads').insert({ email: email, name: userName || '' });
-    } catch(e) { console.log('Lead save:', e); }
-    const emailHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head><body style="margin:0;padding:0;background:#FAF7F2;font-family:'Georgia',serif;"><div style="max-width:600px;margin:0 auto;padding:40px 20px;"><div style="text-align:center;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.3);margin-bottom:32px;"><h1 style="font-family:Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.15em;color:#C9A96E;margin:0;">Clair</h1><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#8A7E74;margin:4px 0 0;">Beauty Intelligence</p></div><div style="text-align:center;margin-bottom:32px;"><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin-bottom:12px;">Your Personal Report</p><h2 style="font-family:Georgia,serif;font-size:28px;font-weight:300;color:#2D2520;margin:0;">Your Beauty Intelligence Report</h2><p style="font-size:13px;color:#8A7E74;margin-top:8px;">Curated exclusively for ${userName || 'you'}</p></div><div style="font-size:15px;line-height:1.85;color:#2D2520;">${reportHTML}</div><div style="text-align:center;padding-top:32px;border-top:1px solid rgba(201,169,110,0.3);margin-top:32px;"><p style="font-size:10px;color:#8A7E74;line-height:1.7;">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice. Some links are affiliate links — Clair may earn a small commission at no extra cost to you.</p></div></div></body></html>`;
+    try { await supabaseClient.from('leads').insert({ email, name: userName || '' }); } catch(e) {}
+    const emailHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#FAF7F2;font-family:'Georgia',serif;"><div style="max-width:600px;margin:0 auto;padding:40px 20px;"><div style="text-align:center;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.3);margin-bottom:32px;"><h1 style="font-family:Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.15em;color:#C9A96E;margin:0;">Clair</h1><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#8A7E74;margin:4px 0 0;">Beauty Intelligence</p></div><div style="text-align:center;margin-bottom:32px;"><h2 style="font-family:Georgia,serif;font-size:28px;font-weight:300;color:#2D2520;margin:0;">Your Beauty Intelligence Report</h2><p style="font-size:13px;color:#8A7E74;margin-top:8px;">Curated exclusively for ${userName || 'you'}</p></div><div style="font-size:15px;line-height:1.85;color:#2D2520;">${reportHTML}</div><div style="text-align:center;padding-top:32px;border-top:1px solid rgba(201,169,110,0.3);margin-top:32px;"><p style="font-size:10px;color:#8A7E74;line-height:1.7;">Generated by Clair for cosmetic guidance only. Not medical advice. Some links are affiliate links.</p></div></div></body></html>`;
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          type: 'send_email',
-          email: email,
-          subject: `Your Clair Beauty Intelligence Report${userName ? ', ' + userName : ''}`,
-          html: emailHTML
-        })
+        body: JSON.stringify({ type: 'send_email', email, subject: `Your Clair Beauty Intelligence Report${userName ? ', ' + userName : ''}`, html: emailHTML })
       });
       const data = await response.json();
-      if (data.error) {
-        errorEl.textContent = 'Something went wrong. Please try again.';
-        btn.textContent = 'Send My Report';
-        btn.disabled = false;
-      } else {
-        successEl.textContent = 'Your report has been sent! Check your inbox.';
-        btn.textContent = 'Sent!';
-      }
-    } catch (err) {
-      errorEl.textContent = 'Something went wrong. Please try again.';
-      btn.textContent = 'Send My Report';
-      btn.disabled = false;
-    }
+      if (data.error) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
+      else { successEl.textContent = 'Your report has been sent! Check your inbox.'; btn.textContent = 'Sent!'; }
+    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
   }
 
   async function sendAI(userMessage) {
@@ -684,11 +738,7 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
         addMessage(clean, 'ai');
         conversationHistory.push({ role: 'assistant', content: reply });
         updateProgress(6);
-        setTimeout(() => {
-          show('generating');
-          startGeneratingAnimation();
-          generateAndShowReport();
-        }, 2200);
+        setTimeout(() => { show('generating'); startGeneratingAnimation(); generateAndShowReport(); }, 2200);
       } else if (reply.includes('QUICK_WIN_DONE')) {
         const clean = reply.replace('QUICK_WIN_DONE', '').trim();
         quickWinContent = clean;
@@ -728,26 +778,14 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
       if (error) { errorEl.textContent = error.message; return; }
       if (data.user) {
         currentUserId = data.user.id;
-        await supabaseClient.from('profiles').insert({
-          id: data.user.id,
-          email: email,
-          name: userName,
-          age_range: userProfile.age_range,
-          budget: userProfile.budget,
-          concern: userProfile.concern,
-          routine: userProfile.routine,
-          quick_win: quickWinContent
-        });
+        await supabaseClient.from('profiles').insert({ id: data.user.id, email, name: userName, age_range: userProfile.age_range, budget: userProfile.budget, concern: userProfile.concern, routine: userProfile.routine, quick_win: quickWinContent });
       }
-      goDeeper();
-    } catch (err) {
-      errorEl.textContent = 'Something went wrong. Please try again.';
-    }
+      if (PAYWALL_ACTIVE) { show('paywall'); } else { goDeeper(); }
+    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; }
   }
 
   function skipSignup() {
-    show('chat');
-    goDeeper();
+    if (PAYWALL_ACTIVE) { show('paywall'); } else { show('chat'); goDeeper(); }
   }
 
   async function generateAndShowReport() {
@@ -792,6 +830,14 @@ REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sect
     isWaiting = !enabled;
     document.getElementById('sendBtn').disabled = !enabled;
     document.getElementById('userInput').disabled = !enabled;
+  }
+
+  // Handle Stripe success redirect
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('session_id')) {
+    show('chat');
+    setTimeout(() => sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'), 400);
+    window.history.replaceState({}, document.title, '/');
   }
 </script>
 </body>
