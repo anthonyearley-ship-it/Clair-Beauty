@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,216 +12,201 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --cream: #FAF7F2;
-    --warm-white: #FDF9F4;
-    --gold: #C9A96E;
-    --gold-light: #E8D5B0;
-    --deep: #1A1410;
-    --charcoal: #2D2520;
-    --muted: #8A7E74;
-    --blush: #E8D5C4;
-    --border: rgba(201,169,110,0.2);
+    --cream: #FAF7F2; --warm-white: #FDF9F4; --gold: #C9A96E; --gold-light: #E8D5B0;
+    --deep: #1A1410; --charcoal: #2D2520; --muted: #8A7E74; --blush: #E8D5C4; --border: rgba(201,169,110,0.2);
   }
   html, body { height: 100%; height: -webkit-fill-available; background: var(--deep); font-family: 'Jost', sans-serif; color: var(--cream); overflow: hidden; }
   .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease, transform 0.8s ease; padding: 20px; }
   .screen.hidden { opacity: 0; pointer-events: none; transform: translateY(16px); }
 
-  /* WELCOME */
   #welcome { background: var(--deep); text-align: center; overflow-y: auto; justify-content: flex-start; padding-top: 48px; padding-bottom: 48px; }
   .welcome-glow { position: fixed; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
-  .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(44px, 12vw, 80px); font-weight: 300; letter-spacing: 0.18em; color: var(--gold); animation: fadeUp 1.2s ease forwards; opacity: 0; position: relative; }
-  .logo-tag { font-size: clamp(9px, 2.5vw, 11px); letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-top: 4px; animation: fadeUp 1.2s 0.3s ease forwards; opacity: 0; position: relative; }
-  .divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 24px auto; animation: fadeUp 1.2s 0.6s ease forwards; opacity: 0; position: relative; }
-  .welcome-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 5vw, 32px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 500px; line-height: 1.55; animation: fadeUp 1.2s 0.9s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
-  .welcome-explainer { font-size: clamp(11px, 2.8vw, 13px); color: var(--muted); margin-top: 14px; max-width: 440px; line-height: 1.75; animation: fadeUp 1.2s 1.0s ease forwards; opacity: 0; position: relative; padding: 0 10px; }
-  .welcome-differentiators { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; max-width: 420px; width: 100%; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; }
-  .diff-item { display: flex; align-items: flex-start; gap: 12px; text-align: left; }
-  .diff-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
-  .diff-text { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); line-height: 1.6; }
-  .diff-text strong { color: var(--cream); font-weight: 400; }
-  .welcome-flow { display: flex; align-items: center; gap: 8px; margin-top: 24px; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
-  .flow-step { text-align: center; }
-  .flow-step-num { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 5px; }
-  .flow-step-label { font-size: clamp(10px, 2.5vw, 11px); color: var(--cream); letter-spacing: 0.05em; }
-  .flow-step-sub { font-size: 9px; color: var(--muted); margin-top: 3px; }
-  .flow-arrow { color: var(--gold); opacity: 0.4; font-size: 14px; margin-top: -8px; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 14vw, 80px); font-weight: 300; letter-spacing: 0.18em; color: var(--gold); animation: fadeUp 1.2s ease forwards; opacity: 0; position: relative; }
+  .logo-tag { font-size: clamp(11px, 3vw, 13px); letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-top: 6px; animation: fadeUp 1.2s 0.3s ease forwards; opacity: 0; position: relative; }
+  .divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 28px auto; animation: fadeUp 1.2s 0.6s ease forwards; opacity: 0; position: relative; }
+  .welcome-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 36px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 500px; line-height: 1.55; animation: fadeUp 1.2s 0.9s ease forwards; opacity: 0; position: relative; padding: 0 16px; }
+  .welcome-explainer { font-size: clamp(14px, 3.5vw, 15px); color: var(--muted); margin-top: 16px; max-width: 440px; line-height: 1.8; animation: fadeUp 1.2s 1.0s ease forwards; opacity: 0; position: relative; padding: 0 16px; }
+  .welcome-differentiators { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; max-width: 420px; width: 100%; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; padding: 0 8px; }
+  .diff-item { display: flex; align-items: flex-start; gap: 14px; text-align: left; padding: 14px 16px; border: 1px solid var(--border); background: rgba(201,169,110,0.03); }
+  .diff-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 8px; }
+  .diff-text { font-size: clamp(13px, 3.5vw, 14px); color: var(--muted); line-height: 1.7; }
+  .diff-text strong { color: var(--cream); font-weight: 400; display: block; margin-bottom: 2px; font-size: clamp(14px, 3.8vw, 15px); }
+  .welcome-flow { display: flex; align-items: center; gap: 12px; margin-top: 28px; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
+  .flow-step { text-align: center; padding: 12px 16px; border: 1px solid var(--border); min-width: 90px; }
+  .flow-step-num { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .flow-step-label { font-size: clamp(13px, 3.5vw, 14px); color: var(--cream); letter-spacing: 0.05em; font-weight: 400; }
+  .flow-step-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); margin-top: 4px; }
+  .flow-arrow { color: var(--gold); opacity: 0.4; font-size: 18px; }
   .welcome-btns { display: flex; gap: 12px; margin-top: 28px; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
-  .begin-btn { padding: 14px 44px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
+  .begin-btn { padding: 16px 48px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
   .begin-btn:hover, .begin-btn:active { background: var(--gold); color: var(--deep); }
-  .signin-btn { padding: 14px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
+  .signin-btn { padding: 16px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
   .signin-btn:hover, .signin-btn:active { border-color: var(--gold); color: var(--gold); }
-  .disclaimer { font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); opacity: 0.6; max-width: 90vw; text-align: center; line-height: 1.6; animation: fadeUp 1.2s 1.6s ease forwards; opacity: 0; width: 100%; padding: 0 20px; margin-top: 20px; position: relative; }
+  .disclaimer { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); opacity: 0.6; max-width: 90vw; text-align: center; line-height: 1.7; animation: fadeUp 1.2s 1.6s ease forwards; opacity: 0; width: 100%; padding: 0 20px; margin-top: 24px; position: relative; }
 
-  /* CHAT */
   #chat { background: var(--warm-white); flex-direction: column; padding: 0; overflow: hidden; }
   .chat-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: rgba(253,249,244,0.97); backdrop-filter: blur(10px); flex-shrink: 0; }
-  .chat-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--charcoal); letter-spacing: 0.12em; }
+  .chat-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--charcoal); letter-spacing: 0.12em; }
   .chat-logo span { color: var(--gold); font-style: italic; }
-  .chat-badge { margin-left: 10px; font-size: 8px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 2px 6px; display: none; }
+  .chat-badge { margin-left: 10px; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 3px 7px; display: none; }
   @media (min-width: 480px) { .chat-badge { display: block; } }
-  .chat-progress { margin-left: auto; display: flex; gap: 5px; align-items: center; }
-  .progress-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--border); transition: background 0.4s; }
+  .chat-progress { margin-left: auto; display: flex; gap: 6px; align-items: center; }
+  .progress-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background 0.4s; }
   .progress-dot.done { background: var(--gold); }
   .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; color: var(--charcoal); -webkit-overflow-scrolling: touch; }
   .chat-messages::-webkit-scrollbar { width: 3px; }
   .chat-messages::-webkit-scrollbar-thumb { background: var(--gold-light); }
-  .msg { display: flex; gap: 8px; animation: fadeUp 0.5s ease forwards; opacity: 0; max-width: 100%; }
+  .msg { display: flex; gap: 10px; animation: fadeUp 0.5s ease forwards; opacity: 0; max-width: 100%; }
   .msg.user { align-self: flex-end; flex-direction: row-reverse; }
-  .msg-avatar { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 14px; }
+  .msg-avatar { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 15px; }
   .ai-avatar { background: var(--deep); color: var(--gold); font-style: italic; }
-  .user-avatar { background: var(--blush); color: var(--charcoal); font-size: 10px; font-family: 'Jost', sans-serif; }
-  .msg-bubble { padding: 11px 14px; font-size: clamp(13px, 3.5vw, 14.5px); line-height: 1.7; max-width: calc(100vw - 90px); }
+  .user-avatar { background: var(--blush); color: var(--charcoal); font-size: 11px; font-family: 'Jost', sans-serif; }
+  .msg-bubble { padding: 13px 16px; font-size: clamp(15px, 4vw, 16px); line-height: 1.75; max-width: calc(100vw - 90px); }
   .ai .msg-bubble { background: white; color: var(--charcoal); border: 1px solid rgba(0,0,0,0.06); border-radius: 0 12px 12px 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.04); }
   .user .msg-bubble { background: var(--charcoal); color: var(--cream); border-radius: 12px 0 12px 12px; }
-  .typing-wrap { display: flex; gap: 8px; animation: fadeUp 0.4s ease forwards; opacity: 0; }
-  .typing { display: flex; gap: 4px; align-items: center; padding: 11px 14px; background: white; border: 1px solid rgba(0,0,0,0.06); border-radius: 0 12px 12px 12px; }
-  .typing-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); animation: bounce 1.2s infinite; }
-  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
-  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
-  .action-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; padding-left: 38px; animation: fadeUp 0.5s ease forwards; opacity: 0; }
-  .action-btn { padding: 10px 16px; border: 1px solid var(--gold); background: transparent; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 2px; }
+  .typing-wrap { display: flex; gap: 10px; animation: fadeUp 0.4s ease forwards; opacity: 0; }
+  .typing { display: flex; gap: 5px; align-items: center; padding: 13px 16px; background: white; border: 1px solid rgba(0,0,0,0.06); border-radius: 0 12px 12px 12px; }
+  .typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: bounce 1.2s infinite; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; } .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+  .action-btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; padding-left: 42px; animation: fadeUp 0.5s ease forwards; opacity: 0; }
+  .action-btn { padding: 12px 18px; border: 1px solid var(--gold); background: transparent; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 2px; }
   .action-btn:hover, .action-btn:active { background: var(--gold); color: var(--deep); }
   .action-btn.primary { background: var(--deep); color: var(--gold); border-color: var(--deep); }
   .action-btn.primary:hover, .action-btn.primary:active { background: var(--gold); color: var(--deep); }
   .chat-input-area { padding: 12px 16px; border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
   .chat-input-wrap { display: flex; gap: 8px; align-items: flex-end; max-width: 700px; margin: 0 auto; }
-  .chat-input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; resize: none; min-height: 42px; max-height: 100px; border-radius: 4px; transition: border 0.3s; -webkit-appearance: none; }
+  .chat-input { flex: 1; padding: 12px 14px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; resize: none; min-height: 46px; max-height: 100px; border-radius: 4px; transition: border 0.3s; -webkit-appearance: none; }
   .chat-input:focus { border-color: var(--gold); }
   .chat-input::placeholder { color: var(--muted); }
-  .send-btn { padding: 10px 18px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 42px; -webkit-appearance: none; }
+  .send-btn { padding: 12px 18px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 46px; -webkit-appearance: none; }
   .send-btn:hover, .send-btn:active { background: var(--gold); color: var(--deep); }
   .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  /* GENERATING */
   #generating { background: var(--deep); text-align: center; }
   .gen-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 50%, rgba(201,169,110,0.06) 0%, transparent 70%); pointer-events: none; }
   .gen-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 9vw, 52px); font-weight: 300; letter-spacing: 0.2em; color: var(--gold); margin-bottom: 6px; animation: pulse 3s ease-in-out infinite; position: relative; }
-  .gen-logo-tag { font-size: 9px; letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-bottom: 48px; position: relative; }
+  .gen-logo-tag { font-size: 10px; letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-bottom: 48px; position: relative; }
   .gen-orbs { display: flex; gap: 10px; justify-content: center; margin-bottom: 40px; position: relative; }
   .gen-orb { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); opacity: 0.3; animation: orbPulse 1.8s ease-in-out infinite; }
-  .gen-orb:nth-child(2) { animation-delay: 0.3s; }
-  .gen-orb:nth-child(3) { animation-delay: 0.6s; }
-  .gen-orb:nth-child(4) { animation-delay: 0.9s; }
-  .gen-orb:nth-child(5) { animation-delay: 1.2s; }
+  .gen-orb:nth-child(2) { animation-delay: 0.3s; } .gen-orb:nth-child(3) { animation-delay: 0.6s; } .gen-orb:nth-child(4) { animation-delay: 0.9s; } .gen-orb:nth-child(5) { animation-delay: 1.2s; }
   .gen-bar-wrap { width: 200px; height: 1px; background: rgba(201,169,110,0.15); margin: 0 auto 28px; overflow: hidden; position: relative; }
   .gen-bar { height: 100%; background: linear-gradient(to right, transparent, var(--gold), transparent); animation: shimmer 2s ease-in-out infinite; width: 60%; }
-  .gen-status { font-size: clamp(13px, 3.5vw, 15px); color: var(--muted); font-style: italic; font-family: 'Cormorant Garamond', serif; min-height: 28px; transition: opacity 0.6s ease; position: relative; }
+  .gen-status { font-size: clamp(14px, 3.5vw, 16px); color: var(--muted); font-style: italic; font-family: 'Cormorant Garamond', serif; min-height: 28px; transition: opacity 0.6s ease; position: relative; }
   .gen-status.fade { opacity: 0; }
-  .gen-steps { display: flex; flex-direction: column; gap: 8px; margin-top: 32px; position: relative; }
-  .gen-step { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; gap: 8px; justify-content: center; }
-  .gen-step.visible { opacity: 0.5; }
-  .gen-step.done { opacity: 1; color: var(--gold); }
+  .gen-steps { display: flex; flex-direction: column; gap: 10px; margin-top: 32px; position: relative; }
+  .gen-step { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0; transition: opacity 0.8s ease; display: flex; align-items: center; gap: 8px; justify-content: center; }
+  .gen-step.visible { opacity: 0.5; } .gen-step.done { opacity: 1; color: var(--gold); }
   .gen-step-dot { width: 4px; height: 4px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
 
-  /* PAYWALL */
   #paywall { background: var(--deep); text-align: center; }
   .paywall-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(201,169,110,0.08) 0%, transparent 70%); pointer-events: none; }
   .paywall-box { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 48px 36px; max-width: 480px; width: 100%; position: relative; }
-  .paywall-eyebrow { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .paywall-eyebrow { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
   .paywall-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 6vw, 36px); font-weight: 300; color: var(--cream); margin-bottom: 12px; line-height: 1.2; }
-  .paywall-sub { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
-  .paywall-features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 10px; text-align: left; }
-  .paywall-feature { display: flex; align-items: flex-start; gap: 10px; font-size: clamp(12px, 3vw, 13px); color: var(--cream); }
-  .paywall-feature-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 6px; }
+  .paywall-sub { font-size: clamp(13px, 3.5vw, 14px); color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+  .paywall-features { list-style: none; margin-bottom: 32px; display: flex; flex-direction: column; gap: 12px; text-align: left; }
+  .paywall-feature { display: flex; align-items: flex-start; gap: 12px; font-size: clamp(13px, 3.5vw, 14px); color: var(--cream); }
+  .paywall-feature-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 7px; }
   .paywall-price { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 8vw, 48px); font-weight: 300; color: var(--gold); margin-bottom: 4px; }
-  .paywall-price-sub { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 24px; }
-  .paywall-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; -webkit-appearance: none; border-radius: 0; }
-  .paywall-btn:hover, .paywall-btn:active { background: var(--gold-light); }
-  .paywall-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .paywall-skip { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
+  .paywall-price-sub { font-size: 12px; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 24px; }
+  .paywall-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .paywall-btn:hover, .paywall-btn:active { background: var(--gold-light); } .paywall-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .paywall-skip { font-size: clamp(11px, 3vw, 12px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
   .paywall-skip:hover { color: var(--gold); }
-  .paywall-error { font-size: 12px; color: #e07070; margin-top: 10px; min-height: 18px; }
+  .paywall-error { font-size: 13px; color: #e07070; margin-top: 10px; min-height: 18px; }
 
-  /* SIGNUP / SIGNIN */
-  #signup { background: var(--deep); text-align: center; }
-  #signin { background: var(--deep); text-align: center; }
+  #signup, #signin { background: var(--deep); text-align: center; }
   .signup-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 55%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
-  .signup-box, .signin-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
-  .signup-title, .signin-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
-  .signup-sub, .signin-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.05em; margin-bottom: 24px; line-height: 1.6; }
-  .signup-input, .signin-input { width: 100%; padding: 12px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .signup-box, .signin-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 40px 28px; max-width: 420px; width: 100%; position: relative; }
+  .signup-title, .signin-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 6vw, 30px); font-weight: 300; color: var(--gold); margin-bottom: 10px; }
+  .signup-sub, .signin-sub { font-size: clamp(13px, 3.5vw, 14px); color: var(--muted); letter-spacing: 0.05em; margin-bottom: 24px; line-height: 1.65; }
+  .signup-input, .signin-input { width: 100%; padding: 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
   .signup-input:focus, .signin-input:focus { border-color: var(--gold); }
   .signup-input::placeholder, .signin-input::placeholder { color: var(--muted); }
-  .signup-btn, .signin-submit-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
+  .signup-btn, .signin-submit-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
   .signup-btn:active, .signin-submit-btn:active { background: var(--gold-light); }
-  .signup-skip, .signin-back { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
-  .signup-error, .signin-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
+  .signup-skip, .signin-back { font-size: clamp(11px, 3vw, 12px); color: var(--muted); margin-top: 16px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
+  .signup-error, .signin-error { font-size: 13px; color: #e07070; margin-top: 8px; min-height: 18px; }
 
-  /* EMAIL CAPTURE */
   #email-capture { background: var(--deep); text-align: center; }
-  .email-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 36px 28px; max-width: 420px; width: 100%; position: relative; }
-  .email-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
-  .email-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.05em; margin-bottom: 24px; line-height: 1.6; }
-  .email-input { width: 100%; padding: 12px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .email-box { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: 40px 28px; max-width: 440px; width: 100%; position: relative; }
+  .email-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 7vw, 32px); font-weight: 300; color: var(--gold); margin-bottom: 10px; }
+  .email-sub { font-size: clamp(13px, 3.5vw, 15px); color: var(--muted); letter-spacing: 0.03em; margin-bottom: 8px; line-height: 1.7; }
+  .email-ready-badge { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: block; }
+  .email-input { width: 100%; padding: 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
   .email-input:focus { border-color: var(--gold); }
   .email-input::placeholder { color: var(--muted); }
-  .email-send-btn { width: 100%; padding: 14px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
-  .email-send-btn:active { background: var(--gold-light); }
-  .email-skip { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
-  .email-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 18px; }
-  .email-success { font-size: 12px; color: #7CB987; margin-top: 8px; min-height: 18px; }
+  .email-send-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; margin-top: 8px; -webkit-appearance: none; border-radius: 0; }
+  .email-send-btn:active { background: var(--gold-light); } .email-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .email-spam-note { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); margin-top: 12px; line-height: 1.6; opacity: 0.8; }
+  .email-spam-note strong { color: var(--gold-light); font-weight: 400; }
+  .email-skip { font-size: clamp(11px, 3vw, 12px); color: var(--muted); margin-top: 16px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; }
+  .email-error { font-size: 13px; color: #e07070; margin-top: 8px; min-height: 18px; }
+  .email-success { font-size: clamp(13px, 3.5vw, 14px); color: #7CB987; margin-top: 12px; min-height: 18px; line-height: 1.6; }
 
-  /* REPORT */
   #report { background: var(--cream); flex-direction: column; overflow: hidden; padding: 0; }
   .report-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: white; flex-shrink: 0; }
-  .report-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--charcoal); letter-spacing: 0.12em; }
+  .report-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--charcoal); letter-spacing: 0.12em; }
   .report-logo span { color: var(--gold); font-style: italic; }
   .report-meta { margin-left: auto; text-align: right; }
-  .report-meta-label { font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
-  .report-meta-name { font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--charcoal); }
-  .report-body { flex: 1; overflow-y: auto; padding: 24px 20px; color: var(--charcoal); -webkit-overflow-scrolling: touch; }
+  .report-meta-label { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); }
+  .report-meta-name { font-family: 'Cormorant Garamond', serif; font-size: 15px; color: var(--charcoal); }
+  .report-blur-wrap { position: relative; flex: 1; overflow: hidden; }
+  .report-body { height: 100%; overflow-y: auto; padding: 24px 20px; color: var(--charcoal); -webkit-overflow-scrolling: touch; transition: filter 0.6s ease; }
+  .report-body.blurred { filter: blur(7px); pointer-events: none; user-select: none; }
   .report-body::-webkit-scrollbar { width: 3px; }
   .report-body::-webkit-scrollbar-thumb { background: var(--gold-light); }
+  .report-unlock-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 10; background: rgba(26,20,16,0.55); backdrop-filter: blur(2px); }
+  .report-unlock-box { background: var(--deep); border: 1px solid var(--border); padding: 36px 28px; max-width: 400px; width: 100%; text-align: center; }
+  .report-unlock-eyebrow { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .report-unlock-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 28px); font-weight: 300; color: var(--cream); margin-bottom: 10px; line-height: 1.3; }
+  .report-unlock-sub { font-size: clamp(13px, 3.5vw, 14px); color: var(--muted); line-height: 1.7; margin-bottom: 22px; }
+  .report-unlock-input { width: 100%; padding: 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .report-unlock-input:focus { border-color: var(--gold); }
+  .report-unlock-input::placeholder { color: var(--muted); }
+  .report-unlock-btn { width: 100%; padding: 15px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .report-unlock-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .report-unlock-spam { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); margin-top: 12px; line-height: 1.6; }
+  .report-unlock-spam strong { color: var(--gold-light); font-weight: 400; }
+  .report-unlock-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 16px; }
+  .report-unlock-success { font-size: clamp(13px, 3.5vw, 14px); color: #7CB987; margin-top: 10px; line-height: 1.6; }
   .report-inner { max-width: 780px; margin: 0 auto; }
   .report-hero { text-align: center; padding: 16px 0 28px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
-  .report-hero-eyebrow { font-size: clamp(8px, 2vw, 10px); letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-  .report-hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 46px); font-weight: 300; color: var(--charcoal); line-height: 1.25; }
-  .report-hero-sub { font-size: clamp(11px, 2.8vw, 13px); color: var(--muted); margin-top: 8px; }
-  .section-body { font-size: clamp(13px, 3.5vw, 14.5px); line-height: 1.85; color: var(--charcoal); }
-  .section-body p { margin-bottom: 12px; }
-  .section-body ul { padding-left: 18px; }
-  .section-body li { margin-bottom: 8px; }
-  .section-body strong { font-weight: 500; }
-  .section-body h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 4.5vw, 20px); font-weight: 400; margin: 18px 0 8px; color: var(--charcoal); }
-  .section-body a { color: #C9A96E; text-decoration: underline; }
-  .section-body a:hover { color: #2D2520; }
-
-  /* SAVE BANNER */
+  .report-hero-eyebrow { font-size: clamp(9px, 2.2vw, 11px); letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .report-hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 6vw, 46px); font-weight: 300; color: var(--charcoal); line-height: 1.25; }
+  .report-hero-sub { font-size: clamp(13px, 3.5vw, 14px); color: var(--muted); margin-top: 8px; }
+  .section-body { font-size: clamp(14px, 3.8vw, 16px); line-height: 1.9; color: var(--charcoal); }
+  .section-body p { margin-bottom: 14px; } .section-body ul { padding-left: 20px; } .section-body li { margin-bottom: 10px; } .section-body strong { font-weight: 500; }
+  .section-body h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(19px, 5vw, 22px); font-weight: 400; margin: 20px 0 10px; color: var(--charcoal); }
+  .section-body a { color: #C9A96E; text-decoration: underline; } .section-body a:hover { color: #2D2520; }
   .save-banner { background: var(--deep); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
   .save-banner-text { flex: 1; min-width: 200px; }
-  .save-banner-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; color: var(--gold); margin-bottom: 3px; }
-  .save-banner-sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .save-banner-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 300; color: var(--gold); margin-bottom: 3px; }
+  .save-banner-sub { font-size: 12px; color: var(--muted); line-height: 1.5; }
   .save-banner-inputs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
   .save-banner-input { padding: 9px 12px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 14px; outline: none; border-radius: 0; -webkit-appearance: none; width: 160px; }
-  .save-banner-input:focus { border-color: var(--gold); }
-  .save-banner-input::placeholder { color: var(--muted); font-size: 12px; }
+  .save-banner-input:focus { border-color: var(--gold); } .save-banner-input::placeholder { color: var(--muted); font-size: 12px; }
   .save-banner-btn { padding: 9px 18px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; white-space: nowrap; -webkit-appearance: none; border-radius: 0; }
   .save-banner-btn:active { background: var(--gold-light); }
-  .save-banner-dismiss { font-size: 10px; color: var(--muted); cursor: pointer; text-decoration: underline; white-space: nowrap; }
+  .save-banner-dismiss { font-size: 11px; color: var(--muted); cursor: pointer; text-decoration: underline; white-space: nowrap; }
   .save-banner-dismiss:hover { color: var(--gold); }
-  .save-banner-error { font-size: 11px; color: #e07070; width: 100%; margin-top: 4px; }
-  .save-banner-success { font-size: 11px; color: #7CB987; width: 100%; margin-top: 4px; }
-
-  /* TEASER */
+  .save-banner-error { font-size: 12px; color: #e07070; width: 100%; margin-top: 4px; }
+  .save-banner-success { font-size: 12px; color: #7CB987; width: 100%; margin-top: 4px; }
   .teaser-section { margin-top: 32px; padding: 28px 24px; background: var(--deep); border-radius: 2px; text-align: center; }
-  .teaser-eyebrow { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
-  .teaser-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 4.5vw, 24px); font-weight: 300; color: var(--cream); margin-bottom: 20px; line-height: 1.3; }
-  .teaser-items { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; text-align: left; }
+  .teaser-eyebrow { font-size: 10px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .teaser-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 5vw, 26px); font-weight: 300; color: var(--cream); margin-bottom: 20px; line-height: 1.3; }
+  .teaser-items { display: flex; flex-direction: column; gap: 14px; margin-bottom: 24px; text-align: left; }
   .teaser-item { display: flex; gap: 12px; align-items: flex-start; }
-  .teaser-item-num { font-size: 9px; letter-spacing: 0.2em; color: var(--gold); flex-shrink: 0; margin-top: 3px; font-family: 'Cormorant Garamond', serif; font-style: italic; }
-  .teaser-item-text { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.6; }
-  .teaser-btn { display: inline-block; padding: 12px 32px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .teaser-item-num { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); flex-shrink: 0; margin-top: 3px; font-family: 'Cormorant Garamond', serif; font-style: italic; }
+  .teaser-item-text { font-size: clamp(13px, 3.5vw, 14px); color: var(--muted); line-height: 1.65; }
+  .teaser-btn { display: inline-block; padding: 13px 32px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .teaser-btn:hover, .teaser-btn:active { background: var(--gold); color: var(--deep); }
-
-  /* REPORT FOOTER */
   .report-footer { text-align: center; padding: 24px 0 8px; border-top: 1px solid var(--border); margin-top: 16px; }
-  .report-footer-text { font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); letter-spacing: 0.05em; line-height: 1.7; max-width: 560px; margin: 0 auto; }
-  .affiliate-note { font-size: 9px; color: var(--muted); text-align: center; margin-top: 12px; opacity: 0.7; }
+  .report-footer-text { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.05em; line-height: 1.7; max-width: 560px; margin: 0 auto; }
+  .affiliate-note { font-size: 10px; color: var(--muted); text-align: center; margin-top: 12px; opacity: 0.7; }
   .report-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
-  .restart-btn { padding: 12px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .restart-btn { padding: 13px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .restart-btn:active { border-color: var(--gold); color: var(--gold); }
-  .email-report-btn { padding: 12px 32px; background: var(--deep); border: 1px solid var(--deep); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
-  .email-report-btn:hover, .email-report-btn:active { background: var(--gold); color: var(--deep); border-color: var(--gold); }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
@@ -240,29 +226,17 @@
   <div class="welcome-headline">The most personalized beauty intelligence you've ever had.</div>
   <div class="welcome-explainer">Clair is a beauty concierge built entirely around you — your skin, your life, your budget. No brand allegiances. No sponsored answers. Ever.</div>
   <div class="welcome-differentiators">
-    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She remembers your skin</strong> — not just your conversation. Your profile, history, and report are saved and grow over time.</div></div>
-    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She asks what you don't know to ask</strong> — guiding you through a clinical framework you'd never navigate alone.</div></div>
-    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She produces a deliverable</strong> — a complete Beauty Intelligence Report you keep, reference, and build on.</div></div>
-    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She's built for you specifically</strong> — every question, recommendation, and insight tuned for women 35 and beyond.</div></div>
+    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She remembers your skin</strong>Your profile, history, and report are saved and grow over time.</div></div>
+    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She asks what you don't know to ask</strong>Guiding you through a clinical framework you'd never navigate alone.</div></div>
+    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She produces a deliverable</strong>A complete Beauty Intelligence Report you keep, reference, and build on.</div></div>
+    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She's built for you specifically</strong>Every recommendation tuned for women 35 and beyond.</div></div>
   </div>
   <div class="welcome-flow">
-    <div class="flow-step">
-      <div class="flow-step-num">Step 1</div>
-      <div class="flow-step-label">Quick Win</div>
-      <div class="flow-step-sub">5 questions · 2 min</div>
-    </div>
+    <div class="flow-step"><div class="flow-step-num">Step 1</div><div class="flow-step-label">Quick Win</div><div class="flow-step-sub">5 questions · 2 min</div></div>
     <div class="flow-arrow">→</div>
-    <div class="flow-step">
-      <div class="flow-step-num">Step 2</div>
-      <div class="flow-step-label">Deep Analysis</div>
-      <div class="flow-step-sub">7 more · 10 min</div>
-    </div>
+    <div class="flow-step"><div class="flow-step-num">Step 2</div><div class="flow-step-label">Deep Analysis</div><div class="flow-step-sub">7 more · 10 min</div></div>
     <div class="flow-arrow">→</div>
-    <div class="flow-step">
-      <div class="flow-step-num">Result</div>
-      <div class="flow-step-label">Full Report</div>
-      <div class="flow-step-sub">Yours to keep</div>
-    </div>
+    <div class="flow-step"><div class="flow-step-num">Result</div><div class="flow-step-label">Full Report</div><div class="flow-step-sub">Yours to keep</div></div>
   </div>
   <div class="welcome-btns">
     <button class="begin-btn" onclick="startChat()">Begin</button>
@@ -277,12 +251,8 @@
     <div class="chat-logo">C<span>lair</span></div>
     <div class="chat-badge">Beauty Intelligence</div>
     <div class="chat-progress" id="progressDots">
-      <div class="progress-dot" id="d1"></div>
-      <div class="progress-dot" id="d2"></div>
-      <div class="progress-dot" id="d3"></div>
-      <div class="progress-dot" id="d4"></div>
-      <div class="progress-dot" id="d5"></div>
-      <div class="progress-dot" id="d6"></div>
+      <div class="progress-dot" id="d1"></div><div class="progress-dot" id="d2"></div><div class="progress-dot" id="d3"></div>
+      <div class="progress-dot" id="d4"></div><div class="progress-dot" id="d5"></div><div class="progress-dot" id="d6"></div>
     </div>
   </div>
   <div class="chat-messages" id="messages"></div>
@@ -300,11 +270,7 @@
   <div class="gen-logo">Clair</div>
   <div class="gen-logo-tag">Beauty Intelligence</div>
   <div class="gen-orbs">
-    <div class="gen-orb"></div>
-    <div class="gen-orb"></div>
-    <div class="gen-orb"></div>
-    <div class="gen-orb"></div>
-    <div class="gen-orb"></div>
+    <div class="gen-orb"></div><div class="gen-orb"></div><div class="gen-orb"></div><div class="gen-orb"></div><div class="gen-orb"></div>
   </div>
   <div class="gen-bar-wrap"><div class="gen-bar"></div></div>
   <div class="gen-status" id="genStatus">Reading your skin story...</div>
@@ -371,13 +337,15 @@
 <div class="screen hidden" id="email-capture">
   <div class="signup-glow"></div>
   <div class="email-box">
-    <div class="email-title">Email My Report</div>
-    <div class="email-sub">Enter your email and we'll send your Beauty Intelligence Report straight to your inbox.</div>
+    <div class="email-title">Your Report Is Ready</div>
+    <div class="email-sub">Enter your email and we'll send your complete Beauty Intelligence Report straight to your inbox — free.</div>
+    <span class="email-ready-badge">✦ Ready to send</span>
     <input class="email-input" id="emailCaptureInput" type="email" placeholder="Your email address" autocomplete="email" />
     <div class="email-error" id="emailError"></div>
     <div class="email-success" id="emailSuccess"></div>
     <button class="email-send-btn" onclick="sendReportEmail()">Send My Report</button>
-    <span class="email-skip" onclick="show('report')">Go back to my report</span>
+    <div class="email-spam-note">Don't forget to <strong>check your spam folder</strong> if you don't see it within a few minutes.</div>
+    <span class="email-skip" onclick="show('report')">Go back</span>
   </div>
 </div>
 
@@ -390,41 +358,53 @@
       <div class="report-meta-name" id="reportName"></div>
     </div>
   </div>
-  <div class="report-body">
-    <div class="report-inner">
-      <!-- SAVE BANNER — shown only to non-logged-in users -->
-      <div class="save-banner" id="saveBanner">
-        <div class="save-banner-text">
-          <div class="save-banner-title">Save your report</div>
-          <div class="save-banner-sub">Create a free account to access this report anytime and continue your skin journey.</div>
+  <div class="report-blur-wrap">
+    <div class="report-unlock-overlay" id="reportUnlockOverlay">
+      <div class="report-unlock-box">
+        <div class="report-unlock-eyebrow">✦ Your report is ready</div>
+        <div class="report-unlock-title">Send it to your inbox</div>
+        <div class="report-unlock-sub">Enter your email and we'll deliver your complete Beauty Intelligence Report — free, instantly.</div>
+        <input class="report-unlock-input" id="reportUnlockEmail" type="email" placeholder="Your email address" autocomplete="email" />
+        <div class="report-unlock-error" id="reportUnlockError"></div>
+        <div class="report-unlock-success" id="reportUnlockSuccess"></div>
+        <button class="report-unlock-btn" id="reportUnlockBtn" onclick="sendFromOverlay()">Send My Report</button>
+        <div class="report-unlock-spam">Don't forget to <strong>check your spam folder</strong> if it doesn't arrive within a few minutes.</div>
+      </div>
+    </div>
+    <div class="report-body blurred" id="reportBody">
+      <div class="report-inner">
+        <div class="save-banner" id="saveBanner">
+          <div class="save-banner-text">
+            <div class="save-banner-title">Save your report</div>
+            <div class="save-banner-sub">Create a free account to access this report anytime.</div>
+          </div>
+          <div class="save-banner-inputs">
+            <input class="save-banner-input" id="bannerEmail" type="email" placeholder="Email address" autocomplete="email" />
+            <input class="save-banner-input" id="bannerPassword" type="password" placeholder="Password" autocomplete="new-password" />
+            <button class="save-banner-btn" onclick="createAccountFromBanner()">Save</button>
+            <span class="save-banner-dismiss" onclick="dismissBanner()">Not now</span>
+          </div>
+          <div class="save-banner-error" id="bannerError"></div>
+          <div class="save-banner-success" id="bannerSuccess"></div>
         </div>
-        <div class="save-banner-inputs">
-          <input class="save-banner-input" id="bannerEmail" type="email" placeholder="Email address" autocomplete="email" />
-          <input class="save-banner-input" id="bannerPassword" type="password" placeholder="Password" autocomplete="new-password" />
-          <button class="save-banner-btn" onclick="createAccountFromBanner()">Save</button>
-          <span class="save-banner-dismiss" onclick="dismissBanner()">Not now</span>
+        <div class="report-hero">
+          <div class="report-hero-eyebrow">Your Personal Report</div>
+          <div class="report-hero-title" id="reportTitle"></div>
+          <div class="report-hero-sub" id="reportSub"></div>
         </div>
-        <div class="save-banner-error" id="bannerError"></div>
-        <div class="save-banner-success" id="bannerSuccess"></div>
-      </div>
-      <div class="report-hero">
-        <div class="report-hero-eyebrow">Your Personal Report</div>
-        <div class="report-hero-title" id="reportTitle"></div>
-        <div class="report-hero-sub" id="reportSub"></div>
-      </div>
-      <div id="reportContent"></div>
-      <div class="teaser-section" id="teaserSection" style="display:none;">
-        <div class="teaser-eyebrow">What We Didn't Get To</div>
-        <div class="teaser-title" id="teaserTitle">There's more to your skin story.</div>
-        <div class="teaser-items" id="teaserItems"></div>
-        <button class="teaser-btn" onclick="continueWithClair()">Continue with Clair →</button>
-      </div>
-      <div class="report-footer">
-        <div class="report-footer-text">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice. Product availability and formulations may change — verify details with retailers before purchasing. Consult a dermatologist for medical skin concerns.</div>
-        <div class="affiliate-note">Some product links are affiliate links. Clair may earn a small commission if you purchase — at no extra cost to you. This never influences our recommendations.</div>
-        <div class="report-actions">
-          <button class="email-report-btn" onclick="show('email-capture')">Email My Report</button>
-          <button class="restart-btn" onclick="restart()">Start a New Consultation</button>
+        <div id="reportContent"></div>
+        <div class="teaser-section" id="teaserSection" style="display:none;">
+          <div class="teaser-eyebrow">What We Didn't Get To</div>
+          <div class="teaser-title" id="teaserTitle">There's more to your skin story.</div>
+          <div class="teaser-items" id="teaserItems"></div>
+          <button class="teaser-btn" onclick="continueWithClair()">Continue with Clair →</button>
+        </div>
+        <div class="report-footer">
+          <div class="report-footer-text">This report was generated by Clair for cosmetic and personal care guidance only. It is not medical advice. Product availability and formulations may change — verify details with retailers before purchasing. Consult a dermatologist for medical skin concerns.</div>
+          <div class="affiliate-note">Some product links are affiliate links. Clair may earn a small commission if you purchase — at no extra cost to you. This never influences our recommendations.</div>
+          <div class="report-actions">
+            <button class="restart-btn" onclick="restart()">Start a New Consultation</button>
+          </div>
         </div>
       </div>
     </div>
@@ -436,7 +416,6 @@
   const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TESd7KelhJah2c4Eyqf4fh6CLI2MLuL41KTS2xP0TFZy16u2992Jwmip0hf04f0DiLBG9NlvQ6NhoQivEY3DdQP00CLWAuDfb';
   const SUPABASE_URL = 'https://ruukxsypjoxvlrtgmeir.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1dWt4c3lwam94dmxydGdtZWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODg5MjksImV4cCI6MjA4OTc2NDkyOX0._us8Sb8qdxJc3gAbGvSIX-A4P6im4e15DnE3O3L28UA';
-
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
@@ -543,15 +522,7 @@ Rules:
   let generatingInterval = null;
   let userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
 
-  const genMessages = [
-    'Reading your skin story...',
-    'Reviewing your lifestyle and health context...',
-    'Identifying your optimal ingredients...',
-    'Selecting your top product matches...',
-    'Composing your personal report...',
-    'Adding the finishing details...'
-  ];
-
+  const genMessages = ['Reading your skin story...','Reviewing your lifestyle and health context...','Identifying your optimal ingredients...','Selecting your top product matches...','Composing your personal report...','Adding the finishing details...'];
   const genStepTimings = [0, 4000, 9000, 14000, 19000];
 
   function startGeneratingAnimation() {
@@ -559,60 +530,73 @@ Rules:
     const statusEl = document.getElementById('genStatus');
     const steps = ['step1','step2','step3','step4','step5'];
     steps.forEach(s => { const el = document.getElementById(s); if (el) el.classList.remove('visible','done'); });
-    statusEl.textContent = genMessages[0];
-    statusEl.classList.remove('fade');
+    statusEl.textContent = genMessages[0]; statusEl.classList.remove('fade');
     generatingInterval = setInterval(() => {
       statusEl.classList.add('fade');
-      setTimeout(() => {
-        msgIndex = (msgIndex + 1) % genMessages.length;
-        statusEl.textContent = genMessages[msgIndex];
-        statusEl.classList.remove('fade');
-      }, 600);
+      setTimeout(() => { msgIndex = (msgIndex + 1) % genMessages.length; statusEl.textContent = genMessages[msgIndex]; statusEl.classList.remove('fade'); }, 600);
     }, 3500);
     genStepTimings.forEach((t, i) => {
       setTimeout(() => {
         const el = document.getElementById(steps[i]);
-        if (el) {
-          if (i > 0) { const prev = document.getElementById(steps[i-1]); if (prev) prev.classList.add('done'); }
-          el.classList.add('visible');
-        }
+        if (el) { if (i > 0) { const prev = document.getElementById(steps[i-1]); if (prev) prev.classList.add('done'); } el.classList.add('visible'); }
       }, t);
     });
   }
 
   function stopGeneratingAnimation() {
     if (generatingInterval) { clearInterval(generatingInterval); generatingInterval = null; }
-    const steps = ['step1','step2','step3','step4','step5'];
-    steps.forEach(s => { const el = document.getElementById(s); if (el) el.classList.add('done'); });
+    ['step1','step2','step3','step4','step5'].forEach(s => { const el = document.getElementById(s); if (el) el.classList.add('done'); });
     const statusEl = document.getElementById('genStatus');
-    if (statusEl) {
-      statusEl.classList.add('fade');
-      setTimeout(() => { statusEl.textContent = 'Your report is ready.'; statusEl.classList.remove('fade'); }, 600);
-    }
+    if (statusEl) { statusEl.classList.add('fade'); setTimeout(() => { statusEl.textContent = 'Your report is ready.'; statusEl.classList.remove('fade'); }, 600); }
   }
 
-  function show(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-    document.getElementById(id).classList.remove('hidden');
+  function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
+  function startChat() { show('chat'); setTimeout(() => sendAI('Begin the consultation.'), 400); }
+  function dismissBanner() { const b = document.getElementById('saveBanner'); if (b) b.style.display = 'none'; }
+
+  async function sendFromOverlay() {
+    const email = document.getElementById('reportUnlockEmail').value.trim();
+    const errorEl = document.getElementById('reportUnlockError');
+    const successEl = document.getElementById('reportUnlockSuccess');
+    const btn = document.getElementById('reportUnlockBtn');
+    errorEl.textContent = ''; successEl.textContent = '';
+    if (!email) { errorEl.textContent = 'Please enter your email address.'; return; }
+    if (!email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
+    btn.textContent = 'Sending...'; btn.disabled = true;
+    try { await supabaseClient.from('leads').insert({ email, name: userName || '', report: reportHTML }); } catch(e) {}
+    try {
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'send_email', email, subject: 'Your Clair Beauty Intelligence Report' + (userName ? ', ' + userName : ''), html: buildEmailHTML() }) });
+      const data = await response.json();
+      if (data.error) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
+      else { successEl.textContent = 'Sent! Check your inbox — and your spam folder just in case.'; btn.textContent = 'Sent'; setTimeout(() => { document.getElementById('reportUnlockOverlay').style.display = 'none'; document.getElementById('reportBody').classList.remove('blurred'); }, 2500); }
+    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
   }
 
-  function startChat() {
-    show('chat');
-    setTimeout(() => sendAI('Begin the consultation.'), 400);
+  function buildEmailHTML() {
+    const teaserEmailHTML = teaserData ? buildTeaserEmailHTML(teaserData) : '';
+    return '<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#FAF7F2;font-family:Georgia,serif;"><div style="max-width:600px;margin:0 auto;padding:40px 20px;"><div style="text-align:center;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.3);margin-bottom:32px;"><h1 style="font-family:Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.15em;color:#C9A96E;margin:0;">Clair</h1><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#8A7E74;margin:4px 0 0;">Beauty Intelligence</p></div><div style="text-align:center;margin-bottom:32px;"><h2 style="font-family:Georgia,serif;font-size:28px;font-weight:300;color:#2D2520;margin:0;">Your Beauty Intelligence Report</h2><p style="font-size:13px;color:#8A7E74;margin-top:8px;">Curated exclusively for ' + (userName || 'you') + '</p></div><div style="font-size:15px;line-height:1.85;color:#2D2520;">' + reportHTML + '</div>' + teaserEmailHTML + '<div style="text-align:center;padding-top:32px;border-top:1px solid rgba(201,169,110,0.3);margin-top:32px;"><p style="font-size:10px;color:#8A7E74;line-height:1.7;">Generated by Clair for cosmetic guidance only. Not medical advice. Some links are affiliate links.</p></div></div></body></html>';
   }
 
-  function dismissBanner() {
-    const banner = document.getElementById('saveBanner');
-    if (banner) banner.style.display = 'none';
+  async function sendReportEmail() {
+    const email = document.getElementById('emailCaptureInput').value.trim();
+    const errorEl = document.getElementById('emailError'); const successEl = document.getElementById('emailSuccess');
+    errorEl.textContent = ''; successEl.textContent = '';
+    if (!email) { errorEl.textContent = 'Please enter your email address.'; return; }
+    if (!email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
+    const btn = document.querySelector('.email-send-btn'); btn.textContent = 'Sending...'; btn.disabled = true;
+    try { await supabaseClient.from('leads').insert({ email, name: userName || '', report: reportHTML }); } catch(e) {}
+    try {
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'send_email', email, subject: 'Your Clair Beauty Intelligence Report' + (userName ? ', ' + userName : ''), html: buildEmailHTML() }) });
+      const data = await response.json();
+      if (data.error) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
+      else { successEl.textContent = 'Sent! Check your inbox — and your spam folder just in case.'; btn.textContent = 'Sent'; }
+    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
   }
 
   async function createAccountFromBanner() {
-    const email = document.getElementById('bannerEmail').value.trim();
-    const password = document.getElementById('bannerPassword').value.trim();
-    const errorEl = document.getElementById('bannerError');
-    const successEl = document.getElementById('bannerSuccess');
-    errorEl.textContent = '';
-    successEl.textContent = '';
+    const email = document.getElementById('bannerEmail').value.trim(); const password = document.getElementById('bannerPassword').value.trim();
+    const errorEl = document.getElementById('bannerError'); const successEl = document.getElementById('bannerSuccess');
+    errorEl.textContent = ''; successEl.textContent = '';
     if (!email || !password) { errorEl.textContent = 'Please enter your email and a password.'; return; }
     if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
     try {
@@ -620,12 +604,7 @@ Rules:
       if (error) { errorEl.textContent = error.message; return; }
       if (data.user) {
         currentUserId = data.user.id;
-        await supabaseClient.from('profiles').insert({
-          id: data.user.id, email, name: userName,
-          age_range: userProfile.age_range, budget: userProfile.budget,
-          concern: userProfile.concern, routine: userProfile.routine,
-          quick_win: quickWinContent
-        });
+        await supabaseClient.from('profiles').insert({ id: data.user.id, email, name: userName, age_range: userProfile.age_range, budget: userProfile.budget, concern: userProfile.concern, routine: userProfile.routine, quick_win: quickWinContent });
         await saveReportToSupabase(reportHTML);
       }
       successEl.textContent = 'Account created! Your report is saved.';
@@ -634,322 +613,180 @@ Rules:
   }
 
   function continueWithClair() {
-    conversationHistory = [];
-    questionCount = 0;
-    isWaiting = false;
-    document.getElementById('messages').innerHTML = '';
-    updateProgress(0);
-    show('chat');
-    const welcomeBack = `Welcome back${userName ? ', ' + userName : ''}. I have your full profile and report from our last conversation. Based on everything you shared — your skin concerns, lifestyle, and goals — I have some thoughts on where to take things next. What would you like to explore?`;
-    setTimeout(() => {
-      conversationHistory.push({ role: 'assistant', content: welcomeBack });
-      addMessage(welcomeBack, 'ai');
-      setInputEnabled(true);
-      document.getElementById('userInput').focus();
-    }, 400);
+    conversationHistory = []; questionCount = 0; isWaiting = false;
+    document.getElementById('messages').innerHTML = ''; updateProgress(0); show('chat');
+    const welcomeBack = 'Welcome back' + (userName ? ', ' + userName : '') + '. I have your full profile and report from our last conversation. Based on everything you shared — your skin concerns, lifestyle, and goals — I have some thoughts on where to take things next. What would you like to explore?';
+    setTimeout(() => { conversationHistory.push({ role: 'assistant', content: welcomeBack }); addMessage(welcomeBack, 'ai'); setInputEnabled(true); document.getElementById('userInput').focus(); }, 400);
   }
 
   function restart() {
-    conversationHistory = [];
-    userName = '';
-    questionCount = 0;
-    isWaiting = false;
-    quickWinContent = '';
-    reportHTML = '';
-    teaserData = null;
-    currentUserId = null;
+    conversationHistory = []; userName = ''; questionCount = 0; isWaiting = false;
+    quickWinContent = ''; reportHTML = ''; teaserData = null; currentUserId = null;
     if (generatingInterval) { clearInterval(generatingInterval); generatingInterval = null; }
     userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
     document.getElementById('messages').innerHTML = '';
-    document.getElementById('signupEmail').value = '';
-    document.getElementById('signupPassword').value = '';
-    document.getElementById('signupError').textContent = '';
-    document.getElementById('signinEmail').value = '';
-    document.getElementById('signinPassword').value = '';
-    document.getElementById('signinError').textContent = '';
-    document.getElementById('emailCaptureInput').value = '';
-    document.getElementById('emailError').textContent = '';
-    document.getElementById('emailSuccess').textContent = '';
-    document.getElementById('paywallError').textContent = '';
-    document.getElementById('bannerEmail').value = '';
-    document.getElementById('bannerPassword').value = '';
-    document.getElementById('bannerError').textContent = '';
-    document.getElementById('bannerSuccess').textContent = '';
+    ['signupEmail','signupPassword','signinEmail','signinPassword','emailCaptureInput','bannerEmail','bannerPassword','reportUnlockEmail'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    ['signupError','signinError','emailError','emailSuccess','paywallError','bannerError','bannerSuccess','reportUnlockError','reportUnlockSuccess'].forEach(id => { const el = document.getElementById(id); if (el) el.textContent = ''; });
     document.getElementById('teaserSection').style.display = 'none';
     document.getElementById('saveBanner').style.display = 'flex';
-    updateProgress(0);
-    show('welcome');
+    document.getElementById('reportUnlockOverlay').style.display = 'flex';
+    document.getElementById('reportUnlockBtn').textContent = 'Send My Report';
+    document.getElementById('reportUnlockBtn').disabled = false;
+    document.getElementById('reportBody').classList.add('blurred');
+    updateProgress(0); show('welcome');
   }
 
-  function updateProgress(n) {
-    for (let i = 1; i <= 6; i++) {
-      document.getElementById('d' + i).classList.toggle('done', i <= n);
-    }
-  }
+  function updateProgress(n) { for (let i = 1; i <= 6; i++) { document.getElementById('d' + i).classList.toggle('done', i <= n); } }
 
   function addMessage(text, role) {
     const messages = document.getElementById('messages');
-    const wrap = document.createElement('div');
-    wrap.className = 'msg ' + role;
-    const avatar = document.createElement('div');
-    avatar.className = 'msg-avatar ' + (role === 'ai' ? 'ai-avatar' : 'user-avatar');
+    const wrap = document.createElement('div'); wrap.className = 'msg ' + role;
+    const avatar = document.createElement('div'); avatar.className = 'msg-avatar ' + (role === 'ai' ? 'ai-avatar' : 'user-avatar');
     avatar.textContent = role === 'ai' ? 'C' : (userName ? userName[0].toUpperCase() : 'Y');
-    const bubble = document.createElement('div');
-    bubble.className = 'msg-bubble';
+    const bubble = document.createElement('div'); bubble.className = 'msg-bubble';
     bubble.innerHTML = text.replace(/\n/g, '<br>');
-    wrap.appendChild(avatar);
-    wrap.appendChild(bubble);
-    messages.appendChild(wrap);
+    wrap.appendChild(avatar); wrap.appendChild(bubble); messages.appendChild(wrap);
     messages.scrollTop = messages.scrollHeight;
   }
 
   function showActionButtons() {
     const messages = document.getElementById('messages');
-    const wrap = document.createElement('div');
-    wrap.className = 'action-btns';
-    wrap.id = 'actionButtons';
-    const saveBtn = document.createElement('button');
-    saveBtn.className = 'action-btn primary';
-    saveBtn.textContent = 'Save My Results';
+    const wrap = document.createElement('div'); wrap.className = 'action-btns'; wrap.id = 'actionButtons';
+    const saveBtn = document.createElement('button'); saveBtn.className = 'action-btn primary'; saveBtn.textContent = 'Save My Results';
     saveBtn.onclick = () => { removeActionButtons(); show('signup'); };
-    const deeperBtn = document.createElement('button');
-    deeperBtn.className = 'action-btn';
-    deeperBtn.textContent = 'Go Deeper';
-    deeperBtn.onclick = () => {
-      removeActionButtons();
-      if (PAYWALL_ACTIVE) { show('paywall'); } else { goDeeper(); }
-    };
-    wrap.appendChild(saveBtn);
-    wrap.appendChild(deeperBtn);
-    messages.appendChild(wrap);
+    const deeperBtn = document.createElement('button'); deeperBtn.className = 'action-btn'; deeperBtn.textContent = 'Go Deeper';
+    deeperBtn.onclick = () => { removeActionButtons(); if (PAYWALL_ACTIVE) { show('paywall'); } else { goDeeper(); } };
+    wrap.appendChild(saveBtn); wrap.appendChild(deeperBtn); messages.appendChild(wrap);
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function removeActionButtons() {
-    const btns = document.getElementById('actionButtons');
-    if (btns) btns.remove();
-  }
-
-  function goDeeper() {
-    show('chat');
-    sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.');
-  }
+  function removeActionButtons() { const btns = document.getElementById('actionButtons'); if (btns) btns.remove(); }
+  function goDeeper() { show('chat'); sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'); }
 
   async function startCheckout() {
-    const btn = document.getElementById('paywallBtn');
-    const errorEl = document.getElementById('paywallError');
-    btn.textContent = 'Preparing checkout...';
-    btn.disabled = true;
-    errorEl.textContent = '';
+    const btn = document.getElementById('paywallBtn'); const errorEl = document.getElementById('paywallError');
+    btn.textContent = 'Preparing checkout...'; btn.disabled = true; errorEl.textContent = '';
     try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'create_checkout', origin: window.location.origin, customerEmail: document.getElementById('signupEmail')?.value || '' })
-      });
+      const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'create_checkout', origin: window.location.origin, customerEmail: document.getElementById('signupEmail')?.value || '' }) });
       const session = await response.json();
       if (session.error) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Unlock My Full Report'; btn.disabled = false; return; }
       await stripe.redirectToCheckout({ sessionId: session.id });
-    } catch (err) {
-      errorEl.textContent = 'Something went wrong. Please try again.';
-      btn.textContent = 'Unlock My Full Report';
-      btn.disabled = false;
-    }
+    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Unlock My Full Report'; btn.disabled = false; }
   }
 
   function showTyping() {
     const messages = document.getElementById('messages');
-    const wrap = document.createElement('div');
-    wrap.className = 'typing-wrap';
-    wrap.id = 'typingIndicator';
-    const avatar = document.createElement('div');
-    avatar.className = 'msg-avatar ai-avatar';
-    avatar.textContent = 'C';
-    const typing = document.createElement('div');
-    typing.className = 'typing';
+    const wrap = document.createElement('div'); wrap.className = 'typing-wrap'; wrap.id = 'typingIndicator';
+    const avatar = document.createElement('div'); avatar.className = 'msg-avatar ai-avatar'; avatar.textContent = 'C';
+    const typing = document.createElement('div'); typing.className = 'typing';
     typing.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
-    wrap.appendChild(avatar);
-    wrap.appendChild(typing);
-    messages.appendChild(wrap);
+    wrap.appendChild(avatar); wrap.appendChild(typing); messages.appendChild(wrap);
     messages.scrollTop = messages.scrollHeight;
   }
 
-  function removeTyping() {
-    const t = document.getElementById('typingIndicator');
-    if (t) t.remove();
-  }
+  function removeTyping() { const t = document.getElementById('typingIndicator'); if (t) t.remove(); }
 
   async function callClaude(messages) {
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 1200, system: SYSTEM_PROMPT, messages })
-    });
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 1200, system: SYSTEM_PROMPT, messages }) });
     const data = await response.json();
     if (data.error) throw new Error(data.error.message);
     return data.content[0].text;
   }
 
   async function generateReport() {
-    const prompt = `Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong, a tags. Make it warm, specific, and luxurious. Match all product recommendations to the user's stated budget. For each product in the Top 5 Recommendations section create an Amazon affiliate search link using this exact format: <a href="https://www.amazon.com/s?k=PRODUCT+NAME+BRAND&tag=clairbeauty-20" target="_blank">Product Name</a> replacing spaces with + signs. Include inferred Fitzpatrick skin type and barrier health. Include ingredients to seek and avoid.\n\n${conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n')}`;
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 3000, system: SYSTEM_PROMPT, messages: [{ role: 'user', content: prompt }] })
-    });
+    const prompt = 'Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong, a tags. Make it warm, specific, and luxurious. Match all product recommendations to the user\'s stated budget. For each product in the Top 5 Recommendations section create an Amazon affiliate search link using this exact format: <a href="https://www.amazon.com/s?k=PRODUCT+NAME+BRAND&tag=clairbeauty-20" target="_blank">Product Name</a> replacing spaces with + signs. Include inferred Fitzpatrick skin type and barrier health. Include ingredients to seek and avoid.\n\n' + conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n');
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 3000, system: SYSTEM_PROMPT, messages: [{ role: 'user', content: prompt }] }) });
     const data = await response.json();
     return data.content[0].text;
   }
 
   async function generateTeaser() {
     const conversationSummary = conversationHistory.map(m => m.role.toUpperCase() + ': ' + m.content).join('\n\n');
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-opus-4-5',
-        max_tokens: 500,
-        system: TEASER_PROMPT,
-        messages: [{ role: 'user', content: conversationSummary }]
-      })
-    });
+    const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 500, system: TEASER_PROMPT, messages: [{ role: 'user', content: conversationSummary }] }) });
     const data = await response.json();
-    try {
-      const text = data.content[0].text.trim();
-      const clean = text.replace(/```json|```/g, '').trim();
-      return JSON.parse(clean);
-    } catch(e) { return null; }
+    try { return JSON.parse(data.content[0].text.trim().replace(/```json|```/g, '').trim()); } catch(e) { return null; }
   }
 
   function renderTeaser(data) {
     if (!data) return;
-    const section = document.getElementById('teaserSection');
-    const title = document.getElementById('teaserTitle');
-    const items = document.getElementById('teaserItems');
-    title.textContent = data.title || 'There\'s more to your skin story.';
-    items.innerHTML = '';
+    document.getElementById('teaserTitle').textContent = data.title || "There's more to your skin story.";
+    const items = document.getElementById('teaserItems'); items.innerHTML = '';
     (data.items || []).forEach((item, i) => {
-      const div = document.createElement('div');
-      div.className = 'teaser-item';
-      div.innerHTML = `<div class="teaser-item-num">${i + 1}.</div><div class="teaser-item-text">${item}</div>`;
+      const div = document.createElement('div'); div.className = 'teaser-item';
+      div.innerHTML = '<div class="teaser-item-num">' + (i + 1) + '.</div><div class="teaser-item-text">' + item + '</div>';
       items.appendChild(div);
     });
-    section.style.display = 'block';
+    document.getElementById('teaserSection').style.display = 'block';
   }
 
   function buildTeaserEmailHTML(data) {
     if (!data) return '';
-    const items = (data.items || []).map((item, i) => `<p style="margin:0 0 10px;font-size:13px;color:#8A7E74;line-height:1.6;"><span style="color:#C9A96E;font-family:Georgia,serif;font-style:italic;">${i+1}.</span> ${item}</p>`).join('');
-    return `<div style="margin-top:32px;padding:28px;background:#1A1410;text-align:center;"><p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin:0 0 12px;">What We Didn't Get To</p><h3 style="font-family:Georgia,serif;font-size:20px;font-weight:300;color:#FAF7F2;margin:0 0 20px;line-height:1.3;">${data.title || 'There\'s more to your skin story.'}</h3><div style="text-align:left;margin-bottom:20px;">${items}</div><a href="https://clair-beauty.vercel.app" style="display:inline-block;padding:12px 28px;border:1px solid #C9A96E;color:#C9A96E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;">Continue with Clair →</a></div>`;
+    const items = (data.items || []).map((item, i) => '<p style="margin:0 0 10px;font-size:13px;color:#8A7E74;line-height:1.6;"><span style="color:#C9A96E;font-family:Georgia,serif;font-style:italic;">' + (i+1) + '.</span> ' + item + '</p>').join('');
+    return '<div style="margin-top:32px;padding:28px;background:#1A1410;text-align:center;"><p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin:0 0 12px;">What We Didn\'t Get To</p><h3 style="font-family:Georgia,serif;font-size:20px;font-weight:300;color:#FAF7F2;margin:0 0 20px;line-height:1.3;">' + (data.title || "There's more to your skin story.") + '</h3><div style="text-align:left;margin-bottom:20px;">' + items + '</div><a href="https://clair-beauty.vercel.app" style="display:inline-block;padding:12px 28px;border:1px solid #C9A96E;color:#C9A96E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;">Continue with Clair</a></div>';
   }
 
   async function saveReportToSupabase(html) {
     if (!currentUserId) return;
-    try {
-      await supabaseClient.from('profiles').update({ report: html, report_date: new Date().toISOString() }).eq('id', currentUserId);
-    } catch (err) { console.log('Report save error:', err); }
+    try { await supabaseClient.from('profiles').update({ report: html, report_date: new Date().toISOString() }).eq('id', currentUserId); } catch (err) { console.log('Report save error:', err); }
   }
 
   async function signIn() {
-    const email = document.getElementById('signinEmail').value.trim();
-    const password = document.getElementById('signinPassword').value.trim();
-    const errorEl = document.getElementById('signinError');
-    errorEl.textContent = '';
+    const email = document.getElementById('signinEmail').value.trim(); const password = document.getElementById('signinPassword').value.trim();
+    const errorEl = document.getElementById('signinError'); errorEl.textContent = '';
     if (!email || !password) { errorEl.textContent = 'Please enter your email and password.'; return; }
     try {
       const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) { errorEl.textContent = 'Incorrect email or password.'; return; }
       currentUserId = data.user.id;
       const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', data.user.id).maybeSingle();
-      if (profile) {
-        userName = profile.name || '';
-        if (profile.report) {
-          reportHTML = profile.report;
-          document.getElementById('reportName').textContent = userName || 'Your Report';
-          document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
-          document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + (profile.report_date ? ' · ' + new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '');
-          document.getElementById('reportContent').innerHTML = '<div class="section-body">' + profile.report + '</div>';
-          document.getElementById('saveBanner').style.display = 'none';
-          show('report');
-        } else {
-          show('chat');
-          setTimeout(() => sendAI('Begin the consultation.'), 400);
-        }
-      }
+      if (profile && profile.report) {
+        reportHTML = profile.report; userName = profile.name || '';
+        document.getElementById('reportName').textContent = userName || 'Your Report';
+        document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
+        document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + (profile.report_date ? ' · ' + new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '');
+        document.getElementById('reportContent').innerHTML = '<div class="section-body">' + profile.report + '</div>';
+        document.getElementById('saveBanner').style.display = 'none';
+        document.getElementById('reportUnlockOverlay').style.display = 'none';
+        document.getElementById('reportBody').classList.remove('blurred');
+        show('report');
+      } else { show('chat'); setTimeout(() => sendAI('Begin the consultation.'), 400); }
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; }
-  }
-
-  async function sendReportEmail() {
-    const email = document.getElementById('emailCaptureInput').value.trim();
-    const errorEl = document.getElementById('emailError');
-    const successEl = document.getElementById('emailSuccess');
-    errorEl.textContent = '';
-    successEl.textContent = '';
-    if (!email) { errorEl.textContent = 'Please enter your email address.'; return; }
-    if (!email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
-    const btn = document.querySelector('.email-send-btn');
-    btn.textContent = 'Sending...';
-    btn.disabled = true;
-    try { await supabaseClient.from('leads').insert({ email, name: userName || '' }); } catch(e) {}
-    const teaserEmailHTML = teaserData ? buildTeaserEmailHTML(teaserData) : '';
-    const emailHTML = `<!DOCTYPE html><html><head><meta charset="UTF-8"></head><body style="margin:0;padding:0;background:#FAF7F2;font-family:'Georgia',serif;"><div style="max-width:600px;margin:0 auto;padding:40px 20px;"><div style="text-align:center;padding-bottom:32px;border-bottom:1px solid rgba(201,169,110,0.3);margin-bottom:32px;"><h1 style="font-family:Georgia,serif;font-size:36px;font-weight:300;letter-spacing:0.15em;color:#C9A96E;margin:0;">Clair</h1><p style="font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#8A7E74;margin:4px 0 0;">Beauty Intelligence</p></div><div style="text-align:center;margin-bottom:32px;"><h2 style="font-family:Georgia,serif;font-size:28px;font-weight:300;color:#2D2520;margin:0;">Your Beauty Intelligence Report</h2><p style="font-size:13px;color:#8A7E74;margin-top:8px;">Curated exclusively for ${userName || 'you'}</p></div><div style="font-size:15px;line-height:1.85;color:#2D2520;">${reportHTML}</div>${teaserEmailHTML}<div style="text-align:center;padding-top:32px;border-top:1px solid rgba(201,169,110,0.3);margin-top:32px;"><p style="font-size:10px;color:#8A7E74;line-height:1.7;">Generated by Clair for cosmetic guidance only. Not medical advice. Some links are affiliate links.</p></div></div></body></html>`;
-    try {
-      const response = await fetch('/api/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ type: 'send_email', email, subject: `Your Clair Beauty Intelligence Report${userName ? ', ' + userName : ''}`, html: emailHTML })
-      });
-      const data = await response.json();
-      if (data.error) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
-      else { successEl.textContent = 'Your report has been sent! Check your inbox.'; btn.textContent = 'Sent!'; }
-    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
   }
 
   async function sendAI(userMessage) {
     if (userMessage) conversationHistory.push({ role: 'user', content: userMessage });
-    setInputEnabled(false);
-    showTyping();
+    setInputEnabled(false); showTyping();
     try {
       const reply = await callClaude(conversationHistory);
       removeTyping();
       if (reply.includes('REPORT_READY')) {
         const clean = reply.replace('REPORT_READY', '').trim();
-        addMessage(clean, 'ai');
-        conversationHistory.push({ role: 'assistant', content: reply });
-        updateProgress(6);
+        addMessage(clean, 'ai'); conversationHistory.push({ role: 'assistant', content: reply }); updateProgress(6);
         setTimeout(() => { show('generating'); startGeneratingAnimation(); generateAndShowReport(); }, 2200);
       } else if (reply.includes('QUICK_WIN_DONE')) {
         const clean = reply.replace('QUICK_WIN_DONE', '').trim();
-        quickWinContent = clean;
-        addMessage(clean, 'ai');
-        conversationHistory.push({ role: 'assistant', content: reply });
-        updateProgress(5);
-        setInputEnabled(false);
-        setTimeout(() => showActionButtons(), 600);
+        quickWinContent = clean; addMessage(clean, 'ai'); conversationHistory.push({ role: 'assistant', content: reply });
+        updateProgress(5); setInputEnabled(false); setTimeout(() => showActionButtons(), 600);
       } else {
-        addMessage(reply, 'ai');
-        conversationHistory.push({ role: 'assistant', content: reply });
+        addMessage(reply, 'ai'); conversationHistory.push({ role: 'assistant', content: reply });
         questionCount++;
         updateProgress(Math.min(questionCount, 4));
         if (questionCount === 1) {
           const first = conversationHistory.find(m => m.role === 'user' && m.content !== 'Begin the consultation.');
-          if (first) { const w = first.content.trim().split(' '); if (w.length <= 3) userName = w[0]; }
+          if (first) { const w = first.content.trim().split(' '); if (w.length <= 3) { userName = w[0]; userProfile.name = userName; } }
         }
-        setInputEnabled(true);
-        document.getElementById('userInput').focus();
+        if (questionCount === 2) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.age_range = last.content.trim(); }
+        if (questionCount === 3) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.budget = last.content.trim(); }
+        if (questionCount === 4) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.concern = last.content.trim(); }
+        if (questionCount === 5) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.routine = last.content.trim(); }
+        setInputEnabled(true); document.getElementById('userInput').focus();
       }
-    } catch (err) {
-      removeTyping();
-      addMessage('Something went wrong. Please check your connection and try again.', 'ai');
-      setInputEnabled(true);
-    }
+    } catch (err) { removeTyping(); addMessage('Something went wrong. Please check your connection and try again.', 'ai'); setInputEnabled(true); }
   }
 
   async function createAccount() {
-    const email = document.getElementById('signupEmail').value.trim();
-    const password = document.getElementById('signupPassword').value.trim();
-    const errorEl = document.getElementById('signupError');
-    errorEl.textContent = '';
+    const email = document.getElementById('signupEmail').value.trim(); const password = document.getElementById('signupPassword').value.trim();
+    const errorEl = document.getElementById('signupError'); errorEl.textContent = '';
     if (!email || !password) { errorEl.textContent = 'Please enter your email and a password.'; return; }
     if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
     try {
@@ -963,15 +800,12 @@ Rules:
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; }
   }
 
-  function skipSignup() {
-    if (PAYWALL_ACTIVE) { show('paywall'); } else { show('chat'); goDeeper(); }
-  }
+  function skipSignup() { if (PAYWALL_ACTIVE) { show('paywall'); } else { show('chat'); goDeeper(); } }
 
   async function generateAndShowReport() {
     try {
       const [html, teaser] = await Promise.all([generateReport(), generateTeaser()]);
-      reportHTML = html;
-      teaserData = teaser;
+      reportHTML = html; teaserData = teaser;
       stopGeneratingAnimation();
       await new Promise(r => setTimeout(r, 1200));
       document.getElementById('reportName').textContent = userName || 'Your Report';
@@ -981,6 +815,8 @@ Rules:
       renderTeaser(teaser);
       if (currentUserId) {
         document.getElementById('saveBanner').style.display = 'none';
+        document.getElementById('reportUnlockOverlay').style.display = 'none';
+        document.getElementById('reportBody').classList.remove('blurred');
         await saveReportToSupabase(html);
       }
       show('report');
@@ -992,36 +828,17 @@ Rules:
   }
 
   function sendMessage() {
-    const input = document.getElementById('userInput');
-    const text = input.value.trim();
+    const input = document.getElementById('userInput'); const text = input.value.trim();
     if (!text || isWaiting) return;
-    addMessage(text, 'user');
-    input.value = '';
-    input.style.height = 'auto';
-    sendAI(text);
+    addMessage(text, 'user'); input.value = ''; input.style.height = 'auto'; sendAI(text);
   }
 
-  function handleKey(e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
-  }
-
-  function autoResize(el) {
-    el.style.height = 'auto';
-    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
-  }
-
-  function setInputEnabled(enabled) {
-    isWaiting = !enabled;
-    document.getElementById('sendBtn').disabled = !enabled;
-    document.getElementById('userInput').disabled = !enabled;
-  }
+  function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
+  function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 100) + 'px'; }
+  function setInputEnabled(enabled) { isWaiting = !enabled; document.getElementById('sendBtn').disabled = !enabled; document.getElementById('userInput').disabled = !enabled; }
 
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('session_id')) {
-    show('chat');
-    setTimeout(() => sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'), 400);
-    window.history.replaceState({}, document.title, '/');
-  }
+  if (urlParams.get('session_id')) { show('chat'); setTimeout(() => sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'), 400); window.history.replaceState({}, document.title, '/'); }
 </script>
 </body>
 </html>
