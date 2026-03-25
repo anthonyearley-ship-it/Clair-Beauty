@@ -860,7 +860,7 @@ Rules:
       const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
       if (error) { errorEl.textContent = 'Incorrect email or password.'; return; }
       currentUserId = data.user.id;
-      const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', data.user.id).single();
+      const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', data.user.id).maybeSingle();
       if (profile) {
         userName = profile.name || '';
         if (profile.report) {
