@@ -551,7 +551,9 @@ Rules:
   }
 
   function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
-  function startChat() { show('chat'); setTimeout(() => sendAI('Begin the consultation.'), 400); }
+  function track(event, data) { try { if (window.va) window.va('event', { name: event, ...data }); } catch(e) {} }
+
+  function startChat() { track('begin_clicked'); show('chat'); setTimeout(() => sendAI('Begin the consultation.'), 400); }
   function dismissBanner() { const b = document.getElementById('saveBanner'); if (b) b.style.display = 'none'; }
 
   async function sendFromOverlay() {
@@ -568,7 +570,7 @@ Rules:
       const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'send_email', email, subject: 'Your Clair Beauty Intelligence Report' + (userName ? ', ' + userName : ''), html: buildEmailHTML() }) });
       const data = await response.json();
       if (data.error) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
-      else { successEl.textContent = 'Sent! Check your inbox — and your spam folder just in case.'; btn.textContent = 'Sent'; setTimeout(() => { document.getElementById('reportUnlockOverlay').style.display = 'none'; document.getElementById('reportBody').classList.remove('blurred'); }, 2500); }
+      else { track('report_emailed', { method: 'overlay' }); successEl.textContent = 'Sent! Check your inbox — and your spam folder just in case.'; btn.textContent = 'Sent'; setTimeout(() => { document.getElementById('reportUnlockOverlay').style.display = 'none'; document.getElementById('reportBody').classList.remove('blurred'); }, 2500); }
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
   }
 
@@ -589,7 +591,7 @@ Rules:
       const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'send_email', email, subject: 'Your Clair Beauty Intelligence Report' + (userName ? ', ' + userName : ''), html: buildEmailHTML() }) });
       const data = await response.json();
       if (data.error) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
-      else { successEl.textContent = 'Sent! Check your inbox — and your spam folder just in case.'; btn.textContent = 'Sent'; }
+      else { track('report_emailed', { method: 'standalone' }); successEl.textContent = 'Sent! Check your inbox — and your spam folder just in case.'; btn.textContent = 'Sent'; }
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Send My Report'; btn.disabled = false; }
   }
 
@@ -661,7 +663,7 @@ Rules:
   }
 
   function removeActionButtons() { const btns = document.getElementById('actionButtons'); if (btns) btns.remove(); }
-  function goDeeper() { show('chat'); sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'); }
+  function goDeeper() { track('go_deeper_clicked'); show('chat'); sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'); }
 
   async function startCheckout() {
     const btn = document.getElementById('paywallBtn'); const errorEl = document.getElementById('paywallError');
@@ -762,10 +764,12 @@ Rules:
       if (reply.includes('REPORT_READY')) {
         const clean = reply.replace('REPORT_READY', '').trim();
         addMessage(clean, 'ai'); conversationHistory.push({ role: 'assistant', content: reply }); updateProgress(6);
+        track('deep_analysis_completed');
         setTimeout(() => { show('generating'); startGeneratingAnimation(); generateAndShowReport(); }, 2200);
       } else if (reply.includes('QUICK_WIN_DONE')) {
         const clean = reply.replace('QUICK_WIN_DONE', '').trim();
         quickWinContent = clean; addMessage(clean, 'ai'); conversationHistory.push({ role: 'assistant', content: reply });
+        track('quick_win_completed');
         updateProgress(5); setInputEnabled(false); setTimeout(() => showActionButtons(), 600);
       } else {
         addMessage(reply, 'ai'); conversationHistory.push({ role: 'assistant', content: reply });
@@ -794,6 +798,7 @@ Rules:
       if (error) { errorEl.textContent = error.message; return; }
       if (data.user) {
         currentUserId = data.user.id;
+        track('account_created');
         await supabaseClient.from('profiles').insert({ id: data.user.id, email, name: userName, age_range: userProfile.age_range, budget: userProfile.budget, concern: userProfile.concern, routine: userProfile.routine, quick_win: quickWinContent });
       }
       if (PAYWALL_ACTIVE) { show('paywall'); } else { goDeeper(); }
@@ -813,6 +818,7 @@ Rules:
       document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + ' · ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
       document.getElementById('reportContent').innerHTML = '<div class="section-body">' + html + '</div>';
       renderTeaser(teaser);
+      track('report_generated');
       if (currentUserId) {
         document.getElementById('saveBanner').style.display = 'none';
         document.getElementById('reportUnlockOverlay').style.display = 'none';
