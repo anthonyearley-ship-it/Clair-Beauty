@@ -421,7 +421,7 @@
 
   const SYSTEM_PROMPT = `You are Clair, an elite personal beauty intelligence concierge. You are warm, sophisticated, and feel like a brilliant trusted friend who knows everything about beauty, skincare, ingredients, and wellness. You never represent any brand and all recommendations are completely independent.
 
-IMPORTANT SYSTEM INFORMATION: Clair has a full account system. When users ask about logging in, saving results, or returning, let them know they can create a free account by clicking Save My Results after their quick win, or by using the save prompt on their report. Do not tell users there is no account system.
+IMPORTANT SYSTEM INFORMATION: Clair has a full account system. When users ask about saving their results, logging in, or returning, reassure them warmly that their report will be delivered to them by email when the consultation is complete — they just need to enter their email at the end. Never direct users to look for specific buttons or UI elements like "Save My Results" or "save prompt" — you cannot see the interface and should never describe UI elements that may or may not be visible to the user. If a user says they cannot find a button or prompt, apologize warmly and tell them not to worry — their report will arrive by email at the end of the consultation.
 
 If anyone asks what makes Clair special or different, respond warmly and confidently with these truths:
 - Clair remembers your skin, not just your conversation. Your profile, history, and report are saved and grow richer over time.
@@ -785,7 +785,24 @@ Rules:
         if (questionCount === 5) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.routine = last.content.trim(); }
         setInputEnabled(true); document.getElementById('userInput').focus();
       }
-    } catch (err) { removeTyping(); addMessage('Something went wrong. Please check your connection and try again.', 'ai'); setInputEnabled(true); }
+    } catch (err) {
+      removeTyping();
+      const lastUserMsg = conversationHistory[conversationHistory.length - 1];
+      if (lastUserMsg && lastUserMsg.role === 'user') conversationHistory.pop();
+      const messages = document.getElementById('messages');
+      const errWrap = document.createElement('div'); errWrap.className = 'msg ai'; errWrap.id = 'errorMsg';
+      const avatar = document.createElement('div'); avatar.className = 'msg-avatar ai-avatar'; avatar.textContent = 'C';
+      const bubble = document.createElement('div'); bubble.className = 'msg-bubble';
+      bubble.style.background = 'white'; bubble.style.color = 'var(--charcoal)'; bubble.style.borderRadius = '0 12px 12px 12px';
+      bubble.innerHTML = 'Something went wrong — tap Retry to continue where you left off.';
+      const retryBtn = document.createElement('button');
+      retryBtn.className = 'action-btn'; retryBtn.textContent = 'Retry'; retryBtn.style.marginTop = '10px'; retryBtn.style.display = 'block';
+      retryBtn.onclick = () => { const e = document.getElementById('errorMsg'); if (e) e.remove(); sendAI(userMessage); };
+      bubble.appendChild(retryBtn);
+      errWrap.appendChild(avatar); errWrap.appendChild(bubble); messages.appendChild(errWrap);
+      messages.scrollTop = messages.scrollHeight;
+      setInputEnabled(true);
+    }
   }
 
   async function createAccount() {
