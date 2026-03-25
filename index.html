@@ -565,7 +565,13 @@ Rules:
     if (!email) { errorEl.textContent = 'Please enter your email address.'; return; }
     if (!email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
     btn.textContent = 'Sending...'; btn.disabled = true;
-    try { await supabaseClient.from('leads').insert({ email, name: userName || '', report: reportHTML }); } catch(e) {}
+    try {
+      if (window._pendingLeadId) {
+        await supabaseClient.from('leads').update({ email, name: userName || '' }).eq('id', window._pendingLeadId);
+      } else {
+        await supabaseClient.from('leads').insert({ email, name: userName || '', report: reportHTML });
+      }
+    } catch(e) {}
     try {
       const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'send_email', email, subject: 'Your Clair Beauty Intelligence Report' + (userName ? ', ' + userName : ''), html: buildEmailHTML() }) });
       const data = await response.json();
@@ -586,7 +592,13 @@ Rules:
     if (!email) { errorEl.textContent = 'Please enter your email address.'; return; }
     if (!email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
     const btn = document.querySelector('.email-send-btn'); btn.textContent = 'Sending...'; btn.disabled = true;
-    try { await supabaseClient.from('leads').insert({ email, name: userName || '', report: reportHTML }); } catch(e) {}
+    try {
+      if (window._pendingLeadId) {
+        await supabaseClient.from('leads').update({ email, name: userName || '' }).eq('id', window._pendingLeadId);
+      } else {
+        await supabaseClient.from('leads').insert({ email, name: userName || '', report: reportHTML });
+      }
+    } catch(e) {}
     try {
       const response = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type: 'send_email', email, subject: 'Your Clair Beauty Intelligence Report' + (userName ? ', ' + userName : ''), html: buildEmailHTML() }) });
       const data = await response.json();
@@ -836,6 +848,8 @@ Rules:
       document.getElementById('reportContent').innerHTML = '<div class="section-body">' + html + '</div>';
       renderTeaser(teaser);
       track('report_generated');
+      const pendingEmail = 'pending_' + Date.now() + '@clair';
+      try { const { data: leadRow } = await supabaseClient.from('leads').insert({ email: pendingEmail, name: userName || '', report: html }).select().single(); if (leadRow) window._pendingLeadId = leadRow.id; } catch(e) {}
       if (currentUserId) {
         document.getElementById('saveBanner').style.display = 'none';
         document.getElementById('reportUnlockOverlay').style.display = 'none';
