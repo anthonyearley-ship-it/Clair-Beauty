@@ -184,14 +184,22 @@
   .section-body h3 { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 4.5vw, 20px); font-weight: 400; margin: 18px 0 8px; color: var(--charcoal); }
   .section-body a { color: #C9A96E; text-decoration: underline; }
   .section-body a:hover { color: #2D2520; }
-  .report-footer { text-align: center; padding: 24px 0 8px; border-top: 1px solid var(--border); margin-top: 16px; }
-  .report-footer-text { font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); letter-spacing: 0.05em; line-height: 1.7; max-width: 560px; margin: 0 auto; }
-  .affiliate-note { font-size: 9px; color: var(--muted); text-align: center; margin-top: 12px; opacity: 0.7; }
-  .report-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
-  .restart-btn { padding: 12px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
-  .restart-btn:active { border-color: var(--gold); color: var(--gold); }
-  .email-report-btn { padding: 12px 32px; background: var(--deep); border: 1px solid var(--deep); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
-  .email-report-btn:hover, .email-report-btn:active { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+
+  /* SAVE BANNER */
+  .save-banner { background: var(--deep); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .save-banner-text { flex: 1; min-width: 200px; }
+  .save-banner-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 300; color: var(--gold); margin-bottom: 3px; }
+  .save-banner-sub { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .save-banner-inputs { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .save-banner-input { padding: 9px 12px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 14px; outline: none; border-radius: 0; -webkit-appearance: none; width: 160px; }
+  .save-banner-input:focus { border-color: var(--gold); }
+  .save-banner-input::placeholder { color: var(--muted); font-size: 12px; }
+  .save-banner-btn { padding: 9px 18px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; white-space: nowrap; -webkit-appearance: none; border-radius: 0; }
+  .save-banner-btn:active { background: var(--gold-light); }
+  .save-banner-dismiss { font-size: 10px; color: var(--muted); cursor: pointer; text-decoration: underline; white-space: nowrap; }
+  .save-banner-dismiss:hover { color: var(--gold); }
+  .save-banner-error { font-size: 11px; color: #e07070; width: 100%; margin-top: 4px; }
+  .save-banner-success { font-size: 11px; color: #7CB987; width: 100%; margin-top: 4px; }
 
   /* TEASER */
   .teaser-section { margin-top: 32px; padding: 28px 24px; background: var(--deep); border-radius: 2px; text-align: center; }
@@ -203,6 +211,16 @@
   .teaser-item-text { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.6; }
   .teaser-btn { display: inline-block; padding: 12px 32px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
   .teaser-btn:hover, .teaser-btn:active { background: var(--gold); color: var(--deep); }
+
+  /* REPORT FOOTER */
+  .report-footer { text-align: center; padding: 24px 0 8px; border-top: 1px solid var(--border); margin-top: 16px; }
+  .report-footer-text { font-size: clamp(9px, 2.2vw, 10px); color: var(--muted); letter-spacing: 0.05em; line-height: 1.7; max-width: 560px; margin: 0 auto; }
+  .affiliate-note { font-size: 9px; color: var(--muted); text-align: center; margin-top: 12px; opacity: 0.7; }
+  .report-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+  .restart-btn { padding: 12px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .restart-btn:active { border-color: var(--gold); color: var(--gold); }
+  .email-report-btn { padding: 12px 32px; background: var(--deep); border: 1px solid var(--deep); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .email-report-btn:hover, .email-report-btn:active { background: var(--gold); color: var(--deep); border-color: var(--gold); }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
@@ -374,6 +392,21 @@
   </div>
   <div class="report-body">
     <div class="report-inner">
+      <!-- SAVE BANNER — shown only to non-logged-in users -->
+      <div class="save-banner" id="saveBanner">
+        <div class="save-banner-text">
+          <div class="save-banner-title">Save your report</div>
+          <div class="save-banner-sub">Create a free account to access this report anytime and continue your skin journey.</div>
+        </div>
+        <div class="save-banner-inputs">
+          <input class="save-banner-input" id="bannerEmail" type="email" placeholder="Email address" autocomplete="email" />
+          <input class="save-banner-input" id="bannerPassword" type="password" placeholder="Password" autocomplete="new-password" />
+          <button class="save-banner-btn" onclick="createAccountFromBanner()">Save</button>
+          <span class="save-banner-dismiss" onclick="dismissBanner()">Not now</span>
+        </div>
+        <div class="save-banner-error" id="bannerError"></div>
+        <div class="save-banner-success" id="bannerSuccess"></div>
+      </div>
       <div class="report-hero">
         <div class="report-hero-eyebrow">Your Personal Report</div>
         <div class="report-hero-title" id="reportTitle"></div>
@@ -409,7 +442,7 @@
 
   const SYSTEM_PROMPT = `You are Clair, an elite personal beauty intelligence concierge. You are warm, sophisticated, and feel like a brilliant trusted friend who knows everything about beauty, skincare, ingredients, and wellness. You never represent any brand and all recommendations are completely independent.
 
-IMPORTANT SYSTEM INFORMATION: Clair has a full account system. When users ask about logging in, saving results, or returning, let them know they can create a free account by clicking Save My Results after their quick win. Do not tell users there is no account system.
+IMPORTANT SYSTEM INFORMATION: Clair has a full account system. When users ask about logging in, saving results, or returning, let them know they can create a free account by clicking Save My Results after their quick win, or by using the save prompt on their report. Do not tell users there is no account system.
 
 If anyone asks what makes Clair special or different, respond warmly and confidently with these truths:
 - Clair remembers your skin, not just your conversation. Your profile, history, and report are saved and grow richer over time.
@@ -487,7 +520,7 @@ Format your response as JSON only, no other text:
   "title": "A short evocative sentence about there being more to discover",
   "items": [
     "First unfinished thread — specific, intriguing, personal to her",
-    "Second unfinished thread — specific, intriguing, personal to her", 
+    "Second unfinished thread — specific, intriguing, personal to her",
     "Third unfinished thread — specific, intriguing, personal to her"
   ]
 }
@@ -568,6 +601,38 @@ Rules:
     setTimeout(() => sendAI('Begin the consultation.'), 400);
   }
 
+  function dismissBanner() {
+    const banner = document.getElementById('saveBanner');
+    if (banner) banner.style.display = 'none';
+  }
+
+  async function createAccountFromBanner() {
+    const email = document.getElementById('bannerEmail').value.trim();
+    const password = document.getElementById('bannerPassword').value.trim();
+    const errorEl = document.getElementById('bannerError');
+    const successEl = document.getElementById('bannerSuccess');
+    errorEl.textContent = '';
+    successEl.textContent = '';
+    if (!email || !password) { errorEl.textContent = 'Please enter your email and a password.'; return; }
+    if (password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
+    try {
+      const { data, error } = await supabaseClient.auth.signUp({ email, password });
+      if (error) { errorEl.textContent = error.message; return; }
+      if (data.user) {
+        currentUserId = data.user.id;
+        await supabaseClient.from('profiles').insert({
+          id: data.user.id, email, name: userName,
+          age_range: userProfile.age_range, budget: userProfile.budget,
+          concern: userProfile.concern, routine: userProfile.routine,
+          quick_win: quickWinContent
+        });
+        await saveReportToSupabase(reportHTML);
+      }
+      successEl.textContent = 'Account created! Your report is saved.';
+      setTimeout(() => dismissBanner(), 2000);
+    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; }
+  }
+
   function continueWithClair() {
     conversationHistory = [];
     questionCount = 0;
@@ -606,7 +671,12 @@ Rules:
     document.getElementById('emailError').textContent = '';
     document.getElementById('emailSuccess').textContent = '';
     document.getElementById('paywallError').textContent = '';
+    document.getElementById('bannerEmail').value = '';
+    document.getElementById('bannerPassword').value = '';
+    document.getElementById('bannerError').textContent = '';
+    document.getElementById('bannerSuccess').textContent = '';
     document.getElementById('teaserSection').style.display = 'none';
+    document.getElementById('saveBanner').style.display = 'flex';
     updateProgress(0);
     show('welcome');
   }
@@ -748,9 +818,7 @@ Rules:
       const text = data.content[0].text.trim();
       const clean = text.replace(/```json|```/g, '').trim();
       return JSON.parse(clean);
-    } catch(e) {
-      return null;
-    }
+    } catch(e) { return null; }
   }
 
   function renderTeaser(data) {
@@ -772,13 +840,7 @@ Rules:
   function buildTeaserEmailHTML(data) {
     if (!data) return '';
     const items = (data.items || []).map((item, i) => `<p style="margin:0 0 10px;font-size:13px;color:#8A7E74;line-height:1.6;"><span style="color:#C9A96E;font-family:Georgia,serif;font-style:italic;">${i+1}.</span> ${item}</p>`).join('');
-    return `
-      <div style="margin-top:32px;padding:28px;background:#1A1410;text-align:center;">
-        <p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin:0 0 12px;">What We Didn't Get To</p>
-        <h3 style="font-family:Georgia,serif;font-size:20px;font-weight:300;color:#FAF7F2;margin:0 0 20px;line-height:1.3;">${data.title || 'There\'s more to your skin story.'}</h3>
-        <div style="text-align:left;margin-bottom:20px;">${items}</div>
-        <a href="https://clair-beauty.vercel.app" style="display:inline-block;padding:12px 28px;border:1px solid #C9A96E;color:#C9A96E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;">Continue with Clair →</a>
-      </div>`;
+    return `<div style="margin-top:32px;padding:28px;background:#1A1410;text-align:center;"><p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin:0 0 12px;">What We Didn't Get To</p><h3 style="font-family:Georgia,serif;font-size:20px;font-weight:300;color:#FAF7F2;margin:0 0 20px;line-height:1.3;">${data.title || 'There\'s more to your skin story.'}</h3><div style="text-align:left;margin-bottom:20px;">${items}</div><a href="https://clair-beauty.vercel.app" style="display:inline-block;padding:12px 28px;border:1px solid #C9A96E;color:#C9A96E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;">Continue with Clair →</a></div>`;
   }
 
   async function saveReportToSupabase(html) {
@@ -807,6 +869,7 @@ Rules:
           document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
           document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + (profile.report_date ? ' · ' + new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '');
           document.getElementById('reportContent').innerHTML = '<div class="section-body">' + profile.report + '</div>';
+          document.getElementById('saveBanner').style.display = 'none';
           show('report');
         } else {
           show('chat');
@@ -916,7 +979,10 @@ Rules:
       document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + ' · ' + new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
       document.getElementById('reportContent').innerHTML = '<div class="section-body">' + html + '</div>';
       renderTeaser(teaser);
-      await saveReportToSupabase(html);
+      if (currentUserId) {
+        document.getElementById('saveBanner').style.display = 'none';
+        await saveReportToSupabase(html);
+      }
       show('report');
     } catch (err) {
       stopGeneratingAnimation();
