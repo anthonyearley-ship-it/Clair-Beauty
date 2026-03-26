@@ -19,30 +19,62 @@
   .screen { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.8s ease, transform 0.8s ease; padding: 20px; }
   .screen.hidden { opacity: 0; pointer-events: none; transform: translateY(16px); }
 
-  #welcome { background: var(--deep); text-align: center; overflow-y: auto; justify-content: flex-start; padding-top: 48px; padding-bottom: 48px; }
-  .welcome-glow { position: fixed; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(201,169,110,0.07) 0%, transparent 70%); pointer-events: none; }
-  .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 14vw, 80px); font-weight: 300; letter-spacing: 0.18em; color: var(--gold); animation: fadeUp 1.2s ease forwards; opacity: 0; position: relative; }
-  .logo-tag { font-size: clamp(11px, 3vw, 13px); letter-spacing: 0.45em; color: var(--muted); text-transform: uppercase; margin-top: 6px; animation: fadeUp 1.2s 0.3s ease forwards; opacity: 0; position: relative; }
-  .divider { width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--gold), transparent); margin: 28px auto; animation: fadeUp 1.2s 0.6s ease forwards; opacity: 0; position: relative; }
-  .welcome-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 6vw, 36px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 500px; line-height: 1.55; animation: fadeUp 1.2s 0.9s ease forwards; opacity: 0; position: relative; padding: 0 16px; }
-  .welcome-explainer { font-size: clamp(14px, 3.5vw, 15px); color: var(--muted); margin-top: 16px; max-width: 440px; line-height: 1.8; animation: fadeUp 1.2s 1.0s ease forwards; opacity: 0; position: relative; padding: 0 16px; }
-  .welcome-differentiators { display: flex; flex-direction: column; gap: 14px; margin-top: 28px; max-width: 420px; width: 100%; animation: fadeUp 1.2s 1.1s ease forwards; opacity: 0; position: relative; padding: 0 8px; }
-  .diff-item { display: flex; align-items: flex-start; gap: 14px; text-align: left; padding: 14px 16px; border: 1px solid var(--border); background: rgba(201,169,110,0.03); }
-  .diff-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 8px; }
-  .diff-text { font-size: clamp(13px, 3.5vw, 14px); color: var(--muted); line-height: 1.7; }
-  .diff-text strong { color: var(--cream); font-weight: 400; display: block; margin-bottom: 2px; font-size: clamp(14px, 3.8vw, 15px); }
-  .welcome-flow { display: flex; align-items: center; gap: 12px; margin-top: 28px; animation: fadeUp 1.2s 1.2s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
-  .flow-step { text-align: center; padding: 12px 16px; border: 1px solid var(--border); min-width: 90px; }
-  .flow-step-num { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-  .flow-step-label { font-size: clamp(13px, 3.5vw, 14px); color: var(--cream); letter-spacing: 0.05em; font-weight: 400; }
-  .flow-step-sub { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); margin-top: 4px; }
-  .flow-arrow { color: var(--gold); opacity: 0.4; font-size: 18px; }
-  .welcome-btns { display: flex; gap: 12px; margin-top: 28px; animation: fadeUp 1.2s 1.4s ease forwards; opacity: 0; position: relative; flex-wrap: wrap; justify-content: center; }
-  .begin-btn { padding: 16px 48px; background: transparent; border: 1px solid var(--gold); color: var(--gold); font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
-  .begin-btn:hover, .begin-btn:active { background: var(--gold); color: var(--deep); }
-  .signin-btn { padding: 16px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; }
-  .signin-btn:hover, .signin-btn:active { border-color: var(--gold); color: var(--gold); }
-  .disclaimer { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); opacity: 0.6; max-width: 90vw; text-align: center; line-height: 1.7; animation: fadeUp 1.2s 1.6s ease forwards; opacity: 0; width: 100%; padding: 0 20px; margin-top: 24px; position: relative; }
+  /* ── WELCOME — luxury redesign ── */
+  #welcome { background: var(--deep); text-align: center; overflow-y: auto; overflow-x: hidden; justify-content: flex-start; padding: 0; }
+  .welcome-glow { position: fixed; inset: 0; background: radial-gradient(ellipse at 50% 20%, rgba(201,169,110,0.09) 0%, transparent 65%); pointer-events: none; z-index: 0; }
+  .welcome-noise { position: fixed; inset: 0; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
+
+  /* Hero section */
+  .w-hero { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; padding: clamp(48px, 12vw, 80px) 24px clamp(40px, 10vw, 64px); border-bottom: 1px solid var(--border); width: 100%; }
+  .w-eyebrow { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.55em; color: var(--gold); text-transform: uppercase; animation: fadeUp 1s ease forwards; opacity: 0; margin-bottom: 20px; }
+  .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(64px, 18vw, 100px); font-weight: 300; letter-spacing: 0.12em; color: var(--gold); animation: fadeUp 1.2s 0.1s ease forwards; opacity: 0; position: relative; line-height: 1; margin-bottom: 4px; }
+  .logo-tag { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.55em; color: var(--muted); text-transform: uppercase; animation: fadeUp 1.2s 0.3s ease forwards; opacity: 0; position: relative; margin-bottom: clamp(28px, 7vw, 44px); }
+  .w-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 7vw, 48px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 560px; line-height: 1.4; animation: fadeUp 1.2s 0.5s ease forwards; opacity: 0; position: relative; padding: 0 8px; }
+  .w-headline em { color: var(--gold); font-style: normal; }
+  .w-subhead { font-size: clamp(14px, 3.5vw, 16px); color: var(--muted); margin-top: 18px; max-width: 400px; line-height: 1.8; animation: fadeUp 1.2s 0.7s ease forwards; opacity: 0; position: relative; padding: 0 8px; }
+
+  /* CTA block */
+  .w-cta-block { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: clamp(28px, 7vw, 40px); animation: fadeUp 1.2s 0.9s ease forwards; opacity: 0; position: relative; width: 100%; max-width: 320px; }
+  .begin-btn { width: 100%; padding: 18px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.4em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; font-weight: 500; }
+  .begin-btn:hover, .begin-btn:active { background: var(--gold-light); }
+  .w-social-proof { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
+  .w-proof-names { display: flex; align-items: center; gap: 6px; }
+  .w-proof-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--charcoal); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 11px; color: var(--gold); font-style: italic; margin-left: -6px; }
+  .w-proof-avatar:first-child { margin-left: 0; }
+  .w-proof-text { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.04em; }
+  .w-proof-text strong { color: var(--cream); font-weight: 400; }
+  .signin-link { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: none; background: none; transition: color 0.3s; margin-top: 4px; }
+  .signin-link:hover { color: var(--gold); }
+
+  /* Before / After promise */
+  .w-promise { position: relative; z-index: 1; width: 100%; padding: clamp(36px, 9vw, 56px) 24px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+  .w-promise-label { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; }
+  .w-promise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 560px; width: 100%; border: 1px solid var(--border); }
+  .w-promise-col { padding: clamp(20px, 5vw, 32px) clamp(16px, 4vw, 28px); text-align: left; }
+  .w-promise-col.before { border-right: 1px solid var(--border); }
+  .w-promise-col-label { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; margin-bottom: 14px; }
+  .w-promise-col.before .w-promise-col-label { color: var(--muted); }
+  .w-promise-col.after .w-promise-col-label { color: var(--gold); }
+  .w-promise-item { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.75; margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+  .w-promise-col.after .w-promise-item { color: var(--cream); }
+  .w-promise-marker { flex-shrink: 0; margin-top: 5px; font-size: 10px; }
+  .w-promise-col.before .w-promise-marker { color: var(--muted); opacity: 0.4; }
+  .w-promise-col.after .w-promise-marker { color: var(--gold); }
+
+  /* Differentiators — editorial style */
+  .w-diff { position: relative; z-index: 1; width: 100%; padding: clamp(36px, 9vw, 56px) 24px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+  .w-diff-label { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; }
+  .w-diff-items { display: flex; flex-direction: column; gap: 0; max-width: 560px; width: 100%; }
+  .w-diff-item { display: flex; align-items: flex-start; gap: 20px; padding: clamp(16px, 4vw, 22px) 0; border-bottom: 1px solid var(--border); text-align: left; }
+  .w-diff-item:last-child { border-bottom: none; }
+  .w-diff-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 7vw, 36px); font-weight: 300; color: var(--gold); opacity: 0.3; line-height: 1; flex-shrink: 0; width: 36px; }
+  .w-diff-content { flex: 1; }
+  .w-diff-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 4.5vw, 20px); font-weight: 400; color: var(--cream); margin-bottom: 6px; font-style: italic; }
+  .w-diff-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.75; }
+
+  /* Footer strip */
+  .w-footer { position: relative; z-index: 1; width: 100%; padding: clamp(24px, 6vw, 36px) 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .disclaimer { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); opacity: 0.5; max-width: 90vw; text-align: center; line-height: 1.7; width: 100%; }
 
   #chat { background: var(--warm-white); flex-direction: column; padding: 0; overflow: hidden; }
   .chat-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: rgba(253,249,244,0.97); backdrop-filter: blur(10px); flex-shrink: 0; }
@@ -220,29 +252,92 @@
 <!-- WELCOME -->
 <div class="screen" id="welcome">
   <div class="welcome-glow"></div>
-  <div class="logo">Clair</div>
-  <div class="logo-tag">Beauty Intelligence</div>
-  <div class="divider"></div>
-  <div class="welcome-headline">The most personalized beauty intelligence you've ever had.</div>
-  <div class="welcome-explainer">Clair is a beauty concierge built entirely around you — your skin, your life, your budget. No brand allegiances. No sponsored answers. Ever.</div>
-  <div class="welcome-differentiators">
-    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She remembers your skin</strong>Your profile, history, and report are saved and grow over time.</div></div>
-    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She asks what you don't know to ask</strong>Guiding you through a clinical framework you'd never navigate alone.</div></div>
-    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She produces a deliverable</strong>A complete Beauty Intelligence Report you keep, reference, and build on.</div></div>
-    <div class="diff-item"><div class="diff-dot"></div><div class="diff-text"><strong>She's built for you specifically</strong>Every recommendation tuned for women 35 and beyond.</div></div>
+  <div class="welcome-noise"></div>
+
+  <!-- HERO -->
+  <div class="w-hero">
+    <div class="w-eyebrow">Personal Beauty Intelligence</div>
+    <div class="logo">Clair</div>
+    <div class="logo-tag">By Invitation of Your Skin</div>
+    <div class="w-headline">Finally — someone who looks at <em>you</em> and tells you exactly what will work.</div>
+    <div class="w-subhead">Not an algorithm. Not a quiz. A complete intelligence consultation — your skin, your life, your report.</div>
+    <div class="w-cta-block">
+      <button class="begin-btn" onclick="startChat()">Begin My Consultation</button>
+      <div class="w-social-proof">
+        <div class="w-proof-names">
+          <div class="w-proof-avatar">S</div>
+          <div class="w-proof-avatar">M</div>
+          <div class="w-proof-avatar">A</div>
+          <div class="w-proof-avatar">B</div>
+          <div class="w-proof-avatar">C</div>
+        </div>
+        <div class="w-proof-text"><strong>Women just like you</strong> have received their report</div>
+      </div>
+      <button class="signin-link" onclick="show('signin')">Already have an account — Sign In</button>
+    </div>
   </div>
-  <div class="welcome-flow">
-    <div class="flow-step"><div class="flow-step-num">Step 1</div><div class="flow-step-label">Quick Win</div><div class="flow-step-sub">5 questions · 2 min</div></div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step"><div class="flow-step-num">Step 2</div><div class="flow-step-label">Deep Analysis</div><div class="flow-step-sub">7 more · 10 min</div></div>
-    <div class="flow-arrow">→</div>
-    <div class="flow-step"><div class="flow-step-num">Result</div><div class="flow-step-label">Full Report</div><div class="flow-step-sub">Yours to keep</div></div>
+
+  <!-- BEFORE / AFTER PROMISE -->
+  <div class="w-promise">
+    <div class="w-promise-label">The Transformation</div>
+    <div class="w-promise-grid">
+      <div class="w-promise-col before">
+        <div class="w-promise-col-label">Before Clair</div>
+        <div class="w-promise-item"><span class="w-promise-marker">—</span>Spending money on products that don't work for your skin</div>
+        <div class="w-promise-item"><span class="w-promise-marker">—</span>Generic advice that ignores your age, climate, and life</div>
+        <div class="w-promise-item"><span class="w-promise-marker">—</span>No idea which ingredients are helping or hurting</div>
+        <div class="w-promise-item"><span class="w-promise-marker">—</span>Guessing what to do next</div>
+      </div>
+      <div class="w-promise-col after">
+        <div class="w-promise-col-label">After Clair</div>
+        <div class="w-promise-item"><span class="w-promise-marker">✦</span>A complete skin profile built entirely around you</div>
+        <div class="w-promise-item"><span class="w-promise-marker">✦</span>Product recommendations matched to your exact budget</div>
+        <div class="w-promise-item"><span class="w-promise-marker">✦</span>Your personal ingredient guide — seek and avoid</div>
+        <div class="w-promise-item"><span class="w-promise-marker">✦</span>A 90-day plan that actually fits your life</div>
+      </div>
+    </div>
   </div>
-  <div class="welcome-btns">
-    <button class="begin-btn" onclick="startChat()">Begin</button>
-    <button class="signin-btn" onclick="show('signin')">Sign In</button>
+
+  <!-- DIFFERENTIATORS — editorial -->
+  <div class="w-diff">
+    <div class="w-diff-label">Why Clair Is Different</div>
+    <div class="w-diff-items">
+      <div class="w-diff-item">
+        <div class="w-diff-num">I</div>
+        <div class="w-diff-content">
+          <div class="w-diff-title">She has no allegiances</div>
+          <div class="w-diff-body">No brand partnerships. No sponsored answers. Ever. Clair's only obligation is to you — which is why her recommendations can be trusted completely.</div>
+        </div>
+      </div>
+      <div class="w-diff-item">
+        <div class="w-diff-num">II</div>
+        <div class="w-diff-content">
+          <div class="w-diff-title">She asks what you don't know to ask</div>
+          <div class="w-diff-body">Sleep. Stress. Climate. Hormones. Medication. The things that shape your skin that no beauty brand ever considers — Clair does.</div>
+        </div>
+      </div>
+      <div class="w-diff-item">
+        <div class="w-diff-num">III</div>
+        <div class="w-diff-content">
+          <div class="w-diff-title">She gives you something to keep</div>
+          <div class="w-diff-body">Not a quiz result. A complete Beauty Intelligence Report — emailed to you, yours forever, built to be referenced and built upon over time.</div>
+        </div>
+      </div>
+      <div class="w-diff-item">
+        <div class="w-diff-num">IV</div>
+        <div class="w-diff-content">
+          <div class="w-diff-title">She was made for this stage of life</div>
+          <div class="w-diff-body">Every question, every recommendation, every insight is tuned for women 35 and beyond — because your skin at this stage deserves intelligence, not guesswork.</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="disclaimer">Clair is for cosmetic guidance only — not medical advice. No brand partnerships. No sponsored recommendations.</div>
+
+  <!-- FOOTER -->
+  <div class="w-footer">
+    <button class="begin-btn" style="max-width:320px;width:100%;" onclick="startChat()">Begin My Consultation</button>
+    <div class="disclaimer">Clair is for cosmetic guidance only — not medical advice. No brand partnerships. No sponsored recommendations.</div>
+  </div>
 </div>
 
 <!-- CHAT -->
