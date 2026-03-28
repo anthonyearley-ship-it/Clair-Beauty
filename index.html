@@ -808,6 +808,7 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
         userName = email.split('@')[0];
         track('account_created');
         await supabaseClient.from('profiles').insert({ id: data.user.id, email, name: userName });
+        try { await supabaseClient.from('leads').insert({ email, name: userName }); } catch(e) {}
       }
       hidePhotoSignup();
       // Take them straight to chat with photo upload ready
@@ -857,6 +858,7 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
         userName = '';
         track('account_created');
         await supabaseClient.from('profiles').insert({ id: data.user.id, email, name: '' });
+        try { await supabaseClient.from('leads').insert({ email, name: '' }); } catch(e) {}
       }
       hideAccountGate();
       startChat();
@@ -1150,8 +1152,16 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
         questionCount++;
         updateProgress(Math.min(questionCount, 4));
         if (questionCount === 1) {
-          const first = conversationHistory.find(m => m.role === 'user' && m.content !== 'Begin the consultation.');
-          if (first) { const w = first.content.trim().split(' '); if (w.length <= 3) { userName = w[0]; userProfile.name = userName; } }
+          const first = conversationHistory.find(m => m.role === 'user' && m.content !== 'Begin the consultation.' && m.content !== 'Begin the quick win assessment.');
+          if (first) {
+            const w = typeof first.content === 'string' ? first.content.trim().split(' ') : [];
+            if (w.length <= 3) {
+              userName = w[0]; userProfile.name = userName;
+              // Update name in both tables
+              if (currentUserId) { try { await supabaseClient.from('profiles').update({ name: userName }).eq('id', currentUserId); } catch(e) {} }
+              try { const { data: { user } } = await supabaseClient.auth.getUser(); if (user) await supabaseClient.from('leads').update({ name: userName }).eq('email', user.email); } catch(e) {}
+            }
+          }
         }
         if (questionCount === 2) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.age_range = last.content.trim(); }
         if (questionCount === 3) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.budget = last.content.trim(); }
