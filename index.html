@@ -307,6 +307,7 @@
     <div class="w-headline">Finally — someone who looks at <em>you</em> and tells you exactly what will work.</div>
     <div class="w-subhead">Not an algorithm. Not a quiz. A complete intelligence consultation — your skin, your life, your report.</div>
     <div class="w-cta-block">
+      <button class="begin-btn" onclick="startChat()">Begin My Consultation</button>
       <div class="w-social-proof">
         <div class="w-proof-names">
           <div class="w-proof-avatar">S</div>
@@ -317,14 +318,14 @@
         </div>
         <div class="w-proof-text"><strong>Women just like you</strong> have received their report</div>
       </div>
-      <button class="signin-link" onclick="show('signin')" style="display:none;">Already have an account — Sign In</button>
+      <button class="signin-link" onclick="show('signin')">Already have an account — Sign In</button>
     </div>
   </div>
 
   <!-- DIFFERENTIATORS — editorial -->
   <!-- FOOTER -->
   <div class="w-footer">
-    <button class="begin-btn" style="max-width:320px;width:100%;" onclick="startChat()">Begin My Consultation</button>
+    <button class="begin-btn" style="max-width:320px;width:100%;display:none;" class="desktop-only" onclick="startChat()">Begin My Consultation</button>
     <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="show('signin')">Sign In</button>
     <button class="why-clair-link" onclick="showWhyClair()" style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;border:none;background:none;transition:color 0.3s;margin-top:4px;">Why Clair? →</button>
     <div class="disclaimer">Clair is for cosmetic guidance only — not medical advice. No brand partnerships. No sponsored recommendations.</div>
