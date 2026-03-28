@@ -272,7 +272,23 @@
   .why-clair-item-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.75; }
   .why-clair-btn-wrap { padding: 24px; display: flex; justify-content: center; flex-shrink: 0; }
 
-  /* PWA INSTALL PROMPT — tiny top banner */
+  /* PHOTO SIGNUP OVERLAY */
+  .photo-signup-overlay { position: fixed; inset: 0; background: rgba(26,20,16,0.92); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+  .photo-signup-overlay.visible { opacity: 1; pointer-events: all; }
+  .photo-signup-box { background: var(--deep); border: 1px solid var(--border); padding: 36px 28px; max-width: 400px; width: 100%; text-align: center; border-radius: 2px; }
+  .photo-signup-icon { font-size: 36px; margin-bottom: 16px; }
+  .photo-signup-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 5.5vw, 28px); font-weight: 300; color: var(--gold); margin-bottom: 10px; line-height: 1.3; }
+  .photo-signup-sub { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+  .photo-signup-input { width: 100%; padding: 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .photo-signup-input:focus { border-color: var(--gold); }
+  .photo-signup-input::placeholder { color: var(--muted); }
+  .photo-signup-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; -webkit-appearance: none; border-radius: 0; font-weight: 500; margin-top: 4px; }
+  .photo-signup-btn:active { background: var(--gold-light); }
+  .photo-signup-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 16px; }
+  .photo-signup-dismiss { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); margin-top: 14px; cursor: pointer; letter-spacing: 0.1em; text-decoration: underline; display: block; background: none; border: none; width: 100%; }
+  .photo-signup-dismiss:hover { color: var(--gold); }
+  .landing-photo-btn { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; width: 100%; justify-content: center; border-radius: 0; }
+  .landing-photo-btn:hover, .landing-photo-btn:active { border-color: var(--gold); color: var(--gold); }
   .install-prompt { position: fixed; top: 0; left: 0; right: 0; background: var(--charcoal); border-bottom: 1px solid var(--border); padding: 8px 16px; display: flex; align-items: center; gap: 10px; z-index: 1000; transform: translateY(-100%); transition: transform 0.4s ease; }
   .install-prompt.visible { transform: translateY(0); }
   .install-prompt-icon { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--gold); flex-shrink: 0; font-weight: 300; }
@@ -315,6 +331,7 @@
     <div class="w-subhead">Not an algorithm. Not a quiz. A complete intelligence consultation — your skin, your life, your report.</div>
     <div class="w-cta-block">
       <button class="begin-btn" onclick="startChat()">Begin My Consultation</button>
+      <button class="landing-photo-btn" onclick="showPhotoSignup()">📷 &nbsp;Analyze a Product</button>
       <div class="w-social-proof">
         <div class="w-proof-names">
           <div class="w-proof-avatar">S</div>
@@ -336,6 +353,20 @@
     <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="show('signin')">Sign In</button>
     <button class="why-clair-link" onclick="showWhyClair()" style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;border:none;background:none;transition:color 0.3s;margin-top:4px;">Why Clair? →</button>
     <div class="disclaimer">Clair is for cosmetic guidance only — not medical advice. No brand partnerships. No sponsored recommendations.</div>
+  </div>
+</div>
+
+<!-- PHOTO SIGNUP OVERLAY -->
+<div class="photo-signup-overlay" id="photoSignupOverlay">
+  <div class="photo-signup-box">
+    <div class="photo-signup-icon">📷</div>
+    <div class="photo-signup-title">Analyze Any Product — Free</div>
+    <div class="photo-signup-sub">Create your free Clair account and she'll tell you exactly whether a product is right for your skin — ingredients, concerns, sensitivities, and all.</div>
+    <input class="photo-signup-input" id="photoSignupEmail" type="email" placeholder="Your email address" autocomplete="email" />
+    <input class="photo-signup-input" id="photoSignupPassword" type="password" placeholder="Create a password (6+ characters)" autocomplete="new-password" />
+    <div class="photo-signup-error" id="photoSignupError"></div>
+    <button class="photo-signup-btn" onclick="createAccountFromPhotoPrompt()">Create My Free Account</button>
+    <button class="photo-signup-dismiss" onclick="hidePhotoSignup()">I'll start with a consultation instead</button>
   </div>
 </div>
 
@@ -714,6 +745,39 @@ Rules:
     ['step1','step2','step3','step4','step5'].forEach(s => { const el = document.getElementById(s); if (el) el.classList.add('done'); });
     const statusEl = document.getElementById('genStatus');
     if (statusEl) { statusEl.classList.add('fade'); setTimeout(() => { statusEl.textContent = 'Your report is ready.'; statusEl.classList.remove('fade'); }, 600); }
+  }
+
+  function showPhotoSignup() { document.getElementById('photoSignupOverlay').classList.add('visible'); setTimeout(() => document.getElementById('photoSignupEmail').focus(), 400); }
+  function hidePhotoSignup() { document.getElementById('photoSignupOverlay').classList.remove('visible'); }
+
+  async function createAccountFromPhotoPrompt() {
+    const email = document.getElementById('photoSignupEmail').value.trim();
+    const password = document.getElementById('photoSignupPassword').value.trim();
+    const errorEl = document.getElementById('photoSignupError');
+    errorEl.textContent = '';
+    if (!email || !email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
+    if (!password || password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
+    const btn = document.querySelector('.photo-signup-btn');
+    btn.textContent = 'Creating account...'; btn.disabled = true;
+    try {
+      const { data, error } = await supabaseClient.auth.signUp({ email, password });
+      if (error) { errorEl.textContent = error.message; btn.textContent = 'Create My Free Account'; btn.disabled = false; return; }
+      if (data.user) {
+        currentUserId = data.user.id;
+        userName = email.split('@')[0];
+        track('account_created');
+        await supabaseClient.from('profiles').insert({ id: data.user.id, email, name: userName });
+      }
+      hidePhotoSignup();
+      // Take them straight to chat with photo upload ready
+      show('chat');
+      document.getElementById('messages').innerHTML = '';
+      const welcomeMsg = 'Welcome! Your account is all set. You can now upload a photo of any product and I\'ll tell you exactly what I think of it for your skin. You can also tap Begin My Consultation at any time to get your full personalized Beauty Intelligence Report.\n\nGo ahead — what product would you like me to look at?';
+      addMessage(welcomeMsg, 'ai');
+      conversationHistory.push({ role: 'assistant', content: welcomeMsg });
+      setInputEnabled(true);
+      document.getElementById('userInput').focus();
+    } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Create My Free Account'; btn.disabled = false; }
   }
 
   function showWhyClair() { document.getElementById('whyClairOverlay').classList.add('visible'); }
