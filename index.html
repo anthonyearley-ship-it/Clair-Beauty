@@ -31,7 +31,7 @@
   .welcome-noise { position: fixed; inset: 0; opacity: 0.025; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; }
 
   /* Hero section */
-  .w-hero { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; padding: clamp(48px, 12vw, 80px) 24px clamp(40px, 10vw, 64px); border-bottom: 1px solid var(--border); width: 100%; min-height: 100vh; min-height: 100dvh; }
+  .w-hero { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; padding: clamp(48px, 12vw, 80px) 24px clamp(40px, 10vw, 64px); width: 100%; }
   .w-eyebrow { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.55em; color: var(--gold); text-transform: uppercase; animation: fadeUp 1s ease forwards; margin-bottom: 20px; }
   .logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(64px, 18vw, 100px); font-weight: 300; letter-spacing: 0.12em; color: var(--gold); animation: fadeUp 1.2s 0.1s ease forwards; position: relative; line-height: 1; margin-bottom: 4px; }
   .logo-tag { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.55em; color: var(--muted); text-transform: uppercase; animation: fadeUp 1.2s 0.3s ease forwards; position: relative; margin-bottom: clamp(28px, 7vw, 44px); }
@@ -79,7 +79,7 @@
   .w-diff-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.75; }
 
   /* Footer strip */
-  .w-footer { position: relative; z-index: 1; width: 100%; padding: clamp(24px, 6vw, 36px) 24px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .w-footer { position: relative; z-index: 1; width: 100%; padding: clamp(32px, 8vw, 48px) 24px clamp(28px, 7vw, 40px); display: flex; flex-direction: column; align-items: center; gap: 12px; border-top: 1px solid var(--border); background: rgba(201,169,110,0.03); }
   .disclaimer { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); opacity: 0.5; max-width: 90vw; text-align: center; line-height: 1.7; width: 100%; }
 
   #chat { background: var(--warm-white); flex-direction: column; padding: 0; overflow: hidden; }
@@ -113,6 +113,13 @@
   .action-btn.primary:hover, .action-btn.primary:active { background: var(--gold); color: var(--deep); }
   .chat-input-area { padding: 12px 16px; border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
   .chat-input-wrap { display: flex; gap: 8px; align-items: flex-end; max-width: 700px; margin: 0 auto; }
+  .photo-btn { width: 46px; height: 46px; background: transparent; border: 1px solid var(--border); color: var(--muted); cursor: pointer; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; -webkit-appearance: none; font-size: 18px; }
+  .photo-btn:hover, .photo-btn:active { border-color: var(--gold); color: var(--gold); }
+  .photo-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+  .photo-preview-wrap { display: flex; align-items: center; gap: 8px; padding: 6px 0 0; max-width: 700px; margin: 0 auto; }
+  .photo-preview { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); }
+  .photo-preview-name { font-size: 12px; color: var(--muted); flex: 1; }
+  .photo-preview-remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; padding: 2px; }
   .chat-input { flex: 1; padding: 12px 14px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; resize: none; min-height: 46px; max-height: 100px; border-radius: 4px; transition: border 0.3s; -webkit-appearance: none; }
   .chat-input:focus { border-color: var(--gold); }
   .chat-input::placeholder { color: var(--muted); }
@@ -406,8 +413,15 @@
   <div class="chat-messages" id="messages"></div>
   <div class="chat-input-area">
     <div class="chat-input-wrap">
-      <textarea class="chat-input" id="userInput" placeholder="Share your thoughts..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+      <button class="photo-btn" id="photoBtn" onclick="document.getElementById('photoInput').click()" title="Attach a product photo">📷</button>
+      <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="handlePhotoSelect(this)">
+      <textarea class="chat-input" id="userInput" placeholder="Ask Clair anything — or attach a product photo..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
       <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
+    </div>
+    <div class="photo-preview-wrap" id="photoPreviewWrap" style="display:none;">
+      <img class="photo-preview" id="photoPreviewImg" src="" alt="Product photo">
+      <span class="photo-preview-name" id="photoPreviewName"></span>
+      <button class="photo-preview-remove" onclick="removePhoto()" title="Remove photo">×</button>
     </div>
   </div>
 </div>
@@ -949,8 +963,15 @@ Rules:
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; }
   }
 
-  async function sendAI(userMessage) {
-    if (userMessage) conversationHistory.push({ role: 'user', content: userMessage });
+  async function sendAI(userMessage, photo = null) {
+    // Build message content — text only, or text + image
+    const messageContent = photo
+      ? [
+          { type: 'image', source: { type: 'base64', media_type: photo.mediaType, data: photo.base64 } },
+          { type: 'text', text: userMessage || 'Please analyze this product for me based on my skin profile.' }
+        ]
+      : userMessage;
+    if (userMessage || photo) conversationHistory.push({ role: 'user', content: messageContent });
     setInputEnabled(false); showTyping();
     try {
       const reply = await callClaude(conversationHistory);
@@ -1047,15 +1068,52 @@ Rules:
     }
   }
 
+  let pendingPhotoBase64 = null;
+  let pendingPhotoMediaType = null;
+
+  function handlePhotoSelect(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const dataUrl = e.target.result;
+      pendingPhotoBase64 = dataUrl.split(',')[1];
+      pendingPhotoMediaType = file.type || 'image/jpeg';
+      document.getElementById('photoPreviewImg').src = dataUrl;
+      document.getElementById('photoPreviewName').textContent = file.name;
+      document.getElementById('photoPreviewWrap').style.display = 'flex';
+      document.getElementById('userInput').placeholder = 'Ask Clair about this product...';
+      document.getElementById('userInput').focus();
+    };
+    reader.readAsDataURL(file);
+    input.value = '';
+  }
+
+  function removePhoto() {
+    pendingPhotoBase64 = null;
+    pendingPhotoMediaType = null;
+    document.getElementById('photoPreviewWrap').style.display = 'none';
+    document.getElementById('photoPreviewImg').src = '';
+    document.getElementById('photoPreviewName').textContent = '';
+    document.getElementById('userInput').placeholder = 'Ask Clair anything — or attach a product photo...';
+  }
+
   function sendMessage() {
-    const input = document.getElementById('userInput'); const text = input.value.trim();
-    if (!text || isWaiting) return;
-    addMessage(text, 'user'); input.value = ''; input.style.height = 'auto'; sendAI(text);
+    const input = document.getElementById('userInput');
+    const text = input.value.trim();
+    if (!text && !pendingPhotoBase64) return;
+    if (isWaiting) return;
+    const displayText = text || '📷 Product photo';
+    addMessage(displayText, 'user');
+    input.value = ''; input.style.height = 'auto';
+    const photo = pendingPhotoBase64 ? { base64: pendingPhotoBase64, mediaType: pendingPhotoMediaType } : null;
+    removePhoto();
+    sendAI(text || 'I am sending you a photo of a product. Please analyze it for me based on my skin profile.', photo);
   }
 
   function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
   function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 100) + 'px'; }
-  function setInputEnabled(enabled) { isWaiting = !enabled; document.getElementById('sendBtn').disabled = !enabled; document.getElementById('userInput').disabled = !enabled; }
+  function setInputEnabled(enabled) { isWaiting = !enabled; document.getElementById('sendBtn').disabled = !enabled; document.getElementById('userInput').disabled = !enabled; const pb = document.getElementById('photoBtn'); if (pb) pb.disabled = !enabled; }
 
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('session_id')) { show('chat'); setTimeout(() => sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'), 400); window.history.replaceState({}, document.title, '/'); }
