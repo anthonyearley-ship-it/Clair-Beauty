@@ -189,7 +189,59 @@
   .email-error { font-size: 13px; color: #e07070; margin-top: 8px; min-height: 18px; }
   .email-success { font-size: clamp(13px, 3.5vw, 14px); color: #7CB987; margin-top: 12px; min-height: 18px; line-height: 1.6; }
 
-  #report { background: var(--cream); flex-direction: column; overflow: hidden; padding: 0; }
+  /* MY CLAIR DASHBOARD */
+  #dashboard { background: var(--cream); flex-direction: column; overflow: hidden; padding: 0; }
+  .dash-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; background: white; flex-shrink: 0; }
+  .dash-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--charcoal); letter-spacing: 0.12em; }
+  .dash-logo span { color: var(--gold); font-style: italic; }
+  .dash-signout { margin-left: auto; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); cursor: pointer; border: none; background: none; transition: color 0.3s; }
+  .dash-signout:hover { color: var(--gold); }
+  .dash-body { flex: 1; overflow-y: auto; padding: 24px 20px; -webkit-overflow-scrolling: touch; }
+  .dash-body::-webkit-scrollbar { width: 3px; }
+  .dash-body::-webkit-scrollbar-thumb { background: var(--gold-light); }
+  .dash-inner { max-width: 680px; margin: 0 auto; }
+
+  /* Profile card */
+  .dash-profile { display: flex; align-items: center; gap: 16px; padding: 20px 24px; background: var(--deep); border: 1px solid var(--border); margin-bottom: 20px; }
+  .dash-avatar { width: 52px; height: 52px; border-radius: 50%; background: rgba(201,169,110,0.15); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold); flex-shrink: 0; font-style: italic; }
+  .dash-profile-info { flex: 1; }
+  .dash-profile-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 4.5vw, 22px); font-weight: 300; color: var(--cream); margin-bottom: 2px; }
+  .dash-profile-email { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); }
+  .dash-profile-tag { font-size: 9px; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-top: 4px; }
+
+  /* Skin profile pills */
+  .dash-skin-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .dash-pill { padding: 6px 14px; border: 1px solid var(--border); font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.1em; background: white; border-radius: 20px; }
+  .dash-pill strong { color: var(--charcoal); font-weight: 500; }
+
+  /* Action cards */
+  .dash-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .dash-action-card { padding: 18px 16px; border: 1px solid var(--border); background: white; cursor: pointer; transition: all 0.3s; text-align: left; border-radius: 2px; }
+  .dash-action-card:hover, .dash-action-card:active { border-color: var(--gold); background: rgba(201,169,110,0.04); }
+  .dash-action-icon { font-size: 20px; margin-bottom: 8px; }
+  .dash-action-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(14px, 3.5vw, 16px); font-weight: 400; color: var(--charcoal); margin-bottom: 3px; }
+  .dash-action-sub { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); line-height: 1.5; }
+
+  /* Report preview card */
+  .dash-section-label { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; margin-top: 4px; }
+  .dash-report-card { border: 1px solid var(--border); background: white; overflow: hidden; margin-bottom: 20px; }
+  .dash-report-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--warm-white); }
+  .dash-report-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(15px, 3.8vw, 17px); font-weight: 400; color: var(--charcoal); }
+  .dash-report-date { font-size: 10px; color: var(--muted); letter-spacing: 0.05em; }
+  .dash-report-preview { padding: 16px 20px; font-size: clamp(13px, 3.2vw, 14px); line-height: 1.8; color: var(--charcoal); max-height: 180px; overflow: hidden; position: relative; }
+  .dash-report-preview::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(transparent, white); }
+  .dash-report-btn { width: 100%; padding: 14px; background: transparent; border: none; border-top: 1px solid var(--border); color: var(--gold); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .dash-report-btn:hover { background: rgba(201,169,110,0.06); }
+
+  /* Empty state */
+  .dash-empty { text-align: center; padding: 32px 20px; border: 1px solid var(--border); background: white; margin-bottom: 20px; }
+  .dash-empty-icon { font-size: 28px; margin-bottom: 12px; }
+  .dash-empty-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 4vw, 19px); font-weight: 300; color: var(--charcoal); margin-bottom: 6px; }
+  .dash-empty-sub { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+
+  /* New consultation button */
+  .dash-new-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; font-weight: 500; margin-bottom: 20px; }
+  .dash-new-btn:hover, .dash-new-btn:active { background: var(--gold-light); }
   .report-header { width: 100%; padding: 14px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; background: white; flex-shrink: 0; gap: 12px; }
   .report-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--charcoal); letter-spacing: 0.12em; }
   .report-logo span { color: var(--gold); font-style: italic; }
@@ -557,6 +609,75 @@
   </div>
 </div>
 
+<!-- MY CLAIR DASHBOARD -->
+<div class="screen hidden" id="dashboard">
+  <div class="dash-header">
+    <div class="dash-logo">C<span>lair</span></div>
+    <button class="dash-signout" onclick="signOut()">Sign Out</button>
+  </div>
+  <div class="dash-body">
+    <div class="dash-inner">
+
+      <!-- Profile card -->
+      <div class="dash-profile">
+        <div class="dash-avatar" id="dashAvatar">C</div>
+        <div class="dash-profile-info">
+          <div class="dash-profile-name" id="dashName">Welcome back</div>
+          <div class="dash-profile-email" id="dashEmail"></div>
+          <div class="dash-profile-tag">✦ Clair Member</div>
+        </div>
+      </div>
+
+      <!-- Skin profile pills -->
+      <div class="dash-skin-pills" id="dashPills"></div>
+
+      <!-- Action cards -->
+      <div class="dash-actions">
+        <div class="dash-action-card" onclick="askClairNewQuestion()">
+          <div class="dash-action-icon">✦</div>
+          <div class="dash-action-title">Ask Clair</div>
+          <div class="dash-action-sub">Ask anything about your skin or a product</div>
+        </div>
+        <div class="dash-action-card" onclick="document.getElementById('photoInput').click()">
+          <div class="dash-action-icon">📷</div>
+          <div class="dash-action-title">Analyze a Product</div>
+          <div class="dash-action-sub">Upload a photo for instant analysis</div>
+        </div>
+        <div class="dash-action-card" id="dashViewReportCard" onclick="viewFullReport()" style="display:none;">
+          <div class="dash-action-icon">📋</div>
+          <div class="dash-action-title">My Report</div>
+          <div class="dash-action-sub">View your full Beauty Intelligence Report</div>
+        </div>
+        <div class="dash-action-card" onclick="startNewConsultation()">
+          <div class="dash-action-icon">⚡</div>
+          <div class="dash-action-title">New Consultation</div>
+          <div class="dash-action-sub">Start a fresh full or quick consultation</div>
+        </div>
+      </div>
+
+      <!-- Report preview -->
+      <div id="dashReportSection">
+        <div class="dash-section-label">Your Beauty Intelligence Report</div>
+        <div class="dash-report-card" id="dashReportCard" style="display:none;">
+          <div class="dash-report-header">
+            <div class="dash-report-title" id="dashReportTitle">Beauty Intelligence Report</div>
+            <div class="dash-report-date" id="dashReportDate"></div>
+          </div>
+          <div class="dash-report-preview" id="dashReportPreview"></div>
+          <button class="dash-report-btn" onclick="viewFullReport()">Read Full Report →</button>
+        </div>
+        <div class="dash-empty" id="dashNoReport">
+          <div class="dash-empty-icon">🌿</div>
+          <div class="dash-empty-title">Your report is waiting to be written</div>
+          <div class="dash-empty-sub">Complete a full consultation and Clair will build your complete Beauty Intelligence Report — yours to keep forever.</div>
+          <button class="begin-btn" style="max-width:280px;width:100%;margin:0 auto;" onclick="startNewConsultation()">Begin My Consultation</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- REPORT -->
 <div class="screen hidden" id="report">
   <div class="report-header">
@@ -861,6 +982,7 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
         try { await supabaseClient.from('leads').insert({ email, name: '' }); } catch(e) {}
       }
       hideAccountGate();
+      showDashboard(email, null);
       startChat();
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Create My Free Account'; btn.disabled = false; }
   }
@@ -1096,7 +1218,8 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
   }
 
   async function signIn() {
-    const email = document.getElementById('signinEmail').value.trim(); const password = document.getElementById('signinPassword').value.trim();
+    const email = document.getElementById('signinEmail').value.trim();
+    const password = document.getElementById('signinPassword').value.trim();
     const errorEl = document.getElementById('signinError'); errorEl.textContent = '';
     if (!email || !password) { errorEl.textContent = 'Please enter your email and password.'; return; }
     try {
@@ -1104,24 +1227,90 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
       if (error) { errorEl.textContent = 'Incorrect email or password.'; return; }
       currentUserId = data.user.id;
       const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', data.user.id).maybeSingle();
-      if (profile && profile.report) {
-        reportHTML = profile.report; userName = profile.name || '';
-        document.getElementById('reportName').textContent = userName || 'Your Report';
-        document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
-        document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + (profile.report_date ? ' · ' + new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '');
-        document.getElementById('reportContent').innerHTML = '<div class="section-body">' + profile.report + '</div>';
-        document.getElementById('saveBanner').style.display = 'none';
-        document.getElementById('reportUnlockOverlay').style.display = 'none';
-        document.getElementById('reportBody').classList.remove('blurred');
-        // Also restore userProfile from saved data
+      if (profile) {
+        reportHTML = profile.report || '';
+        userName = profile.name || '';
         userProfile.age_range = profile.age_range || '';
         userProfile.budget = profile.budget || '';
         userProfile.concern = profile.concern || '';
         userProfile.routine = profile.routine || '';
-        showAskClairButton();
-        show('report');
-      } else { show('chat'); setTimeout(() => sendAI('Begin the consultation.'), 400); }
+        // Preload report screen if report exists
+        if (profile.report) {
+          document.getElementById('reportName').textContent = userName || 'Your Report';
+          document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
+          document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + (profile.report_date ? ' · ' + new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '');
+          document.getElementById('reportContent').innerHTML = '<div class="section-body">' + profile.report + '</div>';
+          document.getElementById('saveBanner').style.display = 'none';
+          document.getElementById('reportUnlockOverlay').style.display = 'none';
+          document.getElementById('reportBody').classList.remove('blurred');
+          showAskClairButton();
+        }
+      }
+      showDashboard(email, profile);
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; }
+  }
+
+  function showDashboard(email, profile) {
+    // Set avatar and name
+    const name = (profile && profile.name) ? profile.name : (email ? email.split('@')[0] : 'You');
+    userName = name;
+    document.getElementById('dashAvatar').textContent = name ? name[0].toUpperCase() : 'C';
+    document.getElementById('dashName').textContent = name ? 'Welcome back, ' + name : 'Welcome back';
+    document.getElementById('dashEmail').textContent = email || '';
+
+    // Skin profile pills
+    const pills = document.getElementById('dashPills');
+    pills.innerHTML = '';
+    const pillData = [
+      { label: 'Age', value: profile && profile.age_range },
+      { label: 'Concern', value: profile && profile.concern },
+      { label: 'Budget', value: profile && profile.budget },
+    ];
+    pillData.forEach(p => {
+      if (p.value) {
+        const pill = document.createElement('div');
+        pill.className = 'dash-pill';
+        pill.innerHTML = '<strong>' + p.label + '</strong> · ' + p.value;
+        pills.appendChild(pill);
+      }
+    });
+
+    // Report preview
+    if (profile && profile.report) {
+      document.getElementById('dashReportCard').style.display = 'block';
+      document.getElementById('dashNoReport').style.display = 'none';
+      document.getElementById('dashViewReportCard').style.display = 'block';
+      document.getElementById('dashReportTitle').textContent = 'Beauty Intelligence Report';
+      document.getElementById('dashReportDate').textContent = profile.report_date ? new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '';
+      // Strip HTML tags for preview text
+      const tmp = document.createElement('div');
+      tmp.innerHTML = profile.report;
+      document.getElementById('dashReportPreview').innerHTML = '<div class="section-body">' + profile.report.substring(0, 800) + '</div>';
+    } else {
+      document.getElementById('dashReportCard').style.display = 'none';
+      document.getElementById('dashNoReport').style.display = 'block';
+      document.getElementById('dashViewReportCard').style.display = 'none';
+    }
+
+    show('dashboard');
+  }
+
+  function viewFullReport() { show('report'); }
+
+  function startNewConsultation() {
+    conversationHistory = []; questionCount = 0; isWaiting = false;
+    quickWinContent = ''; teaserData = null;
+    document.getElementById('messages').innerHTML = '';
+    updateProgress(0);
+    showAccountGate('full');
+  }
+
+  async function signOut() {
+    await supabaseClient.auth.signOut();
+    currentUserId = null; userName = ''; reportHTML = '';
+    userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
+    conversationHistory = []; questionCount = 0;
+    show('welcome');
   }
 
   async function sendAI(userMessage, photo = null) {
