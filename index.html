@@ -331,7 +331,29 @@
   .why-clair-item-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.75; }
   .why-clair-btn-wrap { padding: 24px; display: flex; justify-content: center; flex-shrink: 0; }
 
-  /* PHOTO SIGNUP OVERLAY */
+  /* MEDSPA INQUIRY OVERLAY */
+  .medspa-overlay { position: fixed; inset: 0; background: rgba(26,20,16,0.92); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; overflow-y: auto; }
+  .medspa-overlay.visible { opacity: 1; pointer-events: all; }
+  .medspa-box { background: var(--deep); border: 1px solid var(--border); padding: 36px 28px; max-width: 460px; width: 100%; border-radius: 2px; position: relative; }
+  .medspa-close { position: absolute; top: 14px; right: 18px; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; line-height: 1; padding: 4px; }
+  .medspa-close:hover { color: var(--gold); }
+  .medspa-eyebrow { font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .medspa-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 5.5vw, 28px); font-weight: 300; color: var(--cream); margin-bottom: 8px; line-height: 1.3; }
+  .medspa-sub { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.7; margin-bottom: 24px; }
+  .medspa-input { width: 100%; padding: 13px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; }
+  .medspa-input:focus { border-color: var(--gold); }
+  .medspa-input::placeholder { color: var(--muted); }
+  .medspa-textarea { width: 100%; padding: 13px 14px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; margin-bottom: 10px; transition: border 0.3s; -webkit-appearance: none; border-radius: 0; resize: vertical; min-height: 80px; }
+  .medspa-textarea:focus { border-color: var(--gold); }
+  .medspa-textarea::placeholder { color: var(--muted); }
+  .medspa-btn { width: 100%; padding: 15px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; -webkit-appearance: none; border-radius: 0; font-weight: 500; margin-top: 4px; }
+  .medspa-btn:active { background: var(--gold-light); }
+  .medspa-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .medspa-error { font-size: 12px; color: #e07070; margin-top: 8px; min-height: 16px; }
+  .medspa-success { text-align: center; padding: 24px 0; }
+  .medspa-success-icon { font-size: 32px; margin-bottom: 12px; }
+  .medspa-success-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px, 5vw, 24px); font-weight: 300; color: var(--gold); margin-bottom: 8px; }
+  .medspa-success-sub { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.7; }
   .photo-signup-overlay { position: fixed; inset: 0; background: rgba(26,20,16,0.92); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
   .photo-signup-overlay.visible { opacity: 1; pointer-events: all; }
   .photo-signup-box { background: var(--deep); border: 1px solid var(--border); padding: 36px 28px; max-width: 400px; width: 100%; text-align: center; border-radius: 2px; }
@@ -412,7 +434,33 @@
     <button class="begin-btn" style="max-width:320px;width:100%;display:none;" class="desktop-only" onclick="startChat()">Begin My Consultation</button>
     <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="show('signin')">Sign In</button>
     <button class="why-clair-link" onclick="showWhyClair()" style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;border:none;background:none;transition:color 0.3s;margin-top:4px;">Why Clair? →</button>
+    <button class="why-clair-link" onclick="showMedspaInquiry()" style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;border:none;background:none;transition:color 0.3s;">Med Spa Partnership Inquiry →</button>
     <div class="disclaimer">Clair is for cosmetic guidance only — not medical advice. No brand partnerships. No sponsored recommendations.</div>
+  </div>
+</div>
+
+<!-- MEDSPA INQUIRY OVERLAY -->
+<div class="medspa-overlay" id="medspaOverlay">
+  <div class="medspa-box">
+    <button class="medspa-close" onclick="hideMedspaInquiry()">×</button>
+    <div id="medspaForm">
+      <div class="medspa-eyebrow">Med Spa Partnership</div>
+      <div class="medspa-title">Let's Work Together</div>
+      <div class="medspa-sub">Tell us about your practice and we'll be in touch within 24 hours with a custom demo built for your services.</div>
+      <input class="medspa-input" id="medspaSpaName" type="text" placeholder="Practice name" autocomplete="organization" />
+      <input class="medspa-input" id="medspaOwner" type="text" placeholder="Owner / Provider name" autocomplete="name" />
+      <input class="medspa-input" id="medspaEmail" type="email" placeholder="Email address" autocomplete="email" />
+      <input class="medspa-input" id="medspaPhone" type="tel" placeholder="Phone number" autocomplete="tel" />
+      <input class="medspa-input" id="medspaWebsite" type="url" placeholder="Practice website (e.g. yourpractice.com)" autocomplete="url" />
+      <textarea class="medspa-textarea" id="medspaMessage" placeholder="Brief description of your interest or questions..."></textarea>
+      <div class="medspa-error" id="medspaError"></div>
+      <button class="medspa-btn" id="medspaBtn" onclick="submitMedspaInquiry()">Submit Inquiry</button>
+    </div>
+    <div class="medspa-success" id="medspaSuccess" style="display:none;">
+      <div class="medspa-success-icon">✦</div>
+      <div class="medspa-success-title">Thank you — we'll be in touch.</div>
+      <div class="medspa-success-sub">We typically respond within 24 hours with a custom demo built specifically for your practice. Keep an eye on your inbox.</div>
+    </div>
   </div>
 </div>
 
@@ -997,6 +1045,71 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
       showDashboard(email, null);
       startChat();
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Create My Free Account'; btn.disabled = false; }
+  }
+
+  function showMedspaInquiry() {
+    document.getElementById('medspaForm').style.display = 'block';
+    document.getElementById('medspaSuccess').style.display = 'none';
+    document.getElementById('medspaError').textContent = '';
+    document.getElementById('medspaBtn').textContent = 'Submit Inquiry';
+    document.getElementById('medspaBtn').disabled = false;
+    document.getElementById('medspaOverlay').classList.add('visible');
+    setTimeout(() => document.getElementById('medspaSpaName').focus(), 400);
+  }
+
+  function hideMedspaInquiry() { document.getElementById('medspaOverlay').classList.remove('visible'); }
+
+  async function submitMedspaInquiry() {
+    const spaName = document.getElementById('medspaSpaName').value.trim();
+    const owner = document.getElementById('medspaOwner').value.trim();
+    const email = document.getElementById('medspaEmail').value.trim();
+    const phone = document.getElementById('medspaPhone').value.trim();
+    const website = document.getElementById('medspaWebsite').value.trim();
+    const message = document.getElementById('medspaMessage').value.trim();
+    const errorEl = document.getElementById('medspaError');
+    const btn = document.getElementById('medspaBtn');
+    errorEl.textContent = '';
+    if (!spaName) { errorEl.textContent = 'Please enter your practice name.'; return; }
+    if (!owner) { errorEl.textContent = 'Please enter the owner or provider name.'; return; }
+    if (!email || !email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
+    if (!phone) { errorEl.textContent = 'Please enter a phone number.'; return; }
+    btn.textContent = 'Sending...'; btn.disabled = true;
+    // Save to Supabase medspas table as inquiry
+    try {
+      await supabaseClient.from('medspas').insert({
+        slug: spaName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+        name: spaName,
+        owner_email: email,
+        config: { owner, phone, website, message, status: 'inquiry', submitted_at: new Date().toISOString() }
+      });
+    } catch(e) { console.log('Supabase insert:', e); }
+    // Send notification email to Anthony
+    try {
+      await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'send_email',
+          email: 'anthony.earley@gmail.com',
+          subject: '✦ New Med Spa Inquiry — ' + spaName,
+          html: `<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;padding:32px;background:#FAF7F2;color:#2D2520;">
+            <h2 style="color:#C9A96E;margin:0 0 24px;">New Med Spa Partnership Inquiry</h2>
+            <table style="width:100%;border-collapse:collapse;">
+              <tr><td style="padding:8px 0;font-weight:bold;width:140px;">Practice Name</td><td>${spaName}</td></tr>
+              <tr><td style="padding:8px 0;font-weight:bold;">Owner / Provider</td><td>${owner}</td></tr>
+              <tr><td style="padding:8px 0;font-weight:bold;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
+              <tr><td style="padding:8px 0;font-weight:bold;">Phone</td><td>${phone}</td></tr>
+              <tr><td style="padding:8px 0;font-weight:bold;">Website</td><td><a href="${website}">${website}</a></td></tr>
+              <tr><td style="padding:8px 0;font-weight:bold;vertical-align:top;">Message</td><td style="padding-top:8px;">${message || '—'}</td></tr>
+            </table>
+            <p style="margin-top:24px;font-size:12px;color:#8A7E74;">Submitted via clair-beauty.vercel.app</p>
+          </body></html>`
+        })
+      });
+    } catch(e) { console.log('Email error:', e); }
+    // Show success
+    document.getElementById('medspaForm').style.display = 'none';
+    document.getElementById('medspaSuccess').style.display = 'block';
   }
 
   function showWhyClair() { document.getElementById('whyClairOverlay').classList.add('visible'); }
