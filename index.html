@@ -466,7 +466,7 @@
           <div class="w-proof-avatar">B</div>
           <div class="w-proof-avatar">C</div>
         </div>
-        <div class="w-proof-text"><strong>Women across 3 countries</strong> are using Clair</div>
+        <div class="w-proof-text"><strong>Women on three continents</strong> are using Clair</div>
       </div>
       <button class="signin-link" onclick="show('signin')">Already have an account — Sign In</button>
     </div>
@@ -1241,7 +1241,136 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
 
   let freeQuestionUsed = false;
 
-  function shareClairWithFriend(btn) {
+  function addShareInsightButton(insightText) {
+    const messages = document.getElementById('messages');
+    const wrap = document.createElement('div');
+    wrap.style.cssText = 'display:flex;justify-content:flex-start;padding:0 12px 12px 48px;';
+    wrap.innerHTML = `<button onclick="generateShareCard(this)" data-insight="${encodeURIComponent(insightText)}"
+      style="padding:7px 16px;background:transparent;border:1px solid var(--border);color:var(--muted);
+      font-family:'Jost',sans-serif;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;
+      cursor:pointer;border-radius:2px;transition:all 0.3s;display:flex;align-items:center;gap:6px;">
+      ✦ Share this insight
+    </button>`;
+    messages.appendChild(wrap);
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  async function generateShareCard(btn) {
+    const insightRaw = decodeURIComponent(btn.getAttribute('data-insight'));
+    btn.textContent = 'Generating...';
+    btn.disabled = true;
+
+    // Extract the best sentence — first 180 chars of a clean sentence
+    const clean = insightRaw.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+    const sentences = clean.match(/[^.!?]+[.!?]+/g) || [clean];
+    let insight = '';
+    for (const s of sentences) {
+      if (s.trim().length > 40 && s.trim().length < 180) { insight = s.trim(); break; }
+    }
+    if (!insight) insight = clean.substring(0, 160) + '…';
+
+    // Build canvas card — 1080x1080 square
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080; canvas.height = 1080;
+    const ctx = canvas.getContext('2d');
+
+    // Background
+    ctx.fillStyle = '#1A1410';
+    ctx.fillRect(0, 0, 1080, 1080);
+
+    // Subtle noise texture via gradient
+    const grad = ctx.createRadialGradient(540, 300, 0, 540, 300, 700);
+    grad.addColorStop(0, 'rgba(201,169,110,0.07)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 1080, 1080);
+
+    // Top gold rule
+    ctx.strokeStyle = 'rgba(201,169,110,0.3)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(80, 120); ctx.lineTo(1000, 120); ctx.stroke();
+
+    // Clair wordmark
+    ctx.fillStyle = '#C9A96E';
+    ctx.font = '300 72px Georgia, serif';
+    ctx.letterSpacing = '12px';
+    ctx.textAlign = 'center';
+    ctx.fillText('Clair', 540, 100);
+
+    // Eyebrow
+    ctx.fillStyle = 'rgba(201,169,110,0.6)';
+    ctx.font = '400 22px Arial, sans-serif';
+    ctx.letterSpacing = '6px';
+    ctx.fillText('BEAUTY INTELLIGENCE', 540, 175);
+
+    // Gold divider
+    ctx.strokeStyle = 'rgba(201,169,110,0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(180, 210); ctx.lineTo(900, 210); ctx.stroke();
+
+    // Insight text — word wrap
+    ctx.fillStyle = '#FAF7F2';
+    ctx.font = '300 42px Georgia, serif';
+    ctx.textAlign = 'center';
+    ctx.letterSpacing = '0px';
+    const words = insight.split(' ');
+    const lines = [];
+    let current = '';
+    const maxW = 860;
+    for (const word of words) {
+      const test = current ? current + ' ' + word : word;
+      if (ctx.measureText(test).width > maxW) { lines.push(current); current = word; }
+      else current = test;
+    }
+    if (current) lines.push(current);
+    const lineH = 62;
+    const totalH = lines.length * lineH;
+    const startY = (1080 - totalH) / 2 + 30;
+    lines.forEach((line, i) => {
+      ctx.fillText(line, 540, startY + i * lineH);
+    });
+
+    // Bottom gold divider
+    ctx.strokeStyle = 'rgba(201,169,110,0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(180, 900); ctx.lineTo(900, 900); ctx.stroke();
+
+    // Footer
+    ctx.fillStyle = 'rgba(201,169,110,0.7)';
+    ctx.font = '400 22px Arial, sans-serif';
+    ctx.letterSpacing = '3px';
+    ctx.fillText('www.clairbeautyco.com', 540, 950);
+
+    // Bottom rule
+    ctx.strokeStyle = 'rgba(201,169,110,0.3)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(80, 980); ctx.lineTo(1000, 980); ctx.stroke();
+
+    // Convert to blob and share
+    canvas.toBlob(async (blob) => {
+      const file = new File([blob], 'clair-insight.png', { type: 'image/png' });
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({
+            files: [file],
+            title: 'Skin insight from Clair',
+            text: insight + '\n\nvia Clair — www.clairbeautyco.com'
+          });
+        } catch(e) { downloadCard(canvas); }
+      } else {
+        downloadCard(canvas);
+      }
+      btn.textContent = '✦ Share this insight';
+      btn.disabled = false;
+    }, 'image/png');
+  }
+
+  function downloadCard(canvas) {
+    const a = document.createElement('a');
+    a.download = 'clair-insight.png';
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  }
     const shareData = {
       title: 'Clair — Beauty Intelligence',
       text: 'I\'ve been using Clair — it\'s like having a personal skincare expert who actually knows your skin. Way better than Googling. Check it out:',
@@ -1692,10 +1821,14 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
         updateProgress(5); setInputEnabled(false); setTimeout(() => showActionButtons(), 600);
       } else {
         addMessage(reply, 'ai'); conversationHistory.push({ role: 'assistant', content: reply });
+        // Show share button after every answer in ask mode
+        if (consultationType === 'ask') {
+          setTimeout(() => addShareInsightButton(reply), 600);
+        }
         // Show soft gate after first answer in ask mode if not logged in
         if (consultationType === 'ask' && !freeQuestionUsed && !currentUserId) {
           freeQuestionUsed = true;
-          setTimeout(() => showFreeQuestionGate(), 800);
+          setTimeout(() => showFreeQuestionGate(), 1400);
         } else {
           questionCount++;
           updateProgress(Math.min(questionCount, 4));
