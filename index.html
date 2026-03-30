@@ -348,11 +348,10 @@
 
   /* Landing question field */
   .landing-question-wrap { width: 100%; max-width: 480px; margin: 0 auto; position: relative; }
-  .landing-question-input { width: 100%; padding: 18px 56px 18px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.4); color: var(--cream); font-family: 'Jost', sans-serif; font-size: clamp(14px,3.5vw,16px); outline: none; border-radius: 2px; -webkit-appearance: none; transition: border-color 0.3s; box-sizing: border-box; }
+  .landing-question-input { width: 100%; padding: 18px 64px 18px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.4); color: var(--cream); font-family: 'Jost', sans-serif; font-size: clamp(14px,3.5vw,16px); outline: none; border-radius: 2px; -webkit-appearance: none; transition: border-color 0.3s; box-sizing: border-box; }
   .landing-question-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.09); }
   .landing-question-input::placeholder { color: var(--muted); font-size: clamp(13px,3.2vw,15px); }
-  .landing-question-send { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gold); font-size: 20px; cursor: pointer; padding: 4px 8px; transition: opacity 0.3s; }
-  .landing-question-send:hover { opacity: 0.7; }
+  .landing-question-send { position: absolute; right: 0; top: 0; bottom: 0; width: 56px; background: var(--gold); border: none; color: var(--deep); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s; border-radius: 0 2px 2px 0; -webkit-tap-highlight-color: transparent; }
   .landing-divider { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 480px; margin: 4px 0; }
   .landing-divider-line { flex: 1; height: 1px; background: var(--border); }
   .landing-divider-text { font-size: 10px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; }
@@ -444,7 +443,10 @@
           placeholder="What's your biggest skin concern right now?"
           onkeydown="handleLandingQuestion(event)"
           autocomplete="off" />
-        <button class="landing-question-send" onclick="submitLandingQuestion()" title="Ask Clair">→</button>
+        <button class="landing-question-send" 
+          onclick="submitLandingQuestion()"
+          ontouchend="event.preventDefault();submitLandingQuestion();"
+          title="Ask Clair">→</button>
       </div>
 
       <!-- Divider -->
@@ -1393,6 +1395,8 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     a.href = canvas.toDataURL('image/png');
     a.click();
   }
+
+  function shareClairWithFriend(btn) {
     const shareData = {
       title: 'Clair — Beauty Intelligence',
       text: 'I\'ve been using Clair — it\'s like having a personal skincare expert who actually knows your skin. Way better than Googling. Check it out:',
@@ -1400,7 +1404,6 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     };
     if (navigator.share) {
       navigator.share(shareData).catch(() => {
-        // Fallback to clipboard if share fails
         navigator.clipboard.writeText('https://www.clairbeautyco.com').then(() => {
           if (btn) { const orig = btn.textContent; btn.textContent = '✓ Link Copied!'; setTimeout(() => btn.textContent = orig, 2000); }
         });
