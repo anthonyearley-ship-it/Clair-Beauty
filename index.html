@@ -122,7 +122,10 @@
   .action-btn:hover, .action-btn:active { background: var(--gold); color: var(--deep); }
   .action-btn.primary { background: var(--deep); color: var(--gold); border-color: var(--deep); }
   .action-btn.primary:hover, .action-btn.primary:active { background: var(--gold); color: var(--deep); }
-  .chat-input-area { padding: 12px 16px; border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  .chat-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--charcoal); letter-spacing: 0.12em; cursor: pointer; transition: color 0.3s; }
+  .chat-logo:hover { color: var(--gold); }
+  .chat-logo span { color: var(--gold); font-style: italic; }
+  .nav-home-hint { font-size: 9px; color: var(--muted); letter-spacing: 0.1em; opacity: 0.6; margin-left: 2px; } border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
   .chat-input-wrap { display: flex; gap: 8px; align-items: flex-end; max-width: 700px; margin: 0 auto; }
   .photo-btn { width: 46px; height: 46px; background: transparent; border: 1px solid var(--border); color: var(--muted); cursor: pointer; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; -webkit-appearance: none; font-size: 18px; }
   .photo-btn:hover, .photo-btn:active { border-color: var(--gold); color: var(--gold); }
@@ -470,8 +473,8 @@
   <!-- FOOTER -->
   <div class="w-footer">
     <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="checkSessionAndShowDashboard()">My Clair →</button>
-    <button class="why-clair-link" onclick="showWhyClair()" style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;border:none;background:none;transition:color 0.3s;margin-top:4px;">Why Clair? →</button>
-    <button class="why-clair-link" onclick="showMedspaInquiry()" style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;border:none;background:none;transition:color 0.3s;">Med Spa Partnership →</button>
+    <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="showWhyClair()">Why Clair? →</button>
+    <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="showMedspaInquiry()">Med Spa Partnership →</button>
     <div class="disclaimer">Clair is for cosmetic guidance only — not medical advice. No brand partnerships. No sponsored recommendations.</div>
   </div>
 </div>
@@ -593,7 +596,7 @@
 <!-- CHAT -->
 <div class="screen hidden" id="chat">
   <div class="chat-header">
-    <div class="chat-logo">C<span>lair</span></div>
+    <div class="chat-logo" onclick="goHome()" title="Back to home">C<span>lair</span></div>
     <div class="chat-badge">Beauty Intelligence</div>
     <div class="chat-progress" id="progressDots">
       <div class="progress-dot" id="d1"></div><div class="progress-dot" id="d2"></div><div class="progress-dot" id="d3"></div>
@@ -704,7 +707,7 @@
 <!-- MY CLAIR DASHBOARD -->
 <div class="screen hidden" id="dashboard">
   <div class="dash-header">
-    <div class="dash-logo">C<span>lair</span></div>
+    <div class="dash-logo" onclick="goHome()" style="cursor:pointer;" title="Back to home">C<span>lair</span></div>
     <button class="dash-signout" onclick="signOut()">Sign Out</button>
   </div>
   <div class="dash-body">
@@ -785,7 +788,7 @@
 <!-- REPORT -->
 <div class="screen hidden" id="report">
   <div class="report-header">
-    <div class="report-logo">C<span>lair</span></div>
+    <div class="report-logo" onclick="goHome()" style="cursor:pointer;" title="Back to home">C<span>lair</span></div>
     <div class="report-header-actions">
       <button class="report-ask-btn" id="askClairBtn" onclick="askClairNewQuestion()" style="display:none;">Ask Clair</button>
       <div class="report-meta">
@@ -1181,6 +1184,8 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     document.getElementById('medspaForm').style.display = 'none';
     document.getElementById('medspaSuccess').style.display = 'block';
   }
+
+  function goHome() { show('welcome'); }
 
   function showWhyClair() { document.getElementById('whyClairOverlay').classList.add('visible'); }
   function hideWhyClair() { document.getElementById('whyClairOverlay').classList.remove('visible'); }
