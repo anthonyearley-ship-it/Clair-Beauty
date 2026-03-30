@@ -1,18 +1,27 @@
 {
   "name": "Clair — Beauty Intelligence",
   "short_name": "Clair",
-  "description": "Your personal beauty intelligence concierge. No brand allegiances. No sponsored answers. Ever.",
-  "start_url": "/",
+  "description": "Your personal beauty intelligence. Ask anything. Get answers built around you.",
+  "start_url": "https://www.clairbeautyco.com",
+  "scope": "https://www.clairbeautyco.com",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#1A1410",
   "theme_color": "#1A1410",
-  "orientation": "portrait",
   "icons": [
     {
-      "src": "/icon-512.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "categories": ["beauty", "lifestyle", "health"],
+  "lang": "en-US"
 }
