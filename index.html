@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -345,7 +346,16 @@
   .why-clair-item-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.75; }
   .why-clair-btn-wrap { padding: 24px; display: flex; justify-content: center; flex-shrink: 0; }
 
-  /* MEDSPA INQUIRY OVERLAY */
+  /* Landing question field */
+  .landing-question-wrap { width: 100%; max-width: 480px; margin: 0 auto; position: relative; }
+  .landing-question-input { width: 100%; padding: 18px 56px 18px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.4); color: var(--cream); font-family: 'Jost', sans-serif; font-size: clamp(14px,3.5vw,16px); outline: none; border-radius: 2px; -webkit-appearance: none; transition: border-color 0.3s; box-sizing: border-box; }
+  .landing-question-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.09); }
+  .landing-question-input::placeholder { color: var(--muted); font-size: clamp(13px,3.2vw,15px); }
+  .landing-question-send { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--gold); font-size: 20px; cursor: pointer; padding: 4px 8px; transition: opacity 0.3s; }
+  .landing-question-send:hover { opacity: 0.7; }
+  .landing-divider { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 480px; margin: 4px 0; }
+  .landing-divider-line { flex: 1; height: 1px; background: var(--border); }
+  .landing-divider-text { font-size: 10px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; }
   .medspa-overlay { position: fixed; inset: 0; background: rgba(26,20,16,0.92); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; overflow-y: auto; }
   .medspa-overlay.visible { opacity: 1; pointer-events: all; }
   .medspa-box { background: var(--deep); border: 1px solid var(--border); padding: 36px 28px; max-width: 460px; width: 100%; border-radius: 2px; position: relative; }
@@ -423,12 +433,26 @@
     <div class="logo">Clair</div>
     <div class="logo-tag">The Intelligence That Knows Your Skin</div>
     <div class="w-headline">Ask anything. Get answers built around <em>you</em> — not the internet.</div>
-    <div class="w-subhead">Clair is not a search engine. She's not a chatbot. She's a personal beauty intelligence that learns your skin, your life, and your goals — and gets smarter every time you talk.</div>
+    <div class="w-subhead">Type your skin concern below and Clair answers instantly — no signup required.</div>
 
-    <!-- PRIMARY CTA — Ask Clair Anything -->
+    <!-- PRIMARY CTA — Inline question field -->
     <div class="w-cta-block">
-      <button class="begin-btn" onclick="startAskClair()" style="font-size:clamp(12px,3vw,13px);">Ask Clair Anything →</button>
 
+      <!-- Inline question input -->
+      <div class="landing-question-wrap">
+        <input class="landing-question-input" id="landingQuestion" type="text"
+          placeholder="What's your biggest skin concern right now?"
+          onkeydown="handleLandingQuestion(event)"
+          autocomplete="off" />
+        <button class="landing-question-send" onclick="submitLandingQuestion()" title="Ask Clair">→</button>
+      </div>
+
+      <!-- Divider -->
+      <div class="landing-divider">
+        <div class="landing-divider-line"></div>
+        <div class="landing-divider-text">or explore</div>
+        <div class="landing-divider-line"></div>
+      </div>
 
       <!-- Secondary CTAs -->
       <button class="landing-photo-btn" onclick="showAccountGate('full')">✦ &nbsp;Full Beauty Consultation</button>
@@ -1183,6 +1207,29 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     // Show success
     document.getElementById('medspaForm').style.display = 'none';
     document.getElementById('medspaSuccess').style.display = 'block';
+  }
+
+  function handleLandingQuestion(e) {
+    if (e.key === 'Enter') { e.preventDefault(); submitLandingQuestion(); }
+  }
+
+  function submitLandingQuestion() {
+    const input = document.getElementById('landingQuestion');
+    const question = input ? input.value.trim() : '';
+    if (!question) { if (input) input.focus(); return; }
+    // Store the question and go straight to ask mode
+    consultationType = 'ask';
+    freeQuestionUsed = false;
+    show('chat');
+    document.getElementById('messages').innerHTML = '';
+    document.getElementById('progressDots').style.display = 'none';
+    // Show Clair's welcome and immediately send the question
+    const welcomeMsg = "Hi — I'm Clair, your personal beauty intelligence. Let me answer that for you.";
+    addMessage(welcomeMsg, 'ai');
+    addMessage(question, 'user');
+    setInputEnabled(false);
+    sendAI(question);
+    if (input) input.value = '';
   }
 
   function goHome() { show('welcome'); }
