@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1199,7 +1198,7 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
               <tr><td style="padding:8px 0;font-weight:bold;">Website</td><td><a href="${website}">${website}</a></td></tr>
               <tr><td style="padding:8px 0;font-weight:bold;vertical-align:top;">Message</td><td style="padding-top:8px;">${message || '—'}</td></tr>
             </table>
-            <p style="margin-top:24px;font-size:12px;color:#8A7E74;">Submitted via clair-beauty.vercel.app</p>
+            <p style="margin-top:24px;font-size:12px;color:#8A7E74;">Submitted via www.clairbeautyco.com</p>
           </body></html>`
         })
       });
@@ -1246,20 +1245,20 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     const shareData = {
       title: 'Clair — Beauty Intelligence',
       text: 'I\'ve been using Clair — it\'s like having a personal skincare expert who actually knows your skin. Way better than Googling. Check it out:',
-      url: 'https://clair-beauty.vercel.app'
+      url: 'https://www.clairbeautyco.com'
     };
     if (navigator.share) {
       navigator.share(shareData).catch(() => {
         // Fallback to clipboard if share fails
-        navigator.clipboard.writeText('https://clair-beauty.vercel.app').then(() => {
+        navigator.clipboard.writeText('https://www.clairbeautyco.com').then(() => {
           if (btn) { const orig = btn.textContent; btn.textContent = '✓ Link Copied!'; setTimeout(() => btn.textContent = orig, 2000); }
         });
       });
     } else {
-      navigator.clipboard.writeText('https://clair-beauty.vercel.app').then(() => {
+      navigator.clipboard.writeText('https://www.clairbeautyco.com').then(() => {
         if (btn) { const orig = btn.textContent; btn.textContent = '✓ Link Copied!'; setTimeout(() => btn.textContent = orig, 2000); }
       }).catch(() => {
-        alert('Copy this link: https://clair-beauty.vercel.app');
+        alert('Copy this link: https://www.clairbeautyco.com');
       });
     }
   }
@@ -1526,7 +1525,7 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
   function buildTeaserEmailHTML(data) {
     if (!data) return '';
     const items = (data.items || []).map((item, i) => '<p style="margin:0 0 10px;font-size:13px;color:#8A7E74;line-height:1.6;"><span style="color:#C9A96E;font-family:Georgia,serif;font-style:italic;">' + (i+1) + '.</span> ' + item + '</p>').join('');
-    return '<div style="margin-top:32px;padding:28px;background:#1A1410;text-align:center;"><p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin:0 0 12px;">What We Didn\'t Get To</p><h3 style="font-family:Georgia,serif;font-size:20px;font-weight:300;color:#FAF7F2;margin:0 0 20px;line-height:1.3;">' + (data.title || "There's more to your skin story.") + '</h3><div style="text-align:left;margin-bottom:20px;">' + items + '</div><a href="https://clair-beauty.vercel.app" style="display:inline-block;padding:12px 28px;border:1px solid #C9A96E;color:#C9A96E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;">Continue with Clair</a></div>';
+    return '<div style="margin-top:32px;padding:28px;background:#1A1410;text-align:center;"><p style="font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:#C9A96E;margin:0 0 12px;">What We Didn\'t Get To</p><h3 style="font-family:Georgia,serif;font-size:20px;font-weight:300;color:#FAF7F2;margin:0 0 20px;line-height:1.3;">' + (data.title || "There's more to your skin story.") + '</h3><div style="text-align:left;margin-bottom:20px;">' + items + '</div><a href="https://www.clairbeautyco.com" style="display:inline-block;padding:12px 28px;border:1px solid #C9A96E;color:#C9A96E;font-family:Arial,sans-serif;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;text-decoration:none;">Continue with Clair</a></div>';
   }
 
   async function saveReportToSupabase(html) {
