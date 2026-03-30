@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -432,6 +430,36 @@
   .ios-step-text { font-size: 13px; color: var(--cream); line-height: 1.5; }
   .ios-step-text span { color: var(--gold); }
   .ios-close { margin-top: 20px; padding: 12px 32px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; width: 100%; }
+  /* ── SHARE BUTTON ── */
+  .share-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 11px 20px; background: transparent;
+    border: 1px solid var(--border); color: var(--gold);
+    font-family: 'Jost', sans-serif; font-size: clamp(10px,2.5vw,11px);
+    letter-spacing: 0.3em; text-transform: uppercase; cursor: pointer;
+    transition: all 0.3s; border-radius: 0;
+  }
+  .share-btn:hover { background: rgba(201,169,110,0.08); border-color: var(--gold); }
+  .share-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+  /* ── SHARED PREVIEW SCREEN ── */
+  #shared-preview { background: var(--deep); text-align: center; overflow-y: auto; justify-content: flex-start; padding: 0; }
+  .shared-hero { display: flex; flex-direction: column; align-items: center; padding: clamp(48px,12vw,72px) 24px clamp(32px,8vw,48px); width: 100%; position: relative; z-index: 1; }
+  .shared-eyebrow { font-size: clamp(9px,2.2vw,10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+  .shared-logo { font-family: 'Cormorant Garamond', serif; font-size: clamp(40px,12vw,64px); font-weight: 300; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 4px; }
+  .shared-logo-tag { font-size: clamp(10px,2.5vw,11px); letter-spacing: 0.5em; color: var(--muted); text-transform: uppercase; margin-bottom: clamp(28px,7vw,40px); }
+  .shared-card { background: rgba(255,255,255,0.04); border: 1px solid var(--border); padding: clamp(24px,6vw,36px) clamp(20px,5vw,32px); max-width: 560px; width: 100%; text-align: left; position: relative; z-index: 1; }
+  .shared-card-label { font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .shared-question { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px,4.5vw,22px); font-weight: 300; font-style: italic; color: var(--cream); margin-bottom: 20px; line-height: 1.45; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .shared-answer { font-size: clamp(14px,3.5vw,15px); color: var(--muted); line-height: 1.85; }
+  .shared-attr { font-size: clamp(10px,2.5vw,11px); letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); opacity: 0.6; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .shared-cta { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: clamp(28px,7vw,40px) 24px clamp(40px,10vw,56px); width: 100%; position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+  .shared-cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(20px,5vw,26px); font-weight: 300; color: var(--cream); line-height: 1.35; text-align: center; }
+  .shared-cta-title em { color: var(--gold); font-style: normal; }
+  .shared-cta-btn { width: 100%; padding: 16px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px,3vw,12px); letter-spacing: 0.35em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; }
+  .shared-cta-btn:hover { background: var(--gold-light); }
+  .shared-cta-sub { font-size: clamp(11px,2.8vw,12px); color: var(--muted); letter-spacing: 0.05em; }
+
   @keyframes fadeUp { from { opacity: 0.01; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
   @keyframes pulse { 0%, 100% { opacity: 1; text-shadow: 0 0 20px rgba(201,169,110,0); } 50% { opacity: 0.85; text-shadow: 0 0 40px rgba(201,169,110,0.3); } }
@@ -853,6 +881,10 @@
           <div class="report-actions">
             <button class="report-ask-btn" id="askClairBtnFooter" onclick="askClairNewQuestion()" style="display:none;padding:13px 32px;font-size:clamp(9px,2.2vw,10px);">Ask Clair Something New</button>
             <button class="restart-btn" onclick="restart()">Start a New Consultation</button>
+            <button class="restart-btn" onclick="shareReport()" style="display:flex;align-items:center;gap:8px;border-color:var(--gold);color:var(--gold);">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Share a Highlight
+            </button>
           </div>
         </div>
       </div>
@@ -1062,6 +1094,8 @@ ASK_DONE`;
       removeTyping();
       const rawReply = data.content[0].text;
       const reply = rawReply.replace('ASK_DONE', '').trim();
+      lastAskQuestion = question;
+      lastAskAnswer = reply;
       addMessage(reply, 'ai');
       conversationHistory = [{ role: 'user', content: question }, { role: 'assistant', content: reply }];
       setTimeout(() => showAskAnythingCTA(), 600);
@@ -1085,10 +1119,17 @@ ASK_DONE`;
         <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(15px,4vw,17px);color:var(--charcoal);font-weight:400;line-height:1.4;margin-bottom:12px;">
           Begin a Full Consultation <span style="color:var(--muted);font-style:italic;font-size:clamp(13px,3.5vw,15px);">(~10 minutes)</span> for crazy in-depth details — a complete Beauty Intelligence Report built entirely around <em style="color:var(--gold);font-style:normal;">your</em> skin, life, and goals.
         </div>
-        <button onclick="document.getElementById('askAnythingCTA').remove(); showAccountGate('full');"
-          style="padding:12px 24px;background:var(--deep);color:var(--gold);border:none;font-family:'Jost',sans-serif;font-size:clamp(10px,2.5vw,11px);letter-spacing:0.35em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;border-radius:0;">
-          Begin My Consultation →
-        </button>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button onclick="document.getElementById('askAnythingCTA').remove(); showAccountGate('full');"
+            style="padding:12px 24px;background:var(--deep);color:var(--gold);border:none;font-family:'Jost',sans-serif;font-size:clamp(10px,2.5vw,11px);letter-spacing:0.35em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;border-radius:0;">
+            Begin My Consultation →
+          </button>
+          <button id="shareAskBtn" onclick="shareAskAnything()"
+            style="padding:12px 20px;background:transparent;color:var(--muted);border:1px solid rgba(201,169,110,0.3);font-family:'Jost',sans-serif;font-size:clamp(10px,2.5vw,11px);letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;transition:all 0.3s;border-radius:0;display:flex;align-items:center;gap:6px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share
+          </button>
+        </div>
       </div>`;
     messages.appendChild(wrap);
     messages.scrollTop = messages.scrollHeight;
@@ -1722,9 +1763,108 @@ ASK_DONE`;
   function autoResize(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 100) + 'px'; }
   function setInputEnabled(enabled) { isWaiting = !enabled; document.getElementById('sendBtn').disabled = !enabled; document.getElementById('userInput').disabled = !enabled; const pb = document.getElementById('photoBtn'); if (pb) pb.disabled = !enabled; }
 
+  // ── SHARING ──
+  let lastAskQuestion = '';
+  let lastAskAnswer = '';
+
+  async function shareAskAnything() {
+    if (!lastAskQuestion || !lastAskAnswer) return;
+    const btn = document.getElementById('shareAskBtn');
+    if (btn) { btn.textContent = 'Saving...'; btn.disabled = true; }
+    try {
+      const { data, error } = await supabaseClient.from('shares').insert({
+        type: 'ask',
+        question: lastAskQuestion,
+        answer: lastAskAnswer.substring(0, 1200),
+        user_name: userName || ''
+      }).select().single();
+      if (error) throw error;
+      const shareUrl = `${window.location.origin}?share=${data.id}`;
+      const shareText = `I asked Clair about "${lastAskQuestion.substring(0, 60)}..." — see what she said 👇`;
+      if (navigator.share) {
+        await navigator.share({ title: 'Clair · Beauty Intelligence', text: shareText, url: shareUrl });
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        if (btn) btn.textContent = 'Link Copied!';
+        setTimeout(() => { if (btn) { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share'; btn.disabled = false; } }, 2500);
+        return;
+      }
+      if (btn) { btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> Share'; btn.disabled = false; }
+    } catch(e) { if (btn) { btn.innerHTML = 'Share'; btn.disabled = false; } }
+  }
+
+  async function shareReport() {
+    // Pull first meaningful section as the highlight
+    const tmp = document.createElement('div'); tmp.innerHTML = reportHTML;
+    const firstP = tmp.querySelector('p');
+    const highlight = firstP ? firstP.textContent.substring(0, 600) : reportHTML.replace(/<[^>]+>/g,'').substring(0, 600);
+    const question = 'My personal Beauty Intelligence Report';
+    try {
+      const { data, error } = await supabaseClient.from('shares').insert({
+        type: 'report',
+        question,
+        answer: highlight,
+        user_name: userName || ''
+      }).select().single();
+      if (error) throw error;
+      const shareUrl = `${window.location.origin}?share=${data.id}`;
+      const shareText = `My personal beauty intelligence report from Clair — see a highlight and get your own 👇`;
+      if (navigator.share) {
+        await navigator.share({ title: 'My Clair Beauty Report', text: shareText, url: shareUrl });
+      } else {
+        await navigator.clipboard.writeText(shareUrl);
+        alert('Share link copied to clipboard!');
+      }
+    } catch(e) { console.log('Share error:', e); }
+  }
+
+  async function loadSharedPreview(shareId) {
+    try {
+      const { data, error } = await supabaseClient.from('shares').select('*').eq('id', shareId).single();
+      if (error || !data) { show('welcome'); return; }
+      const isReport = data.type === 'report';
+      document.getElementById('sharedCardLabel').textContent = isReport ? '✦ A highlight from her report' : '✦ A question for Clair';
+      document.getElementById('sharedQuestion').textContent = data.question;
+      document.getElementById('sharedAnswer').textContent = data.answer;
+      document.getElementById('sharedAttr').textContent = data.user_name
+        ? `From ${data.user_name}'s Clair consultation`
+        : 'From a Clair consultation';
+      show('shared-preview');
+      window.history.replaceState({}, document.title, '/');
+    } catch(e) { show('welcome'); }
+  }
+
+  function startFromSharedPreview() {
+    show('welcome');
+    setTimeout(() => document.getElementById('landingAskInput').focus(), 500);
+  }
   const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('session_id')) { show('chat'); setTimeout(() => sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'), 400); window.history.replaceState({}, document.title, '/'); }
+  if (urlParams.get('share')) {
+    loadSharedPreview(urlParams.get('share'));
+  } else if (urlParams.get('session_id')) { show('chat'); setTimeout(() => sendAI('Yes I would like to go deeper and get my full Beauty Intelligence Report.'), 400); window.history.replaceState({}, document.title, '/'); }
 </script>
+
+<!-- SHARED PREVIEW SCREEN -->
+<div class="screen hidden" id="shared-preview">
+  <div class="welcome-glow"></div>
+  <div class="welcome-noise"></div>
+  <div class="shared-hero">
+    <div class="shared-eyebrow">Beauty Intelligence</div>
+    <div class="shared-logo">Clair</div>
+    <div class="shared-logo-tag">By Invitation of Your Skin</div>
+    <div class="shared-card">
+      <div class="shared-card-label" id="sharedCardLabel">✦ A question for Clair</div>
+      <div class="shared-question" id="sharedQuestion"></div>
+      <div class="shared-answer" id="sharedAnswer"></div>
+      <div class="shared-attr" id="sharedAttr"></div>
+    </div>
+  </div>
+  <div class="shared-cta">
+    <div class="shared-cta-title">Get your own personalized answer from <em>Clair</em> — free.</div>
+    <button class="shared-cta-btn" onclick="startFromSharedPreview()">Ask Clair Anything →</button>
+    <div class="shared-cta-sub">No signup required to start</div>
+  </div>
+</div>
 
 <!-- PWA INSTALL PROMPT -->
 <div class="install-prompt" id="installPrompt">
