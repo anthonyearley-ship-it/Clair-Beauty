@@ -757,7 +757,7 @@
       <div style="text-align:center;padding:20px 24px;border:1px solid var(--border);background:white;margin-bottom:20px;">
         <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4vw,18px);font-weight:300;color:var(--charcoal);margin-bottom:6px;">Know someone who'd love Clair?</div>
         <div style="font-size:clamp(11px,2.8vw,12px);color:var(--muted);line-height:1.7;margin-bottom:14px;">Share your personal link and give a friend their first answer free.</div>
-        <button id="shareClairBtn" onclick="shareClairWithFriend()" style="padding:12px 28px;background:var(--deep);color:var(--gold);border:none;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;width:100%;max-width:240px;">✦ Share Clair</button>
+        <button onclick="shareClairWithFriend(this)" style="padding:12px 28px;background:var(--deep);color:var(--gold);border:none;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;width:100%;max-width:240px;">✦ Share Clair</button>
       </div>
 
       <!-- Report preview -->
@@ -840,7 +840,7 @@
           <div class="affiliate-note">Some product links are affiliate links. Clair may earn a small commission if you purchase — at no extra cost to you. This never influences our recommendations.</div>
           <div class="report-actions">
             <button class="report-ask-btn" id="askClairBtnFooter" onclick="askClairNewQuestion()" style="display:none;padding:13px 32px;font-size:clamp(9px,2.2vw,10px);">Ask Clair Something New</button>
-            <button class="restart-btn" id="shareClairBtn" onclick="shareClairWithFriend()">✦ Share Clair</button>
+            <button class="restart-btn" onclick="shareClairWithFriend(this)">✦ Share Clair</button>
             <button class="restart-btn" onclick="restart()">Start a New Consultation</button>
           </div>
         </div>
@@ -1190,18 +1190,24 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
 
   let freeQuestionUsed = false;
 
-  function shareClairWithFriend() {
+  function shareClairWithFriend(btn) {
     const shareData = {
       title: 'Clair — Beauty Intelligence',
       text: 'I\'ve been using Clair — it\'s like having a personal skincare expert who actually knows your skin. Way better than Googling. Check it out:',
       url: 'https://clair-beauty.vercel.app'
     };
     if (navigator.share) {
-      navigator.share(shareData).catch(() => {});
+      navigator.share(shareData).catch(() => {
+        // Fallback to clipboard if share fails
+        navigator.clipboard.writeText('https://clair-beauty.vercel.app').then(() => {
+          if (btn) { const orig = btn.textContent; btn.textContent = '✓ Link Copied!'; setTimeout(() => btn.textContent = orig, 2000); }
+        });
+      });
     } else {
       navigator.clipboard.writeText('https://clair-beauty.vercel.app').then(() => {
-        const btn = document.getElementById('shareClairBtn');
         if (btn) { const orig = btn.textContent; btn.textContent = '✓ Link Copied!'; setTimeout(() => btn.textContent = orig, 2000); }
+      }).catch(() => {
+        alert('Copy this link: https://clair-beauty.vercel.app');
       });
     }
   }
@@ -1229,7 +1235,7 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
       <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4vw,18px);font-weight:300;color:var(--gold);margin-bottom:6px;">Want to keep going?</div>
       <div style="font-size:clamp(12px,3vw,13px);color:var(--muted);line-height:1.7;margin-bottom:14px;">Create your free Clair account to ask unlimited questions, save your answers, and build a profile Clair remembers forever.</div>
       <button onclick="showAccountGate('ask')" style="padding:12px 28px;background:var(--gold);color:var(--deep);border:none;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;margin-bottom:8px;width:100%;max-width:280px;">Create Free Account</button>
-      <button id="shareClairBtn" onclick="shareClairWithFriend()" style="padding:12px 28px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;width:100%;max-width:280px;margin-bottom:8px;">✦ Share Clair with a Friend</button>
+      <button onclick="shareClairWithFriend(this)" style="padding:12px 28px;background:transparent;border:1px solid var(--border);color:var(--muted);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;width:100%;max-width:280px;margin-bottom:8px;">✦ Share Clair with a Friend</button>
       <div style="font-size:11px;color:var(--muted);margin-top:6px;cursor:pointer;text-decoration:underline;" onclick="dismissFreeGate()">Continue without saving →</div>
     `;
     messages.appendChild(gate);
