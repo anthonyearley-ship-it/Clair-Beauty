@@ -424,7 +424,7 @@
 
     <!-- PRIMARY CTA — Ask Clair Anything -->
     <div class="w-cta-block">
-      <button class="begin-btn" onclick="showAccountGate('ask')" style="font-size:clamp(12px,3vw,13px);">Ask Clair Anything →</button>
+      <button class="begin-btn" onclick="startAskClair()" style="font-size:clamp(12px,3vw,13px);">Ask Clair Anything →</button>
 
 
       <!-- Secondary CTAs -->
@@ -1171,7 +1171,44 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
   function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
   function track(event, data) { try { if (window.va) window.va('event', { name: event, ...data }); } catch(e) {} }
 
-  function startChat() {
+  let freeQuestionUsed = false;
+
+  function startAskClair() {
+    consultationType = 'ask';
+    freeQuestionUsed = false;
+    show('chat');
+    document.getElementById('messages').innerHTML = '';
+    document.getElementById('progressDots').style.display = 'none';
+    const welcomeMsg = "Hi — I'm Clair, your personal beauty intelligence. Ask me anything about your skin, a product, an ingredient, or your routine. Unlike Google, my answers are built around what you actually tell me.\n\nWhat's on your mind?";
+    addMessage(welcomeMsg, 'ai');
+    conversationHistory.push({ role: 'assistant', content: welcomeMsg });
+    setInputEnabled(true);
+    setTimeout(() => document.getElementById('userInput').focus(), 400);
+  }
+
+  function showFreeQuestionGate() {
+    // Insert a soft gate message after first answer
+    const messages = document.getElementById('messages');
+    const gate = document.createElement('div');
+    gate.id = 'freeQuestionGate';
+    gate.style.cssText = 'margin:16px 0;padding:16px 20px;background:rgba(201,169,110,0.08);border:1px solid var(--border);text-align:center;';
+    gate.innerHTML = `
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(16px,4vw,18px);font-weight:300;color:var(--gold);margin-bottom:6px;">Want to keep going?</div>
+      <div style="font-size:clamp(12px,3vw,13px);color:var(--muted);line-height:1.7;margin-bottom:14px;">Create your free Clair account to ask unlimited questions, save your answers, and build a profile Clair remembers forever.</div>
+      <button onclick="showAccountGate('ask')" style="padding:12px 28px;background:var(--gold);color:var(--deep);border:none;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;cursor:pointer;margin-bottom:8px;width:100%;max-width:280px;">Create Free Account</button>
+      <div style="font-size:11px;color:var(--muted);margin-top:6px;cursor:pointer;text-decoration:underline;" onclick="dismissFreeGate()">Continue without saving →</div>
+    `;
+    messages.appendChild(gate);
+    messages.scrollTop = messages.scrollHeight;
+    setInputEnabled(false);
+  }
+
+  function dismissFreeGate() {
+    const gate = document.getElementById('freeQuestionGate');
+    if (gate) gate.remove();
+    setInputEnabled(true);
+    document.getElementById('userInput').focus();
+  }
     track('begin_clicked');
     show('chat');
     if (consultationType === 'ask') {
@@ -1290,7 +1327,7 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
   function restart() {
     conversationHistory = []; userName = ''; questionCount = 0; isWaiting = false;
     quickWinContent = ''; reportHTML = ''; teaserData = null; currentUserId = null;
-    consultationType = 'full';
+    consultationType = 'full'; freeQuestionUsed = false;
     if (generatingInterval) { clearInterval(generatingInterval); generatingInterval = null; }
     userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
     document.getElementById('messages').innerHTML = '';
@@ -1564,26 +1601,30 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
         updateProgress(5); setInputEnabled(false); setTimeout(() => showActionButtons(), 600);
       } else {
         addMessage(reply, 'ai'); conversationHistory.push({ role: 'assistant', content: reply });
-        questionCount++;
-        updateProgress(Math.min(questionCount, 4));
-        if (questionCount === 1) {
-          const first = conversationHistory.find(m => m.role === 'user' && m.content !== 'Begin the consultation.' && m.content !== 'Begin the quick win assessment.');
-          if (first) {
-            const w = typeof first.content === 'string' ? first.content.trim().split(' ') : [];
-            if (w.length <= 3) {
-              userName = w[0]; userProfile.name = userName;
-              // Update name in both tables
-              if (currentUserId) { try { await supabaseClient.from('profiles').update({ name: userName }).eq('id', currentUserId); } catch(e) {} }
-              try { const { data: { user } } = await supabaseClient.auth.getUser(); if (user) await supabaseClient.from('leads').update({ name: userName }).eq('email', user.email); } catch(e) {}
+        // Show soft gate after first answer in ask mode if not logged in
+        if (consultationType === 'ask' && !freeQuestionUsed && !currentUserId) {
+          freeQuestionUsed = true;
+          setTimeout(() => showFreeQuestionGate(), 800);
+        } else {
+          questionCount++;
+          updateProgress(Math.min(questionCount, 4));
+          if (questionCount === 1) {
+            const first = conversationHistory.find(m => m.role === 'user' && m.content !== 'Begin the consultation.' && m.content !== 'Begin the quick win assessment.');
+            if (first) {
+              const w = typeof first.content === 'string' ? first.content.trim().split(' ') : [];
+              if (w.length <= 3) {
+                userName = w[0]; userProfile.name = userName;
+                if (currentUserId) { try { await supabaseClient.from('profiles').update({ name: userName }).eq('id', currentUserId); } catch(e) {} }
+                try { const { data: { user } } = await supabaseClient.auth.getUser(); if (user) await supabaseClient.from('leads').update({ name: userName }).eq('email', user.email); } catch(e) {} }
+              }
             }
           }
+          if (questionCount === 2) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.age_range = last.content.trim(); }
+          if (questionCount === 3) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.budget = last.content.trim(); }
+          if (questionCount === 4) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.concern = last.content.trim(); }
+          if (questionCount === 5) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.routine = last.content.trim(); }
+          setInputEnabled(true); document.getElementById('userInput').focus();
         }
-        if (questionCount === 2) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.age_range = last.content.trim(); }
-        if (questionCount === 3) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.budget = last.content.trim(); }
-        if (questionCount === 4) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.concern = last.content.trim(); }
-        if (questionCount === 5) { const last = conversationHistory.filter(m => m.role === 'user').slice(-1)[0]; if (last) userProfile.routine = last.content.trim(); }
-        setInputEnabled(true); document.getElementById('userInput').focus();
-      }
     } catch (err) {
       removeTyping();
       const lastUserMsg = conversationHistory[conversationHistory.length - 1];
