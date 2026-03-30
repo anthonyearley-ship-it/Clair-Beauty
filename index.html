@@ -975,6 +975,7 @@ Your role here is simple: answer their question brilliantly. Be specific, be war
 Do NOT start a formal consultation. Do NOT ask a series of intake questions. Just answer what they asked, as a knowledgeable trusted friend would.
 
 Keep responses conversational and focused — 2-4 paragraphs maximum. End with something that invites them to keep the conversation going naturally.`;
+  let conversationHistory = [];
   let userName = '';
   let questionCount = 0;
   let isWaiting = false;
@@ -984,7 +985,7 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
   let currentUserId = null;
   let generatingInterval = null;
   let userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
-  let consultationType = 'full'; // 'full' or 'quickwin'
+  let consultationType = 'full';
 
   const genMessages = ['Reading your skin story...','Reviewing your lifestyle and health context...','Identifying your optimal ingredients...','Selecting your top product matches...','Composing your personal report...','Adding the finishing details...'];
   const genStepTimings = [0, 4000, 9000, 14000, 19000];
@@ -1189,7 +1190,7 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     document.getElementById('progressDots').style.display = 'none';
     const welcomeMsg = "Hi — I'm Clair, your personal beauty intelligence. Ask me anything about your skin, a product, an ingredient, or your routine. Unlike Google, my answers are built around what you actually tell me.\n\nWhat's on your mind?";
     addMessage(welcomeMsg, 'ai');
-    conversationHistory.push({ role: 'assistant', content: welcomeMsg });
+    // Don't push to conversationHistory — API requires user message first
     setInputEnabled(true);
     setTimeout(() => document.getElementById('userInput').focus(), 400);
   }
