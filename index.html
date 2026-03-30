@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1216,19 +1217,40 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     const input = document.getElementById('landingQuestion');
     const question = input ? input.value.trim() : '';
     if (!question) { if (input) input.focus(); return; }
-    // Store the question and go straight to ask mode
     consultationType = 'ask';
     freeQuestionUsed = false;
+    conversationHistory = [];
     show('chat');
     document.getElementById('messages').innerHTML = '';
     document.getElementById('progressDots').style.display = 'none';
-    // Show Clair's welcome and immediately send the question
-    const welcomeMsg = "Hi — I'm Clair, your personal beauty intelligence. Let me answer that for you.";
-    addMessage(welcomeMsg, 'ai');
-    addMessage(question, 'user');
-    setInputEnabled(false);
-    sendAI(question);
     if (input) input.value = '';
+    // Delay to let mobile DOM settle after screen transition
+    setTimeout(() => {
+      const welcomeMsg = "Hi — I'm Clair, your personal beauty intelligence. Let me answer that for you.";
+      addMessage(welcomeMsg, 'ai');
+      addMessage(question, 'user');
+      setInputEnabled(false);
+      showTyping();
+      // Call Claude directly without going through sendAI to avoid double-pushing user message
+      callClaude([{ role: 'user', content: question }]).then(reply => {
+        removeTyping();
+        conversationHistory.push({ role: 'user', content: question });
+        conversationHistory.push({ role: 'assistant', content: reply });
+        addMessage(reply, 'ai');
+        setTimeout(() => addShareInsightButton(reply), 600);
+        if (!currentUserId) {
+          freeQuestionUsed = true;
+          setTimeout(() => showFreeQuestionGate(), 1400);
+        } else {
+          setInputEnabled(true);
+          document.getElementById('userInput').focus();
+        }
+      }).catch(err => {
+        removeTyping();
+        addMessage('Something went wrong — please try again.', 'ai');
+        setInputEnabled(true);
+      });
+    }, 300);
   }
 
   function goHome() { show('welcome'); }
