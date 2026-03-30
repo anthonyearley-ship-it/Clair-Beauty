@@ -1615,7 +1615,7 @@ CRITICAL: Ask only ONE question at a time. Be warm, direct, and deliver real val
               if (w.length <= 3) {
                 userName = w[0]; userProfile.name = userName;
                 if (currentUserId) { try { await supabaseClient.from('profiles').update({ name: userName }).eq('id', currentUserId); } catch(e) {} }
-                try { const { data: { user } } = await supabaseClient.auth.getUser(); if (user) await supabaseClient.from('leads').update({ name: userName }).eq('email', user.email); } catch(e) {} }
+                try { const { data: { user } } = await supabaseClient.auth.getUser(); if (user) await supabaseClient.from('leads').update({ name: userName }).eq('email', user.email); } catch(e) {}
               }
             }
           }
