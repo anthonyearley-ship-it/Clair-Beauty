@@ -1064,41 +1064,30 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
   let userProfile = { name: '', age_range: '', budget: '', concern: '', routine: '' };
   let consultationType = 'full';
 
-  const genMessages = ['Reading your skin story...','Reviewing your lifestyle and health context...','Identifying your optimal ingredients...','Selecting your top product matches...','Composing your personal report...','Adding the finishing details...'];
-  const genStepTimings = [0, 4000, 9000, 14000, 19000];
-
-  // ── AUTO SESSION DETECTION ──
-  // On load, check if user has an active session — if yes, go straight to dashboard
-  window.addEventListener('DOMContentLoaded', async () => {
-    try {
-      const { data: { session } } = await supabaseClient.auth.getSession();
-      if (session && session.user) {
-        currentUserId = session.user.id;
-        const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', session.user.id).maybeSingle();
-        if (profile) {
-          userName = profile.name || '';
-          userProfile.age_range = profile.age_range || '';
-          userProfile.budget = profile.budget || '';
-          userProfile.concern = profile.concern || '';
-          userProfile.routine = profile.routine || '';
-          reportHTML = profile.report || '';
-          if (profile.report) {
-            document.getElementById('reportName').textContent = userName || 'Your Report';
-            document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
-            document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + (profile.report_date ? ' · ' + new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '');
-            document.getElementById('reportContent').innerHTML = '<div class="section-body">' + profile.report + '</div>';
-            document.getElementById('saveBanner').style.display = 'none';
-            document.getElementById('reportUnlockOverlay').style.display = 'none';
-            document.getElementById('reportBody').classList.remove('blurred');
-            showAskClairButton();
-          }
-        }
-        showDashboard(session.user.email, profile);
-      }
-    } catch(e) {
-      // No session or error — stay on welcome screen
+  // ── SESSION CHECK ON PAGE LOAD ──
+  // If the user already has a valid Supabase session stored in the browser,
+  // skip the welcome screen and go straight to their dashboard.
+  supabaseClient.auth.getSession().then(({ data: { session } }) => {
+    if (session?.user) {
+      currentUserId = session.user.id;
+      supabaseClient.from('profiles').select('*').eq('id', session.user.id).maybeSingle()
+        .then(({ data: profile }) => {
+          showDashboard(session.user.email, profile);
+        });
     }
   });
+
+  // Stay in sync if the user signs in/out in another tab
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === 'SIGNED_IN' && session?.user) {
+      currentUserId = session.user.id;
+    } else if (event === 'SIGNED_OUT') {
+      currentUserId = null;
+    }
+  });
+
+  const genMessages = ['Reading your skin story...','Reviewing your lifestyle and health context...','Identifying your optimal ingredients...','Selecting your top product matches...','Composing your personal report...','Adding the finishing details...'];
+  const genStepTimings = [0, 4000, 9000, 14000, 19000];
 
   function startGeneratingAnimation() {
     let msgIndex = 0;
