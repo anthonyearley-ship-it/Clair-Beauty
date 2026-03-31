@@ -13,7 +13,9 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Clair">
-<link rel="apple-touch-icon" href="/icon-512.svg">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -457,7 +459,7 @@
 
       <!-- Secondary CTAs -->
       <button class="landing-photo-btn" onclick="showAccountGate('full')">✦ &nbsp;Full Beauty Consultation</button>
-      <button class="landing-photo-btn" onclick="showPhotoSignup()">📷 &nbsp;Analyze a Product</button>
+      <button class="landing-photo-btn" onclick="showPhotoSignup()">📷 &nbsp;Analyze a Product or Skin Photo</button>
 
       <!-- Social proof -->
       <div class="w-social-proof">
@@ -547,8 +549,8 @@
 <div class="photo-signup-overlay" id="photoSignupOverlay">
   <div class="photo-signup-box">
     <div class="photo-signup-icon">📷</div>
-    <div class="photo-signup-title">Analyze Any Product — Free</div>
-    <div class="photo-signup-sub">Create your free Clair account and she'll tell you exactly whether a product is right for your skin — ingredients, concerns, sensitivities, and all.</div>
+    <div class="photo-signup-title">Analyze Any Product or Skin Photo — Free</div>
+    <div class="photo-signup-sub">Create your free Clair account and she'll tell you exactly whether a product is right for your skin — or analyze a photo of your skin directly for personalized insights.</div>
     <input class="photo-signup-input" id="photoSignupEmail" type="email" placeholder="Your email address" autocomplete="email" />
     <input class="photo-signup-input" id="photoSignupPassword" type="password" placeholder="Create a password (6+ characters)" autocomplete="new-password" />
     <div class="photo-signup-error" id="photoSignupError"></div>
@@ -631,7 +633,7 @@
   <div class="chat-messages" id="messages"></div>
   <div class="chat-input-area">
     <div class="chat-input-wrap">
-      <button class="photo-btn" id="photoBtn" onclick="document.getElementById('photoInput').click()" title="Attach a product photo">📷</button>
+      <button class="photo-btn" id="photoBtn" onclick="document.getElementById('photoInput').click()" title="Attach a product or skin photo">📷</button>
       <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="handlePhotoSelect(this)">
       <textarea class="chat-input" id="userInput" placeholder="Ask Clair anything about your skin..." rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
       <button class="send-btn" id="sendBtn" onclick="sendMessage()">Send</button>
@@ -760,8 +762,8 @@
         </div>
         <div class="dash-action-card" onclick="document.getElementById('photoInput').click()">
           <div class="dash-action-icon">📷</div>
-          <div class="dash-action-title">Analyze a Product</div>
-          <div class="dash-action-sub">Upload a photo for instant analysis</div>
+          <div class="dash-action-title">Analyze a Product or Skin Photo</div>
+          <div class="dash-action-sub">Upload a product or skin photo for instant analysis</div>
         </div>
         <div class="dash-action-card" id="dashViewReportCard" onclick="viewFullReport()" style="display:none;">
           <div class="dash-action-icon">📋</div>
@@ -1128,7 +1130,19 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     btn.textContent = 'Creating account...'; btn.disabled = true;
     try {
       const { data, error } = await supabaseClient.auth.signUp({ email, password });
-      if (error) { errorEl.textContent = error.message; btn.textContent = 'Create My Free Account'; btn.disabled = false; return; }
+      if (error) {
+        // If account already exists, try signing them in instead
+        if (error.message.includes('already registered') || error.message.includes('already exists')) {
+          const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+          if (signInError) { errorEl.textContent = 'Account exists — please check your password.'; btn.textContent = 'Create My Free Account'; btn.disabled = false; return; }
+          currentUserId = signInData.user.id;
+          const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', signInData.user.id).maybeSingle();
+          hidePhotoSignup();
+          showDashboard(email, profile);
+          return;
+        }
+        errorEl.textContent = error.message; btn.textContent = 'Create My Free Account'; btn.disabled = false; return;
+      }
       const user = data.session?.user || data.user;
       if (user) {
         currentUserId = user.id;
@@ -1138,10 +1152,9 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
         try { await supabaseClient.from('leads').upsert({ email, name: userName }, { onConflict: 'email' }); } catch(e) {}
       }
       hidePhotoSignup();
-      // Take them straight to chat with photo upload ready
       show('chat');
       document.getElementById('messages').innerHTML = '';
-      const welcomeMsg = 'Welcome! Your account is all set. You can now upload a photo of any product and I\'ll tell you exactly what I think of it for your skin. You can also tap Begin My Consultation at any time to get your full personalized Beauty Intelligence Report.\n\nGo ahead — what product would you like me to look at?';
+      const welcomeMsg = 'Welcome! Your account is all set.\n\nYou can upload a photo of any skincare or beauty product and I\'ll analyze the ingredients for your skin specifically. Or if you\'d like, take or upload a photo of your skin directly — I\'ll tell you what I observe and give you personalized recommendations.\n\nGo ahead — attach a photo using the 📷 button below, or just ask me anything.';
       addMessage(welcomeMsg, 'ai');
       conversationHistory.push({ role: 'assistant', content: welcomeMsg });
       setInputEnabled(true);
@@ -2048,7 +2061,7 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     document.getElementById('photoPreviewWrap').style.display = 'none';
     document.getElementById('photoPreviewImg').src = '';
     document.getElementById('photoPreviewName').textContent = '';
-    document.getElementById('userInput').placeholder = 'Ask Clair anything — or attach a product photo...';
+    document.getElementById('userInput').placeholder = 'Ask Clair anything — or attach a product or skin photo...';
   }
 
   function sendMessage() {
@@ -2061,7 +2074,7 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
     input.value = ''; input.style.height = 'auto';
     const photo = pendingPhotoBase64 ? { base64: pendingPhotoBase64, mediaType: pendingPhotoMediaType } : null;
     removePhoto();
-    sendAI(text || 'I am sending you a photo of a product. Please analyze it for me based on my skin profile.', photo);
+    sendAI(text || 'I am sending you a photo. If this is a skincare or beauty product, please analyze the ingredients and tell me if it is right for my skin profile. If this is a photo of my skin, please analyze what you observe and give me personalized recommendations based on my skin profile.', photo);
   }
 
   function handleKey(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } }
