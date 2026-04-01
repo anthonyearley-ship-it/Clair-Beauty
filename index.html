@@ -8,6 +8,16 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script defer src="/_vercel/insights/script.js"></script>
+<script>
+  !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.people.toString(20)+" (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
+  posthog.init('phc_sr2FcnccrVVCP5FVx3pzWsJ5mAoYNH9SMadsPsf2KF5T', {
+    api_host: 'https://us.i.posthog.com',
+    person_profiles: 'identified_only',
+    capture_pageview: true,
+    capture_pageleave: true,
+    session_recording: { maskAllInputs: false }
+  });
+</script>
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1A1410">
 <meta name="mobile-web-app-capable" content="yes">
@@ -1074,6 +1084,7 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
   supabaseClient.auth.getSession().then(({ data: { session } }) => {
     if (session?.user) {
       currentUserId = session.user.id;
+      identifyUser(session.user.email);
       supabaseClient.from('profiles').select('*').eq('id', session.user.id).maybeSingle()
         .then(({ data: profile }) => {
           showDashboard(session.user.email, profile);
@@ -1085,8 +1096,10 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
   supabaseClient.auth.onAuthStateChange((event, session) => {
     if (event === 'SIGNED_IN' && session?.user) {
       currentUserId = session.user.id;
+      identifyUser(session.user.email);
     } else if (event === 'SIGNED_OUT') {
       currentUserId = null;
+      try { if (window.posthog) window.posthog.reset(); } catch(e) {}
     }
   });
 
@@ -1368,7 +1381,18 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
   function hideWhyClair() { document.getElementById('whyClairOverlay').classList.remove('visible'); }
 
   function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
-  function track(event, data) { try { if (window.va) window.va('event', { name: event, ...data }); } catch(e) {} }
+  function track(event, data) {
+    try { if (window.va) window.va('event', { name: event, ...data }); } catch(e) {}
+    try { if (window.posthog) window.posthog.capture(event, data || {}); } catch(e) {}
+  }
+
+  function identifyUser(email, extraProps) {
+    try {
+      if (window.posthog && email) {
+        window.posthog.identify(email, { email, ...extraProps });
+      }
+    } catch(e) {}
+  }
 
   let freeQuestionUsed = false;
 
