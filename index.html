@@ -482,7 +482,7 @@
       </div>
 
       <!-- Secondary CTA -->
-      <button class="landing-photo-btn" onclick="showPhotoSignup()">📷 &nbsp;Analyze a Product</button>
+      <button class="landing-photo-btn" onclick="showPhotoSignup()">📷 &nbsp;Analyze a Photo of Product or Your Skin</button>
 
       <!-- Social proof -->
       <div class="w-social-proof">
@@ -569,8 +569,8 @@
 <div class="photo-signup-overlay" id="photoSignupOverlay">
   <div class="photo-signup-box">
     <div class="photo-signup-icon">📷</div>
-    <div class="photo-signup-title">Analyze Any Product — Free</div>
-    <div class="photo-signup-sub">Create your free Clair account and she'll tell you exactly whether a product is right for your skin — ingredients, concerns, sensitivities, and all.</div>
+    <div class="photo-signup-title">Analyze Any Product or Your Skin</div>
+    <div class="photo-signup-sub">Create your free Clair account and she'll tell you exactly what she thinks — whether it's a product label, your skin texture, or anything beauty-related.</div>
     <input class="photo-signup-input" id="photoSignupEmail" type="email" placeholder="Your email address" autocomplete="email" />
     <input class="photo-signup-input" id="photoSignupPassword" type="password" placeholder="Create a password (6+ characters)" autocomplete="new-password" />
     <div class="photo-signup-error" id="photoSignupError"></div>
@@ -1176,14 +1176,17 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
         try { await supabaseClient.from('leads').upsert({ email, name: userName }, { onConflict: 'email' }); } catch(e) {}
       }
       hidePhotoSignup();
-      // Take them straight to chat with photo upload ready
       show('chat');
       document.getElementById('messages').innerHTML = '';
-      const welcomeMsg = 'Welcome! Your account is all set. You can now upload a photo of any product and I\'ll tell you exactly what I think of it for your skin. You can also tap Begin My Consultation at any time to get your full personalized Beauty Intelligence Report.\n\nGo ahead — what product would you like me to look at?';
+      conversationHistory = [];
+      consultationType = 'ask';
+      const welcomeMsg = 'Hi! I\'m Clair. Upload a photo of any product or your skin and I\'ll give you my honest, personalized assessment.';
       addMessage(welcomeMsg, 'ai');
-      conversationHistory.push({ role: 'assistant', content: welcomeMsg });
       setInputEnabled(true);
-      document.getElementById('userInput').focus();
+      // Auto-trigger the file picker
+      setTimeout(() => {
+        document.getElementById('photoInput').click();
+      }, 600);
     } catch (err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = 'Create My Free Account'; btn.disabled = false; }
   }
 
