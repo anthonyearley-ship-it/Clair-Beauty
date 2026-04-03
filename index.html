@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -347,7 +346,15 @@
   .why-clair-item-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.75; }
   .why-clair-btn-wrap { padding: 24px; display: flex; justify-content: center; flex-shrink: 0; }
 
-  /* Landing question field */
+  /* Top navigation bar */
+  .w-topnav { position: sticky; top: 0; z-index: 100; width: 100%; background: rgba(26,20,16,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; flex-shrink: 0; }
+  .w-topnav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--gold); letter-spacing: 0.12em; cursor: pointer; }
+  .w-topnav-logo span { font-style: italic; }
+  .w-topnav-links { display: flex; align-items: center; gap: 6px; }
+  .w-topnav-btn { padding: 7px 12px; background: transparent; border: 1px solid transparent; color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 2px; white-space: nowrap; }
+  .w-topnav-btn:hover, .w-topnav-btn:active { border-color: var(--border); color: var(--gold); }
+  .w-topnav-btn.primary { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+  .w-topnav-btn.primary:hover { background: var(--gold-light); }
   .landing-question-wrap { width: 100%; max-width: 480px; margin: 0 auto; position: relative; }
   .landing-question-input { width: 100%; padding: 18px 64px 18px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.4); color: var(--cream); font-family: 'Jost', sans-serif; font-size: clamp(14px,3.5vw,16px); outline: none; border-radius: 2px; -webkit-appearance: none; transition: border-color 0.3s; box-sizing: border-box; }
   .landing-question-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.09); }
@@ -427,13 +434,24 @@
   <div class="welcome-glow"></div>
   <div class="welcome-noise"></div>
 
+  <!-- TOP NAV -->
+  <div class="w-topnav">
+    <div class="w-topnav-logo" onclick="goHome()">C<span>lair</span></div>
+    <div class="w-topnav-links">
+      <button class="w-topnav-btn" onclick="checkSessionAndShowDashboard()">My Clair</button>
+      <button class="w-topnav-btn" onclick="showWhyClair()">Why Clair?</button>
+      <button class="w-topnav-btn" onclick="showMedspaInquiry()">Med Spa</button>
+      <button class="w-topnav-btn primary" onclick="showAccountGate('full')">Consultation</button>
+    </div>
+  </div>
+
   <!-- HERO -->
   <div class="w-hero">
-    <div class="w-eyebrow">Personal Beauty Intelligence</div>
+    <div class="w-eyebrow">Free Personal Skincare Intelligence</div>
     <div class="logo">Clair</div>
-    <div class="logo-tag">The Intelligence That Knows Your Skin</div>
-    <div class="w-headline">Ask anything. Get answers built around <em>you</em> — not the internet.</div>
-    <div class="w-subhead">Type your skin concern below and Clair answers instantly — no signup required.</div>
+    <div class="logo-tag">Finally — a routine built just for you</div>
+    <div class="w-headline">Stop guessing in the drugstore aisle. Start knowing exactly what <em>your</em> skin needs.</div>
+    <div class="w-subhead">Ask Clair anything — or get your complete personalized skincare routine and daily schedule. Free. No medspa required.</div>
 
     <!-- PRIMARY CTA — Inline question field -->
     <div class="w-cta-block">
@@ -441,24 +459,29 @@
       <!-- Inline question input -->
       <div class="landing-question-wrap">
         <input class="landing-question-input" id="landingQuestion" type="text"
-          placeholder="What's your biggest skin concern right now?"
+          placeholder="e.g. My skin is so dry no matter what I try..."
           onkeydown="handleLandingQuestion(event)"
           autocomplete="off" />
-        <button class="landing-question-send" 
+        <button class="landing-question-send"
           onclick="submitLandingQuestion()"
           ontouchend="event.preventDefault();submitLandingQuestion();"
           title="Ask Clair">→</button>
       </div>
 
+      <!-- Full consultation CTA — prominent -->
+      <div style="width:100%;text-align:center;margin:4px 0;">
+        <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">✦ &nbsp;Begin Full Beauty Consultation</button>
+        <div style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);margin-top:8px;line-height:1.6;">Your skin type · Your budget · Your routine · Products that actually work</div>
+      </div>
+
       <!-- Divider -->
       <div class="landing-divider">
         <div class="landing-divider-line"></div>
-        <div class="landing-divider-text">or explore</div>
+        <div class="landing-divider-text">or</div>
         <div class="landing-divider-line"></div>
       </div>
 
-      <!-- Secondary CTAs -->
-      <button class="landing-photo-btn" onclick="showAccountGate('full')">✦ &nbsp;Full Beauty Consultation</button>
+      <!-- Secondary CTA -->
       <button class="landing-photo-btn" onclick="showPhotoSignup()">📷 &nbsp;Analyze a Product</button>
 
       <!-- Social proof -->
@@ -478,7 +501,7 @@
 
   <!-- VS SECTION — Clair vs Google/ChatGPT -->
   <div class="w-vs">
-    <div class="w-vs-label">Why Clair instead of Google or ChatGPT</div>
+    <div class="w-vs-label">Why Clair beats googling it</div>
     <div class="w-vs-grid">
       <div class="w-vs-col them">
         <div class="w-vs-col-label">Google / ChatGPT</div>
@@ -499,9 +522,6 @@
 
   <!-- FOOTER -->
   <div class="w-footer">
-    <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="checkSessionAndShowDashboard()">My Clair →</button>
-    <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="showWhyClair()">Why Clair? →</button>
-    <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="showMedspaInquiry()">Med Spa Partnership →</button>
     <div class="disclaimer">Clair is for cosmetic guidance only — not medical advice. No brand partnerships. No sponsored recommendations.</div>
   </div>
 </div>
@@ -760,10 +780,10 @@
           <div class="dash-action-title">Ask Clair</div>
           <div class="dash-action-sub">Ask anything about your skin or a product</div>
         </div>
-        <div class="dash-action-card" onclick="analyzeProductFromDashboard()">
+        <div class="dash-action-card" onclick="document.getElementById('photoInput').click()">
           <div class="dash-action-icon">📷</div>
-          <div class="dash-action-title">Analyze Product or Picture</div>
-          <div class="dash-action-sub">Upload a photo of any product or your skin for instant analysis</div>
+          <div class="dash-action-title">Analyze a Product</div>
+          <div class="dash-action-sub">Upload a photo for instant analysis</div>
         </div>
         <div class="dash-action-card" id="dashViewReportCard" onclick="viewFullReport()" style="display:none;">
           <div class="dash-action-icon">📋</div>
@@ -959,12 +979,15 @@ Question 1: You have already asked their name in the opening message — receive
 Question 2: Ask their age range — options: 35-44, 45-54, 55-64, or 65+
 Question 3: Ask their monthly skincare budget — options: under $50, $50-150, $150-300, or $300+
 Question 4: Ask their single biggest skin concern — options: fine lines and loss of firmness, dullness and uneven tone, dryness and dehydration, breakouts and congestion, or hyperpigmentation and dark spots
-Question 5: Ask them to describe their current routine in one sentence
+Question 5: Ask them to describe their current routine — what products they use in the morning and what they use at night, and roughly in what order
 
-After receiving the answer to Question 5 you MUST immediately deliver the QUICK INSIGHT. Do not ask any more questions first. The QUICK INSIGHT must include:
+After Question 5, ask ONE more question before the Quick Insight:
+Question 5b: Ask if there are any other moments in their day that affect their skin — going to the gym, swimming, long commutes, outdoor work, travel — anything that puts extra demands on their skin
+
+After receiving the answer to Question 5b you MUST immediately deliver the QUICK INSIGHT. Do not ask any more questions first. The QUICK INSIGHT must include:
 - A warm one paragraph explanation of what is actually happening with their specific concern given their age range
 - Exactly two or three specific product recommendations matched precisely to their stated budget with real brand names, key ingredients, and prices
-- One simple routine tip they can implement today
+- One simple routine tip they can implement today, including the best time of day to use it
 
 You MUST end your Quick Insight message with this exact token on its own line with nothing after it:
 QUICK_WIN_DONE
@@ -984,7 +1007,7 @@ After Question 12: Give a warm elegant closing message then write exactly: REPOR
 
 CRITICAL RULES:
 - Ask ONLY ONE question per message — never two
-- After Question 5 you MUST output the Quick Insight followed by QUICK_WIN_DONE — do not ask Question 6 first
+- After Question 5b you MUST output the Quick Insight followed by QUICK_WIN_DONE — do not ask Question 6 first
 - Never tell users there is no account or login system — there is one
 - Use the user's name only once — right when you first learn it. Never use it again after that.
 - Never use bullet points in conversation
@@ -994,14 +1017,16 @@ CRITICAL RULES:
 - Infer Fitzpatrick skin type from Question 10 without using clinical terminology
 - Infer barrier health from Question 11 without diagnosing
 - Never compare Clair to any other AI or product by name
+- When discussing timing, be specific — morning vs evening, before vs after shower, before vs after gym
 
-REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these six sections:
+REPORT FORMAT: HTML only using h3, p, ul, li, strong, a tags with these SEVEN sections:
 1. Your Skin Profile — include inferred Fitzpatrick type, barrier health, and full lifestyle context
 2. What is Already Working
 3. The Gaps — include allergy and sensitivity flags
 4. Your Top 5 Product Recommendations — for each product create a hyperlink using this exact format: <a href="https://www.amazon.com/s?k=PRODUCT+NAME+BRAND&tag=clairbeauty-20" target="_blank">Product Name</a> — replace spaces with + in the search query. Include brand, price, key ingredients, and why it works for her specifically.
-5. Ingredients to Seek and Ingredients to Avoid
-6. Your 90-Day Focus`;
+5. Your Daily Routine — THIS IS CRITICAL. Build a complete time-blocked routine based on everything you learned. Structure it as: Morning Routine (products in exact application order with timing notes), Evening Routine (products in exact application order), and any Situational Moments (post-gym, pre-event, travel days, etc.) that apply to her life. For each product specify: when to apply it, what to apply it before or after, how long to wait between layers if relevant, and any ingredients it should never be paired with. This section should feel like a personal schedule written just for her — specific, practical, and immediately actionable.
+6. Ingredients to Seek and Ingredients to Avoid
+7. Your 90-Day Focus`;
 
   const TEASER_PROMPT = `Based on this beauty consultation conversation, generate exactly 3 personalized "unfinished threads" — specific things from her conversation that weren't fully explored in the report. These should be intriguing and specific to what she actually shared, but incomplete enough that she wants to come back to Clair to get the full answer.
 
@@ -1068,6 +1093,39 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
 
   const genMessages = ['Reading your skin story...','Reviewing your lifestyle and health context...','Identifying your optimal ingredients...','Selecting your top product matches...','Composing your personal report...','Adding the finishing details...'];
   const genStepTimings = [0, 4000, 9000, 14000, 19000];
+
+  // ── AUTO SESSION DETECTION ──
+  // On load, check if user has an active session — if yes, go straight to dashboard
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      if (session && session.user) {
+        currentUserId = session.user.id;
+        const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', session.user.id).maybeSingle();
+        if (profile) {
+          userName = profile.name || '';
+          userProfile.age_range = profile.age_range || '';
+          userProfile.budget = profile.budget || '';
+          userProfile.concern = profile.concern || '';
+          userProfile.routine = profile.routine || '';
+          reportHTML = profile.report || '';
+          if (profile.report) {
+            document.getElementById('reportName').textContent = userName || 'Your Report';
+            document.getElementById('reportTitle').textContent = 'Your Beauty Intelligence Report';
+            document.getElementById('reportSub').textContent = 'Curated exclusively for ' + (userName || 'you') + (profile.report_date ? ' · ' + new Date(profile.report_date).toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : '');
+            document.getElementById('reportContent').innerHTML = '<div class="section-body">' + profile.report + '</div>';
+            document.getElementById('saveBanner').style.display = 'none';
+            document.getElementById('reportUnlockOverlay').style.display = 'none';
+            document.getElementById('reportBody').classList.remove('blurred');
+            showAskClairButton();
+          }
+        }
+        showDashboard(session.user.email, profile);
+      }
+    } catch(e) {
+      // No session or error — stay on welcome screen
+    }
+  });
 
   function startGeneratingAnimation() {
     let msgIndex = 0;
@@ -1620,38 +1678,6 @@ Keep responses conversational and focused — 2-4 paragraphs maximum. End with s
       : 'I have already completed a consultation with Clair and would like to ask a new question. Please welcome me back warmly and ask what I would like to explore.';
     show('chat');
     setTimeout(() => sendAI(contextMsg), 400);
-  }
-
-  function analyzeProductFromDashboard() {
-    // Step 1: Reset chat state and prepare for an "ask" session
-    conversationHistory = []; questionCount = 0; isWaiting = false;
-    document.getElementById('messages').innerHTML = '';
-    updateProgress(0);
-    consultationType = 'ask';
-
-    // Step 2: Build profile context so Clair's analysis is personalized
-    const profileContext = [
-      userName ? 'Name: ' + userName : '',
-      userProfile.age_range ? 'Age range: ' + userProfile.age_range : '',
-      userProfile.budget ? 'Budget: ' + userProfile.budget : '',
-      userProfile.concern ? 'Primary concern: ' + userProfile.concern : '',
-      userProfile.routine ? 'Current routine: ' + userProfile.routine : '',
-    ].filter(Boolean).join('\n');
-
-    const primeMsg = profileContext
-      ? 'I am returning to analyze a product or photo. My skin profile:\n' + profileContext + '\n\nPlease greet me warmly, let me know you\'re ready for my photo, and tell me I can upload a product photo or a photo of my skin and you\'ll give me a personalized analysis.'
-      : 'I would like you to analyze a product or photo for me. Please greet me warmly and let me know you\'re ready — I can upload a product photo or a picture of my skin.';
-
-    // Step 3: Navigate to chat, send the prime, then open the file picker
-    show('chat');
-    setTimeout(() => {
-      sendAI(primeMsg);
-      // Open the file picker after Clair's greeting arrives
-      setTimeout(() => {
-        const photoInput = document.getElementById('photoInput');
-        if (photoInput) photoInput.click();
-      }, 2200);
-    }, 300);
   }
 
   function showAskClairButton() {
