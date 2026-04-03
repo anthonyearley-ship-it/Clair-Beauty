@@ -346,7 +346,15 @@
   .why-clair-item-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.75; }
   .why-clair-btn-wrap { padding: 24px; display: flex; justify-content: center; flex-shrink: 0; }
 
-  /* Landing question field */
+  /* Top navigation bar */
+  .w-topnav { position: sticky; top: 0; z-index: 100; width: 100%; background: rgba(26,20,16,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; flex-shrink: 0; }
+  .w-topnav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--gold); letter-spacing: 0.12em; cursor: pointer; }
+  .w-topnav-logo span { font-style: italic; }
+  .w-topnav-links { display: flex; align-items: center; gap: 6px; }
+  .w-topnav-btn { padding: 7px 12px; background: transparent; border: 1px solid transparent; color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 2px; white-space: nowrap; }
+  .w-topnav-btn:hover, .w-topnav-btn:active { border-color: var(--border); color: var(--gold); }
+  .w-topnav-btn.primary { background: var(--gold); color: var(--deep); border-color: var(--gold); }
+  .w-topnav-btn.primary:hover { background: var(--gold-light); }
   .landing-question-wrap { width: 100%; max-width: 480px; margin: 0 auto; position: relative; }
   .landing-question-input { width: 100%; padding: 18px 64px 18px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.4); color: var(--cream); font-family: 'Jost', sans-serif; font-size: clamp(14px,3.5vw,16px); outline: none; border-radius: 2px; -webkit-appearance: none; transition: border-color 0.3s; box-sizing: border-box; }
   .landing-question-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.09); }
@@ -426,6 +434,17 @@
   <div class="welcome-glow"></div>
   <div class="welcome-noise"></div>
 
+  <!-- TOP NAV -->
+  <div class="w-topnav">
+    <div class="w-topnav-logo" onclick="goHome()">C<span>lair</span></div>
+    <div class="w-topnav-links">
+      <button class="w-topnav-btn" onclick="checkSessionAndShowDashboard()">My Clair</button>
+      <button class="w-topnav-btn" onclick="showWhyClair()">Why Clair?</button>
+      <button class="w-topnav-btn" onclick="showMedspaInquiry()">Med Spa</button>
+      <button class="w-topnav-btn primary" onclick="showAccountGate('full')">Consultation</button>
+    </div>
+  </div>
+
   <!-- HERO -->
   <div class="w-hero">
     <div class="w-eyebrow">Personal Beauty Intelligence</div>
@@ -443,21 +462,26 @@
           placeholder="What's your biggest skin concern right now?"
           onkeydown="handleLandingQuestion(event)"
           autocomplete="off" />
-        <button class="landing-question-send" 
+        <button class="landing-question-send"
           onclick="submitLandingQuestion()"
           ontouchend="event.preventDefault();submitLandingQuestion();"
           title="Ask Clair">→</button>
       </div>
 
+      <!-- Full consultation CTA — prominent -->
+      <div style="width:100%;text-align:center;margin:4px 0;">
+        <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">✦ &nbsp;Begin Full Beauty Consultation</button>
+        <div style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);margin-top:8px;line-height:1.6;">Complete skin profile · Personalized report · Daily routine · Product recommendations</div>
+      </div>
+
       <!-- Divider -->
       <div class="landing-divider">
         <div class="landing-divider-line"></div>
-        <div class="landing-divider-text">or explore</div>
+        <div class="landing-divider-text">or</div>
         <div class="landing-divider-line"></div>
       </div>
 
-      <!-- Secondary CTAs -->
-      <button class="landing-photo-btn" onclick="showAccountGate('full')">✦ &nbsp;Full Beauty Consultation</button>
+      <!-- Secondary CTA -->
       <button class="landing-photo-btn" onclick="showPhotoSignup()">📷 &nbsp;Analyze a Product</button>
 
       <!-- Social proof -->
@@ -498,9 +522,6 @@
 
   <!-- FOOTER -->
   <div class="w-footer">
-    <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="checkSessionAndShowDashboard()">My Clair →</button>
-    <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="showWhyClair()">Why Clair? →</button>
-    <button class="begin-btn" style="max-width:320px;width:100%;background:transparent;border:1px solid var(--border);color:var(--muted);" onclick="showMedspaInquiry()">Med Spa Partnership →</button>
     <div class="disclaimer">Clair is for cosmetic guidance only — not medical advice. No brand partnerships. No sponsored recommendations.</div>
   </div>
 </div>
