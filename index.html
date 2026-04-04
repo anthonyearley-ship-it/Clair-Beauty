@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1526,7 +1527,14 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
   function startNewConsultation() {
     conversationHistory = []; questionCount = 0; isWaiting = false; quickWinContent = ''; teaserData = null;
     document.getElementById('messages').innerHTML = ''; updateProgress(0);
-    showAccountGate('full');
+    // If the user is already logged in, go straight to chat — no gate needed
+    if (currentUserId) {
+      consultationType = 'full';
+      show('chat');
+      setTimeout(() => sendAI('Begin the consultation.'), 400);
+    } else {
+      showAccountGate('full');
+    }
   }
 
   async function signOut() {
