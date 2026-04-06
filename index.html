@@ -1033,6 +1033,21 @@ INGREDIENT CONFLICT ANALYSIS: When a user sends a photo of a product or ingredie
   async function handleSignedInUser(user) {
     currentUserId = user.id;
     const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).maybeSingle();
+
+    // New user — no profile yet — send yourself an alert
+    const isNewUser = !profile;
+    if (isNewUser) {
+      try {
+        await supabaseClient.from('profiles').upsert({ id: user.id, email: user.email, name: '' }, { onConflict: 'id' });
+        await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({
+          type: 'send_email',
+          email: 'anthony.earley@gmail.com',
+          subject: '\u2726 New Clair signup: ' + user.email,
+          html: '<p><b>New account created</b></p><p><b>Email:</b> ' + user.email + '</p><p><b>Provider:</b> ' + (user.app_metadata && user.app_metadata.provider ? user.app_metadata.provider : 'unknown') + '</p><p><b>Time:</b> ' + new Date().toLocaleString('en-US', {timeZone:'America/New_York'}) + ' ET</p>'
+        })});
+      } catch(e) {}
+    }
+
     if (profile) {
       userName = profile.name || '';
       userProfile.age_range = profile.age_range || '';
