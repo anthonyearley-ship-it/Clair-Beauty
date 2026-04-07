@@ -46,7 +46,12 @@
   .w-proof-text strong { color: var(--cream); font-weight: 400; }
   .signin-link { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: none; background: none; transition: color 0.3s; margin-top: 4px; }
   .signin-link:hover { color: var(--gold); }
-  .w-vs { position: relative; z-index: 1; width: 100%; padding: clamp(36px, 9vw, 56px) 24px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .w-ticker-item { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); padding: 0 clamp(14px, 3.5vw, 22px); display: inline-block; }
+  .w-ticker-dot { color: var(--gold); font-size: 8px; display: inline-block; opacity: 0.5; vertical-align: middle; }
+  .w-continent-pill { font-size: clamp(11px, 2.8vw, 13px); color: var(--cream); letter-spacing: 0.05em; }
+  .w-continent-sep { color: var(--border); font-size: 16px; }
+  .w-vs { position: relative; z-index: 1; width: 100%; padding: clamp(36px, 9vw, 56px) 24px; display: flex; flex-direction: column; align-items: center; }
   .w-vs-label { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; text-align: center; }
   .w-vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 560px; width: 100%; border: 1px solid var(--border); }
   .w-vs-col { padding: clamp(20px, 5vw, 32px) clamp(16px, 4vw, 28px); text-align: left; }
@@ -425,18 +430,69 @@
       </div>
       <!-- FIX: Landing photo button now calls goToPhotoAnalysis() — works for both logged-in and logged-out users -->
       <button class="landing-photo-btn" onclick="handleLandingPhotoClick()">&#128247; &nbsp;Analyze a Photo of Product or Your Skin</button>
-      <div class="w-social-proof">
-        <div class="w-proof-names">
-          <div class="w-proof-avatar">S</div><div class="w-proof-avatar">M</div><div class="w-proof-avatar">A</div>
-          <div class="w-proof-avatar">B</div><div class="w-proof-avatar">C</div>
-        </div>
-        <div class="w-proof-text"><strong>Women on three continents</strong> are using Clair</div>
-      </div>
       <button class="signin-link" onclick="show('signin')">Already have an account &mdash; Sign In</button>
     </div>
   </div>
-  <div class="w-vs">
+  <!-- GLOBAL SOCIAL PROOF STRIP -->
+  <div class="w-global" style="position:relative;z-index:1;width:100%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(201,169,110,0.03);overflow:hidden;">
+    <!-- Ticker -->
+    <div class="w-ticker-wrap" style="padding:14px 0;overflow:hidden;position:relative;">
+      <div class="w-ticker" style="display:flex;gap:0;white-space:nowrap;animation:ticker 28s linear infinite;">
+        <span class="w-ticker-item">London</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Sydney</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">New York</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Paris</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Singapore</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Toronto</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Melbourne</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Los Angeles</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Amsterdam</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Tokyo</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Dublin</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Dubai</span><span class="w-ticker-dot">&#10022;</span>
+        <!-- duplicate for seamless loop -->
+        <span class="w-ticker-item">London</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Sydney</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">New York</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Paris</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Singapore</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Toronto</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Melbourne</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Los Angeles</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Amsterdam</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Tokyo</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Dublin</span><span class="w-ticker-dot">&#10022;</span>
+        <span class="w-ticker-item">Dubai</span><span class="w-ticker-dot">&#10022;</span>
+      </div>
+    </div>
+    <!-- Social proof statement -->
+    <div style="text-align:center;padding:clamp(28px,7vw,44px) 24px clamp(32px,8vw,52px);display:flex;flex-direction:column;align-items:center;gap:16px;">
+      <div style="font-size:clamp(9px,2.2vw,10px);letter-spacing:0.55em;text-transform:uppercase;color:var(--gold);opacity:0.8;">Growing every day</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6vw,38px);font-weight:300;color:var(--cream);line-height:1.35;max-width:520px;">Women across four continents are finally getting answers their skin actually needed.</div>
+      <div style="display:flex;align-items:center;gap:20px;margin-top:8px;flex-wrap:wrap;justify-content:center;">
+        <div class="w-continent-pill">🇬🇧 Europe</div>
+        <div class="w-continent-sep">·</div>
+        <div class="w-continent-pill">🇺🇸 North America</div>
+        <div class="w-continent-sep">·</div>
+        <div class="w-continent-pill">🇦🇺 Australia</div>
+        <div class="w-continent-sep">·</div>
+        <div class="w-continent-pill">🌏 Asia</div>
+      </div>
+      <div style="display:flex;gap:0;align-items:center;margin-top:4px;">
+        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:0;">S</div>
+        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:-7px;">M</div>
+        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:-7px;">A</div>
+        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:-7px;">B</div>
+        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:-7px;">C</div>
+        <div style="font-size:clamp(12px,3vw,13px);color:var(--muted);margin-left:14px;letter-spacing:0.03em;">Your skin is <em style="color:var(--cream);font-style:italic;">not</em> like everyone else's.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY CLAIR SECTION -->
+  <div class="w-vs" style="border-bottom:1px solid var(--border);">
     <div class="w-vs-label">Why Clair beats googling it</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(13px,3.5vw,15px);font-style:italic;color:var(--muted);text-align:center;margin-bottom:24px;max-width:400px;">Generic advice was never built for your skin. Clair was.</div>
     <div class="w-vs-grid">
       <div class="w-vs-col them">
         <div class="w-vs-col-label">Google / ChatGPT</div>
@@ -453,9 +509,23 @@
         <div class="w-vs-item"><span class="w-promise-marker">&#10022;</span>One clear recommendation &mdash; no sorting required</div>
       </div>
     </div>
+    <!-- CTA repeat after comparison — reduces friction -->
+    <div style="margin-top:clamp(24px,6vw,36px);text-align:center;">
+      <button class="begin-btn" onclick="showAccountGate('full')" style="max-width:300px;width:100%;display:inline-block;">Begin My Free Consultation</button>
+    </div>
   </div>
+
+  <!-- FOOTER -->
   <div class="w-footer">
-    <div class="disclaimer">Clair is for cosmetic guidance only &mdash; not medical advice. No brand partnerships. No sponsored recommendations.</div>
+    <div style="font-size:clamp(9px,2.2vw,10px);letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:8px;">Clair &mdash; Beauty Intelligence</div>
+    <div style="display:flex;gap:clamp(16px,4vw,28px);align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
+      <span style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.1em;">No brand partnerships</span>
+      <span style="color:var(--border);">·</span>
+      <span style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.1em;">No sponsored answers</span>
+      <span style="color:var(--border);">·</span>
+      <span style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.1em;">Cosmetic guidance only</span>
+    </div>
+    <div class="disclaimer">Not medical advice. Consult a dermatologist for medical skin concerns.</div>
   </div>
 </div>
 
@@ -963,15 +1033,11 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
     const file = input.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = async (e) => {
+    reader.onload = (e) => {
       const dataUrl = e.target.result;
-      const rawBase64 = dataUrl.split(',')[1];
-      const rawMediaType = file.type || 'image/jpeg';
-      // Compress before storing so API requests stay under Vercel's 4.5MB limit
-      const compressed = await compressImage(rawBase64, rawMediaType);
-      pendingPhotoBase64 = compressed.base64;
-      pendingPhotoMediaType = compressed.mediaType;
-      document.getElementById('photoPreviewImg').src = dataUrl; // show original for preview quality
+      pendingPhotoBase64 = dataUrl.split(',')[1];
+      pendingPhotoMediaType = file.type || 'image/jpeg';
+      document.getElementById('photoPreviewImg').src = dataUrl;
       document.getElementById('photoPreviewName').textContent = file.name;
       document.getElementById('photoPreviewWrap').style.display = 'flex';
       document.getElementById('userInput').placeholder = 'Ask Clair about this photo...';
@@ -1361,55 +1427,13 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
 
   function updateProgress(n) { for (let i = 1; i <= 6; i++) { document.getElementById('d'+i).classList.toggle('done', i <= n); } }
 
-  function renderMarkdown(text) {
-    // Escape HTML first to prevent injection
-    let html = text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    // Bold: **text** or __text__
-    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
-    // Italic: *text* or _text_ (but not inside words)
-    html = html.replace(/(?<!\w)\*([^*\n]+)\*(?!\w)/g, '<em>$1</em>');
-    // Convert bullet lines (- item or * item) into a proper <ul>
-    // We process line by line
-    const lines = html.split('\n');
-    const out = [];
-    let inList = false;
-    for (const line of lines) {
-      const bulletMatch = line.match(/^[-*]\s+(.+)/);
-      if (bulletMatch) {
-        if (!inList) { out.push('<ul style="padding-left:18px;margin:8px 0;">'); inList = true; }
-        out.push('<li style="margin-bottom:6px;">' + bulletMatch[1] + '</li>');
-      } else {
-        if (inList) { out.push('</ul>'); inList = false; }
-        out.push(line);
-      }
-    }
-    if (inList) out.push('</ul>');
-    // Join lines: blank lines become paragraph breaks, others become <br>
-    let result = '';
-    const joined = out.join('\n');
-    const paragraphs = joined.split(/\n{2,}/);
-    for (const para of paragraphs) {
-      const trimmed = para.trim();
-      if (!trimmed) continue;
-      // Don't wrap list blocks in <p>
-      if (trimmed.startsWith('<ul') || trimmed.startsWith('<li')) {
-        result += trimmed + '\n';
-      } else {
-        result += '<p style="margin:0 0 10px;">' + trimmed.replace(/\n/g, '<br>') + '</p>';
-      }
-    }
-    return result || html.replace(/\n/g, '<br>');
-  }
-
   function addMessage(text, role) {
     const messages = document.getElementById('messages');
     const wrap = document.createElement('div'); wrap.className = 'msg ' + role;
     const avatar = document.createElement('div'); avatar.className = 'msg-avatar ' + (role === 'ai' ? 'ai-avatar' : 'user-avatar');
     avatar.textContent = role === 'ai' ? 'C' : (userName ? userName[0].toUpperCase() : 'Y');
     const bubble = document.createElement('div'); bubble.className = 'msg-bubble';
-    // AI messages get markdown rendering; user messages just get line breaks
-    bubble.innerHTML = role === 'ai' ? renderMarkdown(text) : text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+    bubble.innerHTML = text.replace(/\n/g, '<br>');
     wrap.appendChild(avatar); wrap.appendChild(bubble); messages.appendChild(wrap);
     messages.scrollTop = messages.scrollHeight;
   }
@@ -1451,44 +1475,12 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
 
   function removeTyping() { const t = document.getElementById('typingIndicator'); if (t) t.remove(); }
 
-  // Compress image to prevent 413 Request Too Large errors.
-  // Resizes to max 800px and encodes as JPEG at 70% quality.
-  async function compressImage(base64, mediaType) {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.onload = () => {
-        const MAX = 800;
-        let { width, height } = img;
-        if (width > MAX || height > MAX) {
-          if (width > height) { height = Math.round(height * MAX / width); width = MAX; }
-          else { width = Math.round(width * MAX / height); height = MAX; }
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = width; canvas.height = height;
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-        const compressed = canvas.toDataURL('image/jpeg', 0.7).split(',')[1];
-        resolve({ base64: compressed, mediaType: 'image/jpeg' });
-      };
-      img.onerror = () => resolve({ base64, mediaType });
-      img.src = 'data:' + mediaType + ';base64,' + base64;
-    });
-  }
-
-  // Trim conversation history to prevent large payloads (413 errors).
-  // Keeps the first message so the AI remembers how the conversation started.
-  function trimHistory(history, maxMessages = 12) {
-    if (history.length <= maxMessages) return history;
-    return [history[0], ...history.slice(-(maxMessages - 1))];
-  }
-
   async function callClaude(messages) {
     const isAsk = consultationType === 'ask';
     const useHaiku = consultationType === 'quickwin' || (questionCount < 5 && !isAsk);
     const model = useHaiku ? 'claude-haiku-4-5-20251001' : 'claude-opus-4-5';
     const activePrompt = isAsk ? ASK_PROMPT : consultationType === 'quickwin' ? QUICK_WIN_PROMPT : SYSTEM_PROMPT;
-    const trimmed = trimHistory(messages);
-    const response = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ model, max_tokens: 1200, system: activePrompt, messages: trimmed }) });
-    if (response.status === 413) throw new Error('Request too large — please try sending a shorter message.');
+    const response = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ model, max_tokens: 1200, system: activePrompt, messages }) });
     const data = await response.json();
     if (data.error) throw new Error(data.error.message);
     return data.content[0].text;
