@@ -424,7 +424,7 @@
       <button class="w-topnav-btn" onclick="checkSessionAndShowDashboard()">My Clair</button>
       <button class="w-topnav-btn" onclick="showWhyClair()">Why Clair?</button>
       <button class="w-topnav-btn" onclick="showMedspaInquiry()">Med Spa</button>
-      <button class="w-topnav-btn primary" onclick="showAccountGate('full')">Consultation</button>
+      <button class="w-topnav-btn primary" onclick="startChat()">Consultation</button>
     </div>
   </div>
   <div class="w-hero">
@@ -435,7 +435,7 @@
     <div class="w-subhead">A medspa consultation costs $200. Clair is free. Answer 12 questions and she'll tell you exactly what your skin needs, what to buy, and what to stop doing.</div>
     <div class="w-cta-block">
       <div style="width:100%;text-align:center;">
-        <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">&#10022; &nbsp;Begin My Free Consultation</button>
+        <button class="begin-btn" onclick="startChat()" style="width:100%;">&#10022; &nbsp;Begin My Free Consultation</button>
         <div style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);margin-top:10px;line-height:1.7;">12 questions &middot; ~5 minutes &middot; Complete skin report emailed to you free</div>
       </div>
       <div class="landing-divider">
@@ -1346,9 +1346,14 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
   function dismissFreeGate() { const gate = document.getElementById('freeQuestionGate'); if (gate) gate.remove(); setInputEnabled(true); document.getElementById('userInput').focus(); }
 
   function startChat() {
-    track('begin_clicked'); show('chat');
+    track('begin_clicked');
+    // Default to full consultation if nothing else set
+    if (!consultationType || consultationType === 'full') { consultationType = 'full'; }
+    document.getElementById('messages').innerHTML = '';
+    updateProgress(0);
+    document.getElementById('progressDots').style.display = consultationType === 'ask' ? 'none' : 'flex';
+    show('chat');
     if (consultationType === 'ask') {
-      document.getElementById('messages').innerHTML = '';
       const welcomeMsg = "Hi \u2014 I'm Clair, your personal beauty intelligence. Ask me anything about your skin, a product, an ingredient, a treatment, or your routine.\n\nWhat's on your mind?";
       addMessage(welcomeMsg, 'ai');
       conversationHistory.push({ role: 'assistant', content: welcomeMsg });
@@ -1702,7 +1707,8 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
   function startNewConsultation() {
     conversationHistory = []; questionCount = 0; isWaiting = false; quickWinContent = ''; teaserData = null;
     document.getElementById('messages').innerHTML = ''; updateProgress(0);
-    showAccountGate('full');
+    consultationType = 'full';
+    startChat();
   }
 
   async function signOut() {
