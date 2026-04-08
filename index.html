@@ -34,8 +34,29 @@
   .logo-tag { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.55em; color: var(--muted); text-transform: uppercase; animation: fadeUp 1.2s 0.3s ease forwards; position: relative; margin-bottom: clamp(28px, 7vw, 44px); }
   .w-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 7vw, 48px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 560px; line-height: 1.4; animation: fadeUp 1.2s 0.5s ease forwards; position: relative; padding: 0 8px; }
   .w-headline em { color: var(--gold); font-style: normal; }
-  .w-subhead { font-size: clamp(14px, 3.5vw, 16px); color: var(--muted); margin-top: 18px; max-width: 400px; line-height: 1.8; animation: fadeUp 1.2s 0.7s ease forwards; position: relative; padding: 0 8px; }
-  .w-cta-block { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: clamp(28px, 7vw, 40px); animation: fadeUp 1.2s 0.9s ease forwards; position: relative; width: 100%; max-width: 320px; }
+  .w-subhead { font-size: clamp(14px, 3.5vw, 16px); color: var(--muted); margin-top: 18px; max-width: 420px; line-height: 1.8; animation: fadeUp 1.2s 0.7s ease forwards; position: relative; padding: 0 8px; }
+  .w-cta-block { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: clamp(28px, 7vw, 40px); animation: fadeUp 1.2s 0.9s ease forwards; position: relative; width: 100%; max-width: 360px; }
+  /* WHAT YOU GET SECTION */
+  .w-what-you-get { position: relative; z-index: 1; width: 100%; max-width: 560px; margin: 0 auto; padding: clamp(32px, 8vw, 48px) 24px; }
+  .w-wyg-label { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; text-align: center; }
+  .w-wyg-steps { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); }
+  .w-wyg-step { display: flex; align-items: flex-start; gap: 16px; padding: clamp(16px, 4vw, 22px) clamp(16px, 4vw, 24px); border-bottom: 1px solid var(--border); }
+  .w-wyg-step:last-child { border-bottom: none; }
+  .w-wyg-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(22px, 5vw, 28px); font-weight: 300; color: var(--gold); opacity: 0.5; flex-shrink: 0; width: 32px; line-height: 1.2; }
+  .w-wyg-content { flex: 1; }
+  .w-wyg-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(15px, 3.8vw, 17px); font-weight: 400; color: var(--cream); margin-bottom: 3px; }
+  .w-wyg-body { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.65; }
+  .w-wyg-badge { display: inline-block; margin-top: 6px; font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(201,169,110,0.3); padding: 3px 8px; }
+  /* TESTIMONIAL */
+  .w-testimonial { position: relative; z-index: 1; width: 100%; max-width: 480px; margin: 0 auto; padding: 0 24px clamp(32px, 8vw, 48px); }
+  .w-testimonial-card { border: 1px solid var(--border); padding: clamp(20px, 5vw, 28px); background: rgba(255,255,255,0.02); position: relative; }
+  .w-testimonial-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(15px, 3.8vw, 18px); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.7; margin-bottom: 16px; }
+  .w-testimonial-quote::before { content: '\201C'; color: var(--gold); font-size: 2em; line-height: 0; vertical-align: -0.4em; margin-right: 2px; }
+  .w-testimonial-attr { display: flex; align-items: center; gap: 10px; }
+  .w-testimonial-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--charcoal); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 14px; color: var(--gold); font-style: italic; flex-shrink: 0; }
+  .w-testimonial-name { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.05em; }
+  .w-testimonial-name strong { color: var(--cream); font-weight: 400; display: block; margin-bottom: 1px; }
+  .w-testimonial-stars { color: var(--gold); font-size: 10px; letter-spacing: 2px; margin-left: auto; }
   .begin-btn { width: 100%; padding: 18px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.4em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; font-weight: 500; }
   .begin-btn:hover, .begin-btn:active { background: var(--gold-light); }
   .w-social-proof { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
@@ -46,12 +67,7 @@
   .w-proof-text strong { color: var(--cream); font-weight: 400; }
   .signin-link { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: none; background: none; transition: color 0.3s; margin-top: 4px; }
   .signin-link:hover { color: var(--gold); }
-  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-  .w-ticker-item { font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.35em; text-transform: uppercase; color: var(--muted); padding: 0 clamp(14px, 3.5vw, 22px); display: inline-block; }
-  .w-ticker-dot { color: var(--gold); font-size: 8px; display: inline-block; opacity: 0.5; vertical-align: middle; }
-  .w-continent-pill { font-size: clamp(11px, 2.8vw, 13px); color: var(--cream); letter-spacing: 0.05em; }
-  .w-continent-sep { color: var(--border); font-size: 16px; }
-  .w-vs { position: relative; z-index: 1; width: 100%; padding: clamp(36px, 9vw, 56px) 24px; display: flex; flex-direction: column; align-items: center; }
+  .w-vs { position: relative; z-index: 1; width: 100%; padding: clamp(36px, 9vw, 56px) 24px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
   .w-vs-label { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; text-align: center; }
   .w-vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 560px; width: 100%; border: 1px solid var(--border); }
   .w-vs-col { padding: clamp(20px, 5vw, 32px) clamp(16px, 4vw, 28px); text-align: left; }
@@ -86,9 +102,15 @@
   .chat-logo span { color: var(--gold); font-style: italic; }
   .chat-badge { margin-left: 10px; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 3px 7px; display: none; }
   @media (min-width: 480px) { .chat-badge { display: block; } }
-  .chat-progress { margin-left: auto; display: flex; gap: 6px; align-items: center; }
-  .progress-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background 0.4s; }
-  .progress-dot.done { background: var(--gold); }
+  .chat-progress { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; min-width: 140px; }
+  .chat-progress-label { font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .chat-progress-label span { color: var(--gold); font-weight: 500; }
+  .chat-progress-track { width: 140px; height: 3px; background: rgba(201,169,110,0.15); border-radius: 2px; overflow: hidden; position: relative; }
+  .chat-progress-fill { height: 100%; background: linear-gradient(to right, var(--gold-light), var(--gold)); border-radius: 2px; transition: width 0.6s cubic-bezier(0.4,0,0.2,1); width: 0%; position: relative; }
+  .chat-progress-fill::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 20px; background: linear-gradient(to right, transparent, rgba(255,255,255,0.4)); animation: progressShimmer 1.8s ease-in-out infinite; }
+  @keyframes progressShimmer { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+  .progress-dot { display: none; }
+  .progress-dot.done { display: none; }
   .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; color: var(--charcoal); -webkit-overflow-scrolling: touch; }
   .chat-messages::-webkit-scrollbar { width: 3px; }
   .chat-messages::-webkit-scrollbar-thumb { background: var(--gold-light); }
@@ -406,12 +428,21 @@
     </div>
   </div>
   <div class="w-hero">
-    <div class="w-eyebrow">Free Personal Skincare Intelligence</div>
+    <div class="w-eyebrow">Free &middot; No Medspa Required &middot; 12 Questions</div>
     <div class="logo">Clair</div>
-    <div class="logo-tag">Finally — a routine built just for you</div>
-    <div class="w-headline">Stop guessing in the drugstore aisle. Start knowing exactly what <em>your</em> skin needs.</div>
-    <div class="w-subhead">Ask Clair anything — or get your complete personalized skincare routine and daily schedule. Free. No medspa required.</div>
+    <div class="logo-tag">Your Personal Beauty Intelligence</div>
+    <div class="w-headline">Your complete skin profile, routine, and product recommendations — <em>built for you specifically.</em></div>
+    <div class="w-subhead">A medspa consultation costs $200. Clair is free. Answer 12 questions and she'll tell you exactly what your skin needs, what to buy, and what to stop doing.</div>
     <div class="w-cta-block">
+      <div style="width:100%;text-align:center;">
+        <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">&#10022; &nbsp;Begin My Free Consultation</button>
+        <div style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);margin-top:10px;line-height:1.7;">12 questions &middot; ~5 minutes &middot; Complete skin report emailed to you free</div>
+      </div>
+      <div class="landing-divider">
+        <div class="landing-divider-line"></div>
+        <div class="landing-divider-text">or ask a quick question</div>
+        <div class="landing-divider-line"></div>
+      </div>
       <div class="landing-question-wrap">
         <input class="landing-question-input" id="landingQuestion" type="text"
           placeholder="e.g. My skin is so dry no matter what I try..."
@@ -419,80 +450,56 @@
         <button class="landing-question-send" onclick="submitLandingQuestion()"
           ontouchend="event.preventDefault();submitLandingQuestion();" title="Ask Clair">&#8594;</button>
       </div>
-      <div style="width:100%;text-align:center;margin:4px 0;">
-        <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">&#10022; &nbsp;Begin Full Beauty Consultation</button>
-        <div style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);margin-top:8px;line-height:1.6;">Your skin type &middot; Your budget &middot; Your routine &middot; Products that actually work</div>
-      </div>
-      <div class="landing-divider">
-        <div class="landing-divider-line"></div>
-        <div class="landing-divider-text">or</div>
-        <div class="landing-divider-line"></div>
-      </div>
-      <!-- FIX: Landing photo button now calls goToPhotoAnalysis() — works for both logged-in and logged-out users -->
-      <button class="landing-photo-btn" onclick="handleLandingPhotoClick()">&#128247; &nbsp;Analyze a Photo of Product or Your Skin</button>
+      <button class="landing-photo-btn" onclick="handleLandingPhotoClick()">&#128247; &nbsp;Analyze a Product or Skin Photo</button>
       <button class="signin-link" onclick="show('signin')">Already have an account &mdash; Sign In</button>
     </div>
   </div>
-  <!-- GLOBAL SOCIAL PROOF STRIP -->
-  <div class="w-global" style="position:relative;z-index:1;width:100%;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:rgba(201,169,110,0.03);overflow:hidden;">
-    <!-- Ticker -->
-    <div class="w-ticker-wrap" style="padding:14px 0;overflow:hidden;position:relative;">
-      <div class="w-ticker" style="display:flex;gap:0;white-space:nowrap;animation:ticker 28s linear infinite;">
-        <span class="w-ticker-item">London</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Sydney</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">New York</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Paris</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Singapore</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Toronto</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Melbourne</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Los Angeles</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Amsterdam</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Tokyo</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Dublin</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Dubai</span><span class="w-ticker-dot">&#10022;</span>
-        <!-- duplicate for seamless loop -->
-        <span class="w-ticker-item">London</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Sydney</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">New York</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Paris</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Singapore</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Toronto</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Melbourne</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Los Angeles</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Amsterdam</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Tokyo</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Dublin</span><span class="w-ticker-dot">&#10022;</span>
-        <span class="w-ticker-item">Dubai</span><span class="w-ticker-dot">&#10022;</span>
+
+  <!-- WHAT YOU GET SECTION -->
+  <div class="w-what-you-get">
+    <div class="w-wyg-label">What happens in your consultation</div>
+    <div class="w-wyg-steps">
+      <div class="w-wyg-step">
+        <div class="w-wyg-num">1</div>
+        <div class="w-wyg-content">
+          <div class="w-wyg-title">Clair learns your skin</div>
+          <div class="w-wyg-body">12 questions covering your skin type, concerns, lifestyle, climate, budget, and what you've already tried. Nothing generic — everything about you specifically.</div>
+        </div>
       </div>
-    </div>
-    <!-- Social proof statement -->
-    <div style="text-align:center;padding:clamp(28px,7vw,44px) 24px clamp(32px,8vw,52px);display:flex;flex-direction:column;align-items:center;gap:16px;">
-      <div style="font-size:clamp(9px,2.2vw,10px);letter-spacing:0.55em;text-transform:uppercase;color:var(--gold);opacity:0.8;">Growing every day</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(22px,6vw,38px);font-weight:300;color:var(--cream);line-height:1.35;max-width:520px;">Women across four continents are finally getting answers their skin actually needed.</div>
-      <div style="display:flex;align-items:center;gap:20px;margin-top:8px;flex-wrap:wrap;justify-content:center;">
-        <div class="w-continent-pill">🇬🇧 Europe</div>
-        <div class="w-continent-sep">·</div>
-        <div class="w-continent-pill">🇺🇸 North America</div>
-        <div class="w-continent-sep">·</div>
-        <div class="w-continent-pill">🇦🇺 Australia</div>
-        <div class="w-continent-sep">·</div>
-        <div class="w-continent-pill">🌏 Asia</div>
+      <div class="w-wyg-step">
+        <div class="w-wyg-num">2</div>
+        <div class="w-wyg-content">
+          <div class="w-wyg-title">She builds your complete profile</div>
+          <div class="w-wyg-body">Your Fitzpatrick skin type, barrier health, the gaps in your current routine, and the ingredients your skin will respond to — and the ones it won't.</div>
+        </div>
       </div>
-      <div style="display:flex;gap:0;align-items:center;margin-top:4px;">
-        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:0;">S</div>
-        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:-7px;">M</div>
-        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:-7px;">A</div>
-        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:-7px;">B</div>
-        <div class="w-proof-avatar" style="width:30px;height:30px;border-radius:50%;background:var(--charcoal);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--gold);font-style:italic;margin-left:-7px;">C</div>
-        <div style="font-size:clamp(12px,3vw,13px);color:var(--muted);margin-left:14px;letter-spacing:0.03em;">Your skin is <em style="color:var(--cream);font-style:italic;">not</em> like everyone else's.</div>
+      <div class="w-wyg-step">
+        <div class="w-wyg-num">3</div>
+        <div class="w-wyg-content">
+          <div class="w-wyg-title">You get your personal report</div>
+          <div class="w-wyg-body">Your top 5 product recommendations matched to your exact budget, a time-blocked daily routine, and a 90-day skin focus. Emailed to you, yours to keep.</div>
+          <span class="w-wyg-badge">&#10022; Free &middot; No account required to start</span>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- WHY CLAIR SECTION -->
-  <div class="w-vs" style="border-bottom:1px solid var(--border);">
+  <!-- TESTIMONIAL -->
+  <div class="w-testimonial">
+    <div class="w-testimonial-card">
+      <div class="w-testimonial-quote">I've spent years throwing money at products that didn't work. Clair figured out in five minutes that my moisturizer was actually breaking me out — and gave me a whole new routine under $60 that actually works.</div>
+      <div class="w-testimonial-attr">
+        <div class="w-testimonial-avatar">S</div>
+        <div class="w-testimonial-name">
+          <strong>Sarah M.</strong>
+          42 &middot; Combination skin &middot; Boston, MA
+        </div>
+        <div class="w-testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      </div>
+    </div>
+  </div>
+  <div class="w-vs">
     <div class="w-vs-label">Why Clair beats googling it</div>
-    <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(13px,3.5vw,15px);font-style:italic;color:var(--muted);text-align:center;margin-bottom:24px;max-width:400px;">Generic advice was never built for your skin. Clair was.</div>
     <div class="w-vs-grid">
       <div class="w-vs-col them">
         <div class="w-vs-col-label">Google / ChatGPT</div>
@@ -509,23 +516,9 @@
         <div class="w-vs-item"><span class="w-promise-marker">&#10022;</span>One clear recommendation &mdash; no sorting required</div>
       </div>
     </div>
-    <!-- CTA repeat after comparison — reduces friction -->
-    <div style="margin-top:clamp(24px,6vw,36px);text-align:center;">
-      <button class="begin-btn" onclick="showAccountGate('full')" style="max-width:300px;width:100%;display:inline-block;">Begin My Free Consultation</button>
-    </div>
   </div>
-
-  <!-- FOOTER -->
   <div class="w-footer">
-    <div style="font-size:clamp(9px,2.2vw,10px);letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);opacity:0.6;margin-bottom:8px;">Clair &mdash; Beauty Intelligence</div>
-    <div style="display:flex;gap:clamp(16px,4vw,28px);align-items:center;flex-wrap:wrap;justify-content:center;margin-bottom:16px;">
-      <span style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.1em;">No brand partnerships</span>
-      <span style="color:var(--border);">·</span>
-      <span style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.1em;">No sponsored answers</span>
-      <span style="color:var(--border);">·</span>
-      <span style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);letter-spacing:0.1em;">Cosmetic guidance only</span>
-    </div>
-    <div class="disclaimer">Not medical advice. Consult a dermatologist for medical skin concerns.</div>
+    <div class="disclaimer">Clair is for cosmetic guidance only &mdash; not medical advice. No brand partnerships. No sponsored recommendations.</div>
   </div>
 </div>
 
@@ -624,8 +617,12 @@
     <div class="chat-logo" onclick="goHome()" title="Back to home">C<span>lair</span></div>
     <div class="chat-badge">Beauty Intelligence</div>
     <div class="chat-progress" id="progressDots">
-      <div class="progress-dot" id="d1"></div><div class="progress-dot" id="d2"></div><div class="progress-dot" id="d3"></div>
-      <div class="progress-dot" id="d4"></div><div class="progress-dot" id="d5"></div><div class="progress-dot" id="d6"></div>
+      <div class="chat-progress-label" id="progressLabel">Question <span id="progressNum">1</span> of 12</div>
+      <div class="chat-progress-track">
+        <div class="chat-progress-fill" id="progressFill"></div>
+      </div>
+      <!-- legacy dots for JS compat -->
+      <div style="display:none;"><div class="progress-dot" id="d1"></div><div class="progress-dot" id="d2"></div><div class="progress-dot" id="d3"></div><div class="progress-dot" id="d4"></div><div class="progress-dot" id="d5"></div><div class="progress-dot" id="d6"></div></div>
     </div>
   </div>
   <div class="chat-messages" id="messages"></div>
@@ -882,8 +879,32 @@
   </div>
 </div>
 
+<!-- POST-CONSULTATION ACCOUNT GATE -->
+<div class="photo-signup-overlay" id="postConsultGateOverlay">
+  <div class="photo-signup-box" style="max-width:440px;">
+    <div style="font-size:clamp(9px,2.2vw,10px);letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;">&#10022; Your report is ready</div>
+    <div class="photo-signup-title" style="font-size:clamp(20px,5vw,26px);margin-bottom:10px;">Save your Beauty Intelligence Report</div>
+    <div class="photo-signup-sub" style="margin-bottom:20px;">Create your free Clair account and your complete report will be saved, emailed to you, and waiting every time you return. Takes 20 seconds.</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;text-align:left;">
+      <div style="display:flex;align-items:center;gap:10px;font-size:clamp(12px,3vw,13px);color:var(--muted);">
+        <span style="color:var(--gold);flex-shrink:0;">&#10022;</span> Your complete skin profile saved permanently
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:clamp(12px,3vw,13px);color:var(--muted);">
+        <span style="color:var(--gold);flex-shrink:0;">&#10022;</span> Report emailed to you instantly
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:clamp(12px,3vw,13px);color:var(--muted);">
+        <span style="color:var(--gold);flex-shrink:0;">&#10022;</span> Ask Clair follow-up questions anytime
+      </div>
+    </div>
+    <input class="photo-signup-input" id="postConsultEmail" type="email" placeholder="Your email address" autocomplete="email" />
+    <input class="photo-signup-input" id="postConsultPassword" type="password" placeholder="Create a password (6+ characters)" autocomplete="new-password" />
+    <div class="photo-signup-error" id="postConsultError"></div>
+    <button class="photo-signup-btn" id="postConsultBtn" onclick="createAccountFromPostConsult()">&#10022; &nbsp;Save My Report &amp; Create Account</button>
+    <button class="photo-signup-dismiss" onclick="skipPostConsultGate()">Skip — just show me my report</button>
+  </div>
+</div>
+
 <script>
-  const PAYWALL_ACTIVE = false;
   const STRIPE_PUBLISHABLE_KEY = 'pk_test_51TESd7KelhJah2c4Eyqf4fh6CLI2MLuL41KTS2xP0TFZy16u2992Jwmip0hf04f0DiLBG9NlvQ6NhoQivEY3DdQP00CLWAuDfb';
   const SUPABASE_URL = 'https://ruukxsypjoxvlrtgmeir.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ1dWt4c3lwam94dmxydGdtZWlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQxODg5MjksImV4cCI6MjA4OTc2NDkyOX0._us8Sb8qdxJc3gAbGvSIX-A4P6im4e15DnE3O3L28UA';
@@ -1425,7 +1446,26 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
     updateProgress(0); show('welcome');
   }
 
-  function updateProgress(n) { for (let i = 1; i <= 6; i++) { document.getElementById('d'+i).classList.toggle('done', i <= n); } }
+  function updateProgress(n) {
+    // Legacy dots (hidden but kept for safety)
+    for (let i = 1; i <= 6; i++) { const d = document.getElementById('d'+i); if(d) d.classList.toggle('done', i <= n); }
+    // New progress bar — 12 questions total
+    const total = 12;
+    const pct = Math.min(Math.round((n / total) * 100), 100);
+    const fill = document.getElementById('progressFill');
+    const label = document.getElementById('progressLabel');
+    const num = document.getElementById('progressNum');
+    if (fill) fill.style.width = pct + '%';
+    if (n === 0) {
+      if (label) label.innerHTML = 'Question <span id="progressNum">1</span> of 12';
+      if (fill) fill.style.width = '0%';
+    } else if (n >= total) {
+      if (label) label.innerHTML = '<span id="progressNum" style="color:var(--gold)">&#10022; Report ready</span>';
+      if (fill) fill.style.width = '100%';
+    } else {
+      if (label) label.innerHTML = 'Question <span id="progressNum">' + (n + 1) + '</span> of 12';
+    }
+  }
 
   function addMessage(text, role) {
     const messages = document.getElementById('messages');
@@ -1441,12 +1481,77 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
   function showActionButtons() {
     const messages = document.getElementById('messages');
     const wrap = document.createElement('div'); wrap.className = 'action-btns'; wrap.id = 'actionButtons';
-    const saveBtn = document.createElement('button'); saveBtn.className = 'action-btn primary'; saveBtn.textContent = 'Save My Results';
-    saveBtn.onclick = () => { removeActionButtons(); show('signup'); };
-    const deeperBtn = document.createElement('button'); deeperBtn.className = 'action-btn'; deeperBtn.textContent = 'Go Deeper';
-    deeperBtn.onclick = () => { removeActionButtons(); if (PAYWALL_ACTIVE) { show('paywall'); } else { goDeeper(); } };
-    wrap.appendChild(saveBtn); wrap.appendChild(deeperBtn); messages.appendChild(wrap);
+    const deeperBtn = document.createElement('button'); deeperBtn.className = 'action-btn primary';
+    deeperBtn.textContent = '\u2726  I\'m ready for my Beauty Intelligence Report';
+    deeperBtn.style.cssText = 'padding:14px 20px;font-size:clamp(11px,3vw,12px);letter-spacing:0.15em;width:100%;max-width:360px;';
+    deeperBtn.onclick = () => {
+      removeActionButtons();
+      if (!currentUserId) {
+        showPostConsultGate('full');
+      } else if (PAYWALL_ACTIVE) {
+        show('paywall');
+      } else {
+        goDeeper();
+      }
+    };
+    wrap.appendChild(deeperBtn); messages.appendChild(wrap);
     messages.scrollTop = messages.scrollHeight;
+  }
+
+  function showPostConsultGate(type) {
+    window._postConsultType = type || 'full';
+    document.getElementById('postConsultEmail').value = '';
+    document.getElementById('postConsultPassword').value = '';
+    document.getElementById('postConsultError').textContent = '';
+    document.getElementById('postConsultBtn').textContent = '\u2726 \u00a0Save My Report & Create Account';
+    document.getElementById('postConsultBtn').disabled = false;
+    document.getElementById('postConsultGateOverlay').classList.add('visible');
+    setTimeout(() => document.getElementById('postConsultEmail').focus(), 400);
+  }
+
+  function skipPostConsultGate() {
+    document.getElementById('postConsultGateOverlay').classList.remove('visible');
+    if (window._postConsultType === 'report') {
+      // They're already on the report screen — just unlock it
+      document.getElementById('reportUnlockOverlay').style.display = 'none';
+      document.getElementById('reportBody').classList.remove('blurred');
+    } else {
+      if (PAYWALL_ACTIVE) { show('paywall'); } else { goDeeper(); }
+    }
+  }
+
+  async function createAccountFromPostConsult() {
+    const email = document.getElementById('postConsultEmail').value.trim();
+    const password = document.getElementById('postConsultPassword').value.trim();
+    const errorEl = document.getElementById('postConsultError');
+    const btn = document.getElementById('postConsultBtn');
+    errorEl.textContent = '';
+    if (!email || !email.includes('@')) { errorEl.textContent = 'Please enter a valid email address.'; return; }
+    if (!password || password.length < 6) { errorEl.textContent = 'Password must be at least 6 characters.'; return; }
+    btn.textContent = 'Creating your account...'; btn.disabled = true;
+    try {
+      const { data, error } = await supabaseClient.auth.signUp({ email, password });
+      if (error) {
+        if (error.message.includes('already registered') || error.message.includes('already exists')) {
+          const { data: signInData, error: signInError } = await supabaseClient.auth.signInWithPassword({ email, password });
+          if (signInError) { errorEl.textContent = 'Account exists \u2014 please check your password.'; btn.textContent = '\u2726 \u00a0Save My Report & Create Account'; btn.disabled = false; return; }
+          currentUserId = signInData.user.id;
+        } else { errorEl.textContent = error.message; btn.textContent = '\u2726 \u00a0Save My Report & Create Account'; btn.disabled = false; return; }
+      } else {
+        const user = data.session && data.session.user ? data.session.user : data.user;
+        if (user) {
+          currentUserId = user.id; track('account_created');
+          try { await supabaseClient.from('profiles').upsert({ id: user.id, email, name: userName, age_range: userProfile.age_range, budget: userProfile.budget, concern: userProfile.concern, routine: userProfile.routine, quick_win: quickWinContent }, { onConflict: 'id' }); } catch(e) {}
+          try { await supabaseClient.from('leads').upsert({ email, name: userName||'' }, { onConflict: 'email' }); } catch(e) {}
+        }
+      }
+      document.getElementById('postConsultGateOverlay').classList.remove('visible');
+      if (window._postConsultType === 'report') {
+        show('generating'); startGeneratingAnimation(); generateAndShowReport();
+      } else {
+        if (PAYWALL_ACTIVE) { show('paywall'); } else { goDeeper(); }
+      }
+    } catch(err) { errorEl.textContent = 'Something went wrong. Please try again.'; btn.textContent = '\u2726 \u00a0Save My Report & Create Account'; btn.disabled = false; }
   }
 
   function removeActionButtons() { const btns = document.getElementById('actionButtons'); if (btns) btns.remove(); }
@@ -1694,8 +1799,14 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
         document.getElementById('reportUnlockOverlay').style.display = 'none';
         document.getElementById('reportBody').classList.remove('blurred');
         showAskClairButton(); await saveReportToSupabase(html);
+        show('report');
+      } else {
+        // Show post-consult gate before revealing report to non-logged-in users
+        show('report');
+        window._postConsultType = 'report';
+        document.getElementById('postConsultGateOverlay').classList.add('visible');
+        setTimeout(() => document.getElementById('postConsultEmail').focus(), 400);
       }
-      show('report');
     } catch(err) {
       stopGeneratingAnimation();
       document.getElementById('reportContent').innerHTML = '<p style="color:var(--muted)">There was an issue generating your report. Please try again.</p>';
