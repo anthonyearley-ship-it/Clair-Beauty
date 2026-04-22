@@ -142,18 +142,18 @@
   .action-btn.primary:hover, .action-btn.primary:active { background: var(--gold); color: var(--deep); }
   /* FIX 1: .chat-input-area was missing its CSS selector in original — styles were orphaned */
   .chat-input-area { border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-  .chat-input-wrap { display: flex; gap: 8px; align-items: flex-end; max-width: 700px; margin: 0 auto; padding: 12px 12px 0; }
-  .photo-btn { width: 46px; height: 46px; background: transparent; border: 1px solid var(--border); color: var(--muted); cursor: pointer; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; -webkit-appearance: none; font-size: 18px; }
+  .chat-input-wrap { display: flex; gap: 10px; align-items: flex-end; max-width: 960px; margin: 0 auto; padding: 14px 20px 0; }
+  .photo-btn { width: 52px; height: 52px; background: transparent; border: 1px solid var(--border); color: var(--muted); cursor: pointer; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; -webkit-appearance: none; font-size: 20px; }
   .photo-btn:hover, .photo-btn:active { border-color: var(--gold); color: var(--gold); }
   .photo-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .photo-preview-wrap { display: flex; align-items: center; gap: 8px; padding: 6px 12px 0; max-width: 700px; margin: 0 auto; }
+  .photo-preview-wrap { display: flex; align-items: center; gap: 8px; padding: 6px 20px 0; max-width: 960px; margin: 0 auto; }
   .photo-preview { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); }
   .photo-preview-name { font-size: 12px; color: var(--muted); flex: 1; }
   .photo-preview-remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; padding: 2px; }
-  .chat-input { flex: 1; padding: 12px 14px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; resize: none; min-height: 46px; max-height: 100px; border-radius: 4px; transition: border 0.3s; -webkit-appearance: none; }
+  .chat-input { flex: 1; padding: 15px 18px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; resize: none; min-height: 52px; max-height: 140px; border-radius: 4px; transition: border 0.3s; -webkit-appearance: none; line-height: 1.5; }
   .chat-input:focus { border-color: var(--gold); }
   .chat-input::placeholder { color: var(--muted); }
-  .send-btn { padding: 12px 18px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 46px; -webkit-appearance: none; }
+  .send-btn { padding: 12px 22px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 52px; -webkit-appearance: none; }
   .send-btn:hover, .send-btn:active { background: var(--gold); color: var(--deep); }
   .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   /* GENERATING */
