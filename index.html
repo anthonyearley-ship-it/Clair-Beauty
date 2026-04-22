@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://js.stripe.com/v3/"></script>
-<script>   window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); }; </script> <script defer src="/_vercel/insights/script.js"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1A1410">
 <meta name="mobile-web-app-capable" content="yes">
@@ -71,37 +71,6 @@
   .w-promise-col.after .w-promise-marker { color: var(--gold); }
   .w-footer { position: relative; z-index: 1; width: 100%; padding: clamp(32px, 8vw, 48px) 24px clamp(28px, 7vw, 40px); display: flex; flex-direction: column; align-items: center; gap: 12px; border-top: 1px solid var(--border); background: rgba(201,169,110,0.03); }
   .disclaimer { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); opacity: 0.5; max-width: 90vw; text-align: center; line-height: 1.7; width: 100%; }
-
-  /* ── REDESIGNED HERO ── */
-  .w-trust-row { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px; background: rgba(201,169,110,0.08); border: 1px solid rgba(201,169,110,0.25); border-radius: 100px; font-size: clamp(10px, 2.5vw, 11px); color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 18px; font-weight: 500; }
-  .w-trust-row strong { color: var(--cream); font-weight: 500; }
-  .w-trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); }
-  .w-headline-new { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 7.5vw, 54px); font-weight: 300; color: var(--cream); max-width: 640px; line-height: 1.2; animation: fadeUp 1s 0.1s ease forwards; position: relative; padding: 0 8px; opacity: 0; margin-bottom: 18px; }
-  .w-headline-new em { color: var(--gold); font-style: italic; }
-  .w-subhead-new { font-size: clamp(14px, 3.5vw, 17px); color: var(--muted); max-width: 480px; line-height: 1.7; animation: fadeUp 1s 0.3s ease forwards; opacity: 0; padding: 0 8px; margin-bottom: clamp(24px, 6vw, 32px); }
-  .w-subhead-new strong { color: var(--cream); font-weight: 400; }
-  .w-deliverables { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(8px, 2.5vw, 16px); margin-bottom: clamp(24px, 6vw, 32px); animation: fadeUp 1s 0.5s ease forwards; opacity: 0; }
-  .w-deliverable { display: flex; align-items: center; gap: 7px; font-size: clamp(11px, 2.8vw, 13px); color: var(--cream); letter-spacing: 0.02em; }
-  .w-deliverable-check { color: var(--gold); font-size: 13px; flex-shrink: 0; }
-  .w-cta-block-new { display: flex; flex-direction: column; align-items: center; gap: 12px; animation: fadeUp 1s 0.7s ease forwards; opacity: 0; position: relative; width: 100%; max-width: 440px; }
-  .w-cta-primary { width: 100%; padding: 20px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(12px, 3.2vw, 14px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; font-weight: 500; border-radius: 2px; box-shadow: 0 4px 24px rgba(201,169,110,0.2); }
-  .w-cta-primary:hover, .w-cta-primary:active { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 6px 28px rgba(201,169,110,0.3); }
-  .w-cta-primary-sub { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.1em; margin-top: -4px; }
-  .w-cta-secondary { background: transparent; border: none; color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(11px, 2.8vw, 12px); letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; padding: 8px 12px; transition: color 0.3s; text-decoration: underline; text-underline-offset: 4px; }
-  .w-cta-secondary:hover { color: var(--gold); }
-  .w-quickask-label { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; margin-top: 8px; }
-
-  /* Example preview — the "proof it works" element */
-  .w-example { position: relative; z-index: 1; width: 100%; max-width: 520px; margin: 0 auto; padding: clamp(20px, 5vw, 28px) 24px clamp(32px, 8vw, 48px); animation: fadeUp 1s 0.9s ease forwards; opacity: 0; }
-  .w-example-label { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; text-align: center; }
-  .w-example-card { background: rgba(253,249,244,0.03); border: 1px solid var(--border); border-radius: 6px; padding: clamp(16px, 4vw, 22px); text-align: left; }
-  .w-example-q { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(201,169,110,0.1); }
-  .w-example-q-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--blush); color: var(--charcoal); display: flex; align-items: center; justify-content: center; font-size: 11px; flex-shrink: 0; font-weight: 500; }
-  .w-example-q-text { font-size: clamp(13px, 3.2vw, 14px); color: var(--cream); line-height: 1.6; font-style: italic; }
-  .w-example-a { display: flex; gap: 10px; align-items: flex-start; }
-  .w-example-a-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--deep); color: var(--gold); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 14px; flex-shrink: 0; border: 1px solid var(--gold); }
-  .w-example-a-text { font-size: clamp(13px, 3.2vw, 14px); color: var(--cream); line-height: 1.7; }
-  .w-example-a-text strong { color: var(--gold); font-weight: 400; }
 </style>
 <style>
   /* CHAT */
@@ -432,58 +401,38 @@
     </div>
   </div>
   <div class="w-hero">
-    <div class="w-trust-row"><span class="w-trust-dot"></span>100% Free &middot; No Credit Card</div>
+    <div class="w-eyebrow">Free Personal Skincare Intelligence</div>
     <div class="logo">Clair</div>
-    <div class="logo-tag">Your Personal Skincare Concierge</div>
-    <h1 class="w-headline-new">A skincare routine built for <em>your</em> skin. In 5 minutes. Free.</h1>
-    <p class="w-subhead-new">Answer a few questions. Get a complete personalized routine, <strong>product recommendations matched to your budget</strong>, and ingredients to seek &mdash; and avoid &mdash; based on your skin, not the internet's.</p>
-
-    <div class="w-deliverables">
-      <div class="w-deliverable"><span class="w-deliverable-check">&#10022;</span>Your skin profile</div>
-      <div class="w-deliverable"><span class="w-deliverable-check">&#10022;</span>Products for your budget</div>
-      <div class="w-deliverable"><span class="w-deliverable-check">&#10022;</span>Daily routine plan</div>
-    </div>
-
-    <div class="w-cta-block-new">
-      <button class="w-cta-primary" onclick="showAccountGate('full')">Get My Free Routine &rarr;</button>
-      <div class="w-cta-primary-sub">Takes about 5 minutes &middot; No credit card required</div>
-
-      <div class="w-social-proof" style="margin-top:12px;">
+    <div class="logo-tag">Finally — a routine built just for you</div>
+    <div class="w-headline">In <em>five minutes</em>, a custom skin routine built for <em>your</em> budget — with zero brand allegiances.</div>
+    <div class="w-subhead">Ask Clair anything — or get a complete personalized routine and daily schedule. Free. No medspa required.</div>
+    <div class="w-cta-block">
+      <div class="landing-question-wrap">
+        <input class="landing-question-input" id="landingQuestion" type="text"
+          placeholder="e.g. My skin is so dry no matter what I try..."
+          onkeydown="handleLandingQuestion(event)" autocomplete="off" />
+        <button class="landing-question-send" onclick="submitLandingQuestion()"
+          ontouchend="event.preventDefault();submitLandingQuestion();" title="Ask Clair">&#8594;</button>
+      </div>
+      <div style="width:100%;text-align:center;margin:4px 0;">
+        <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">&#10022; &nbsp;Begin Full Beauty Consultation</button>
+        <div style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);margin-top:8px;line-height:1.6;">Your skin type &middot; Your budget &middot; Your routine &middot; Products that actually work</div>
+      </div>
+      <div class="landing-divider">
+        <div class="landing-divider-line"></div>
+        <div class="landing-divider-text">or</div>
+        <div class="landing-divider-line"></div>
+      </div>
+      <!-- FIX: Landing photo button now calls goToPhotoAnalysis() — works for both logged-in and logged-out users -->
+      <button class="landing-photo-btn" onclick="handleLandingPhotoClick()">&#128247; &nbsp;Analyze a Photo of Product or Your Skin</button>
+      <div class="w-social-proof">
         <div class="w-proof-names">
           <div class="w-proof-avatar">S</div><div class="w-proof-avatar">M</div><div class="w-proof-avatar">A</div>
           <div class="w-proof-avatar">B</div><div class="w-proof-avatar">C</div>
         </div>
         <div class="w-proof-text"><strong>Women on three continents</strong> are using Clair</div>
       </div>
-
-      <div class="w-quickask-label">Just have one question?</div>
-      <div class="landing-question-wrap">
-        <input class="landing-question-input" id="landingQuestion" type="text"
-          placeholder="e.g. Why is my skin dry no matter what I try?"
-          onkeydown="handleLandingQuestion(event)" autocomplete="off" />
-        <button class="landing-question-send" onclick="submitLandingQuestion()"
-          ontouchend="event.preventDefault();submitLandingQuestion();" title="Ask Clair">&#8594;</button>
-      </div>
-
       <button class="signin-link" onclick="show('signin')">Already have an account &mdash; Sign In</button>
-    </div>
-  </div>
-
-  <!-- EXAMPLE / PROOF SECTION -->
-  <div class="w-example">
-    <div class="w-example-label">&#10022; What Clair sounds like</div>
-    <div class="w-example-card">
-      <div class="w-example-q">
-        <div class="w-example-q-avatar">S</div>
-        <div class="w-example-q-text">"I'm 42, combination skin, breaking out on my chin. Budget around $100/month. What should I actually do?"</div>
-      </div>
-      <div class="w-example-a">
-        <div class="w-example-a-avatar">C</div>
-        <div class="w-example-a-text">Chin breakouts at 42 are almost always <strong>hormonal, not bacterial</strong> &mdash; which means most acne products will make it worse by stripping your barrier. For your budget, I'd start with <strong>The Ordinary's Azelaic Acid ($10)</strong> in the morning and <strong>CeraVe PM ($17)</strong> at night. Skip the salicylic acid you're probably using. Would you like me to build the full routine?</div>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:20px;">
-      <button onclick="handleLandingPhotoClick()" style="background:none;border:none;color:var(--muted);font-family:'Jost',sans-serif;font-size:clamp(11px,2.8vw,12px);letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;padding:8px;text-decoration:underline;text-underline-offset:4px;">&#128247; Or &mdash; analyze a product photo instead</button>
     </div>
   </div>
   <div class="w-vs">
@@ -1617,10 +1566,10 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
             const first = conversationHistory.find(m => m.role==='user' && m.content!=='Begin the consultation.' && m.content!=='Begin the quick win assessment.');
             if (first && typeof first.content === 'string') { const w = first.content.trim().split(' '); if (w.length <= 3) { userName = w[0]; userProfile.name = userName; if (currentUserId) { try { await supabaseClient.from('profiles').update({name:userName}).eq('id',currentUserId); } catch(e){} } } }
           }
-          if (questionCount===2) { const last = conversationHistory.filter(m=>m.role==='user').slice(-1)[0]; if (last && typeof last.content==='string') userProfile.age_range = last.content.trim(); }
-          if (questionCount===3) { const last = conversationHistory.filter(m=>m.role==='user').slice(-1)[0]; if (last && typeof last.content==='string') userProfile.budget = last.content.trim(); }
-          if (questionCount===4) { const last = conversationHistory.filter(m=>m.role==='user').slice(-1)[0]; if (last && typeof last.content==='string') userProfile.concern = last.content.trim(); }
-          if (questionCount===5) { const last = conversationHistory.filter(m=>m.role==='user').slice(-1)[0]; if (last && typeof last.content==='string') userProfile.routine = last.content.trim(); }
+          if (questionCount===2) { const last = conversationHistory.filter(m=>m.role==='user').slice(-1)[0]; if (last && typeof last.content==='string') { userProfile.age_range = last.content.trim(); if (currentUserId) { try { supabaseClient.from('profiles').update({age_range:userProfile.age_range}).eq('id',currentUserId).then(()=>{}); } catch(e){} } } }
+          if (questionCount===3) { const last = conversationHistory.filter(m=>m.role==='user').slice(-1)[0]; if (last && typeof last.content==='string') { userProfile.budget = last.content.trim(); if (currentUserId) { try { supabaseClient.from('profiles').update({budget:userProfile.budget}).eq('id',currentUserId).then(()=>{}); } catch(e){} } } }
+          if (questionCount===4) { const last = conversationHistory.filter(m=>m.role==='user').slice(-1)[0]; if (last && typeof last.content==='string') { userProfile.concern = last.content.trim(); if (currentUserId) { try { supabaseClient.from('profiles').update({concern:userProfile.concern}).eq('id',currentUserId).then(()=>{}); } catch(e){} } } }
+          if (questionCount===5) { const last = conversationHistory.filter(m=>m.role==='user').slice(-1)[0]; if (last && typeof last.content==='string') { userProfile.routine = last.content.trim(); if (currentUserId) { try { supabaseClient.from('profiles').update({routine:userProfile.routine}).eq('id',currentUserId).then(()=>{}); } catch(e){} } } }
           setInputEnabled(true); document.getElementById('userInput').focus();
         }
       }
