@@ -71,42 +71,6 @@
   .w-promise-col.after .w-promise-marker { color: var(--gold); }
   .w-footer { position: relative; z-index: 1; width: 100%; padding: clamp(32px, 8vw, 48px) 24px clamp(28px, 7vw, 40px); display: flex; flex-direction: column; align-items: center; gap: 12px; border-top: 1px solid var(--border); background: rgba(201,169,110,0.03); }
   .disclaimer { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); opacity: 0.5; max-width: 90vw; text-align: center; line-height: 1.7; width: 100%; }
-  /* NEW LANDING SECTIONS */
-  .w-trust-line { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.1em; margin-top: 14px; text-align: center; line-height: 1.7; opacity: 0.85; animation: fadeUp 1.2s 1.1s ease forwards; position: relative; }
-  .w-trust-line span { color: var(--gold-light); margin: 0 6px; opacity: 0.6; }
-  .w-deliverables { position: relative; z-index: 1; width: 100%; padding: clamp(48px, 10vw, 72px) 24px; background: rgba(201,169,110,0.02); border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
-  .w-deliverables-eyebrow { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; text-align: center; }
-  .w-deliverables-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 6vw, 36px); font-weight: 300; color: var(--cream); text-align: center; margin-bottom: 8px; max-width: 560px; line-height: 1.3; }
-  .w-deliverables-title em { color: var(--gold); font-style: italic; }
-  .w-deliverables-sub { font-size: clamp(13px, 3.3vw, 14px); color: var(--muted); text-align: center; max-width: 460px; line-height: 1.75; margin-bottom: clamp(28px, 6vw, 40px); }
-  .w-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 560px; width: 100%; }
-  .w-tile { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: clamp(18px, 4vw, 24px) clamp(16px, 3.5vw, 22px); text-align: left; transition: border-color 0.4s ease, background 0.4s ease; }
-  .w-tile:hover { border-color: rgba(201,169,110,0.5); background: rgba(255,255,255,0.05); }
-  .w-tile-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(11px, 2.8vw, 12px); font-style: italic; color: var(--gold); margin-bottom: 10px; letter-spacing: 0.05em; opacity: 0.8; }
-  .w-tile-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(16px, 4.2vw, 19px); font-weight: 400; color: var(--cream); margin-bottom: 6px; line-height: 1.3; }
-  .w-tile-body { font-size: clamp(12px, 3vw, 13px); color: var(--muted); line-height: 1.65; }
-  .w-testimonial { position: relative; z-index: 1; width: 100%; padding: clamp(44px, 10vw, 68px) 24px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
-  .w-testimonial-quote { font-family: 'Cormorant Garamond', serif; font-size: clamp(19px, 5vw, 28px); font-weight: 300; font-style: italic; color: var(--cream); text-align: center; line-height: 1.5; max-width: 620px; margin-bottom: 20px; }
-  .w-testimonial-quote::before { content: '\201C'; color: var(--gold); font-style: normal; margin-right: 2px; font-size: 1.1em; }
-  .w-testimonial-quote::after { content: '\201D'; color: var(--gold); font-style: normal; margin-left: 2px; font-size: 1.1em; }
-  .w-testimonial-attr { display: flex; align-items: center; gap: 12px; justify-content: center; }
-  .w-testimonial-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--charcoal); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--gold); font-style: italic; flex-shrink: 0; }
-  .w-testimonial-name { font-size: clamp(12px, 3vw, 13px); color: var(--muted); letter-spacing: 0.04em; text-align: left; line-height: 1.5; }
-  .w-testimonial-name strong { color: var(--cream); font-weight: 400; display: block; }
-  .w-faq { position: relative; z-index: 1; width: 100%; padding: clamp(44px, 10vw, 68px) 24px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
-  .w-faq-eyebrow { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; text-align: center; }
-  .w-faq-list { max-width: 560px; width: 100%; display: flex; flex-direction: column; }
-  .w-faq-item { padding: clamp(18px, 4vw, 22px) 0; border-bottom: 1px solid var(--border); }
-  .w-faq-item:last-child { border-bottom: none; }
-  .w-faq-q { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 4.3vw, 20px); font-weight: 400; color: var(--cream); margin-bottom: 8px; line-height: 1.35; }
-  .w-faq-a { font-size: clamp(13px, 3.3vw, 14px); color: var(--muted); line-height: 1.75; }
-  .w-final-cta { position: relative; z-index: 1; width: 100%; padding: clamp(48px, 10vw, 72px) 24px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .w-final-cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 6vw, 34px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 520px; line-height: 1.35; margin-bottom: 10px; }
-  .w-final-cta-title em { color: var(--gold); font-style: normal; }
-  .w-final-cta-sub { font-size: clamp(13px, 3.3vw, 14px); color: var(--muted); max-width: 420px; line-height: 1.75; margin-bottom: 28px; }
-  .w-final-cta-btn-wrap { width: 100%; max-width: 320px; }
-  .w-micro-trust { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.08em; margin-top: 14px; line-height: 1.7; opacity: 0.75; }
-  .w-micro-trust span { color: var(--gold-light); margin: 0 6px; opacity: 0.6; }
 </style>
 <style>
   /* CHAT */
@@ -142,18 +106,18 @@
   .action-btn.primary:hover, .action-btn.primary:active { background: var(--gold); color: var(--deep); }
   /* FIX 1: .chat-input-area was missing its CSS selector in original — styles were orphaned */
   .chat-input-area { border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
-  .chat-input-wrap { display: flex; gap: 10px; align-items: flex-end; max-width: 960px; margin: 0 auto; padding: 14px 20px 0; }
-  .photo-btn { width: 52px; height: 52px; background: transparent; border: 1px solid var(--border); color: var(--muted); cursor: pointer; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; -webkit-appearance: none; font-size: 20px; }
+  .chat-input-wrap { display: flex; gap: 8px; align-items: flex-end; max-width: 700px; margin: 0 auto; padding: 12px 12px 0; }
+  .photo-btn { width: 46px; height: 46px; background: transparent; border: 1px solid var(--border); color: var(--muted); cursor: pointer; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; -webkit-appearance: none; font-size: 18px; }
   .photo-btn:hover, .photo-btn:active { border-color: var(--gold); color: var(--gold); }
   .photo-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .photo-preview-wrap { display: flex; align-items: center; gap: 8px; padding: 6px 20px 0; max-width: 960px; margin: 0 auto; }
+  .photo-preview-wrap { display: flex; align-items: center; gap: 8px; padding: 6px 12px 0; max-width: 700px; margin: 0 auto; }
   .photo-preview { width: 48px; height: 48px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); }
   .photo-preview-name { font-size: 12px; color: var(--muted); flex: 1; }
   .photo-preview-remove { background: none; border: none; color: var(--muted); cursor: pointer; font-size: 16px; padding: 2px; }
-  .chat-input { flex: 1; padding: 15px 18px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; resize: none; min-height: 52px; max-height: 140px; border-radius: 4px; transition: border 0.3s; -webkit-appearance: none; line-height: 1.5; }
+  .chat-input { flex: 1; padding: 12px 14px; border: 1px solid var(--border); background: white; color: var(--charcoal); font-family: 'Jost', sans-serif; font-size: 16px; outline: none; resize: none; min-height: 46px; max-height: 100px; border-radius: 4px; transition: border 0.3s; -webkit-appearance: none; }
   .chat-input:focus { border-color: var(--gold); }
   .chat-input::placeholder { color: var(--muted); }
-  .send-btn { padding: 12px 22px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 52px; -webkit-appearance: none; }
+  .send-btn { padding: 12px 18px; background: var(--deep); color: var(--gold); border: none; font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.3s; border-radius: 4px; flex-shrink: 0; height: 46px; -webkit-appearance: none; }
   .send-btn:hover, .send-btn:active { background: var(--gold); color: var(--deep); }
   .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
   /* GENERATING */
@@ -437,56 +401,38 @@
     </div>
   </div>
   <div class="w-hero">
-    <div class="w-eyebrow">Free &middot; 12 Questions &middot; 5 Minutes</div>
+    <div class="w-eyebrow">Free Personal Skincare Intelligence</div>
     <div class="logo">Clair</div>
-    <div class="logo-tag">Personal Beauty Intelligence</div>
-    <div class="w-headline">The skincare routine built for <em>your</em> exact skin, budget, and life.</div>
-    <div class="w-subhead">Answer 12 questions. Clair builds your complete skin profile, five personalized product recommendations, and your daily routine. Yours to keep forever.</div>
+    <div class="logo-tag">Finally — a routine built just for you</div>
+    <div class="w-headline">Stop guessing in the drugstore aisle. Start knowing exactly what <em>your</em> skin needs.</div>
+    <div class="w-subhead">Ask Clair anything — or get your complete personalized skincare routine and daily schedule. Free. No medspa required.</div>
     <div class="w-cta-block">
-      <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">&#10022; &nbsp;Begin My Free Consultation</button>
-      <div class="w-trust-line">No credit card<span>&middot;</span>No medspa required<span>&middot;</span>Your report is yours forever</div>
-      <div class="w-social-proof" style="margin-top:20px;">
+      <div class="landing-question-wrap">
+        <input class="landing-question-input" id="landingQuestion" type="text"
+          placeholder="e.g. My skin is so dry no matter what I try..."
+          onkeydown="handleLandingQuestion(event)" autocomplete="off" />
+        <button class="landing-question-send" onclick="submitLandingQuestion()"
+          ontouchend="event.preventDefault();submitLandingQuestion();" title="Ask Clair">&#8594;</button>
+      </div>
+      <div style="width:100%;text-align:center;margin:4px 0;">
+        <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">&#10022; &nbsp;Begin Full Beauty Consultation</button>
+        <div style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);margin-top:8px;line-height:1.6;">Your skin type &middot; Your budget &middot; Your routine &middot; Products that actually work</div>
+      </div>
+      <div class="landing-divider">
+        <div class="landing-divider-line"></div>
+        <div class="landing-divider-text">or</div>
+        <div class="landing-divider-line"></div>
+      </div>
+      <!-- FIX: Landing photo button now calls goToPhotoAnalysis() — works for both logged-in and logged-out users -->
+      <button class="landing-photo-btn" onclick="handleLandingPhotoClick()">&#128247; &nbsp;Analyze a Photo of Product or Your Skin</button>
+      <div class="w-social-proof">
         <div class="w-proof-names">
           <div class="w-proof-avatar">S</div><div class="w-proof-avatar">M</div><div class="w-proof-avatar">A</div>
           <div class="w-proof-avatar">B</div><div class="w-proof-avatar">C</div>
         </div>
-        <div class="w-proof-text"><strong>Women on three continents</strong> trust Clair with their skin</div>
+        <div class="w-proof-text"><strong>Women on three continents</strong> are using Clair</div>
       </div>
       <button class="signin-link" onclick="show('signin')">Already have an account &mdash; Sign In</button>
-    </div>
-  </div>
-  <div class="w-deliverables">
-    <div class="w-deliverables-eyebrow">What You'll Receive</div>
-    <div class="w-deliverables-title">A complete <em>Beauty Intelligence Report</em> &mdash; written just for you.</div>
-    <div class="w-deliverables-sub">Every answer you give shapes the report. No templates. No generic advice. Just the plan your skin has been waiting for.</div>
-    <div class="w-tiles">
-      <div class="w-tile">
-        <div class="w-tile-num">I.</div>
-        <div class="w-tile-title">Your Skin Profile</div>
-        <div class="w-tile-body">Your exact skin type, Fitzpatrick tone, barrier health, and what's actually driving your concerns.</div>
-      </div>
-      <div class="w-tile">
-        <div class="w-tile-num">II.</div>
-        <div class="w-tile-title">5 Product Picks</div>
-        <div class="w-tile-body">Matched to your exact budget &mdash; with direct links. No sponsored brands, no kickbacks.</div>
-      </div>
-      <div class="w-tile">
-        <div class="w-tile-num">III.</div>
-        <div class="w-tile-title">Your Daily Routine</div>
-        <div class="w-tile-body">Morning and evening, step by step. What to use, when, and why it matters for your skin.</div>
-      </div>
-      <div class="w-tile">
-        <div class="w-tile-num">IV.</div>
-        <div class="w-tile-title">Your 90-Day Focus</div>
-        <div class="w-tile-body">One clear goal, the ingredients to seek, the ingredients to avoid, and what to expect along the way.</div>
-      </div>
-    </div>
-  </div>
-  <div class="w-testimonial">
-    <div class="w-testimonial-quote">Clair asked me things no product quiz ever has &mdash; my stress, my sleep, my climate. The routine she built actually works. I've saved more on skincare in one month than I did all last year.</div>
-    <div class="w-testimonial-attr">
-      <div class="w-testimonial-avatar">M</div>
-      <div class="w-testimonial-name"><strong>Margaret, 47</strong>New York City</div>
     </div>
   </div>
   <div class="w-vs">
@@ -506,35 +452,6 @@
         <div class="w-vs-item"><span class="w-promise-marker">&#10022;</span>Knows your budget, climate, and sensitivities</div>
         <div class="w-vs-item"><span class="w-promise-marker">&#10022;</span>One clear recommendation &mdash; no sorting required</div>
       </div>
-    </div>
-  </div>
-  <div class="w-faq">
-    <div class="w-faq-eyebrow">The Questions Everyone Asks</div>
-    <div class="w-faq-list">
-      <div class="w-faq-item">
-        <div class="w-faq-q">Is this really free?</div>
-        <div class="w-faq-a">Yes. The full consultation and your complete Beauty Intelligence Report are free, forever. No credit card, no trial that ends, no hidden paywall at the end. Clair earns small commissions if you purchase through her product links &mdash; that's it.</div>
-      </div>
-      <div class="w-faq-item">
-        <div class="w-faq-q">How is this different from a medspa?</div>
-        <div class="w-faq-a">A medspa sells you treatments. Clair gives you honest, unbiased guidance on what your skin actually needs &mdash; whether that's a $12 moisturizer from the drugstore or a conversation with a dermatologist. No treatments to push. No commission on procedures. Just intelligence.</div>
-      </div>
-      <div class="w-faq-item">
-        <div class="w-faq-q">What happens to my data?</div>
-        <div class="w-faq-a">Your consultation and report are saved to your private Clair account so you can return anytime. Clair never sells your data, never shares it with brands, and never uses it for advertising. Your skin is yours.</div>
-      </div>
-      <div class="w-faq-item">
-        <div class="w-faq-q">How long does the consultation take?</div>
-        <div class="w-faq-a">About five minutes. Twelve questions, answered in your own words. At the end, Clair writes your complete report and emails it to you.</div>
-      </div>
-    </div>
-  </div>
-  <div class="w-final-cta">
-    <div class="w-final-cta-title">Your best skin is <em>twelve questions</em> away.</div>
-    <div class="w-final-cta-sub">Free forever. Yours to keep. No medspa required.</div>
-    <div class="w-final-cta-btn-wrap">
-      <button class="begin-btn" onclick="showAccountGate('full')" style="width:100%;">&#10022; &nbsp;Begin My Free Consultation</button>
-      <div class="w-micro-trust">No credit card<span>&middot;</span>5 minutes<span>&middot;</span>Cancel anytime</div>
     </div>
   </div>
   <div class="w-footer">
@@ -903,13 +820,57 @@
   const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   const stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
 
+  // Filter out errors that aren't from our own code.
+  // These are common in Facebook/Instagram in-app browsers and extensions —
+  // they inject their own scripts that throw errors we can't fix and shouldn't be emailed about.
+  function shouldIgnoreError(msg, src) {
+    if (!msg) return true;
+    const m = String(msg).toLowerCase();
+    // Known third-party noise (Facebook IAB, Instagram IAB, Apple WebKit bridges, browser extensions)
+    const ignoredMessages = [
+      'window.webkit.messagehandlers',
+      'webkit.messagehandlers',
+      '_avast_submit',
+      'instantsearchsdkjsbridgeclearhighlight',
+      'fbtouchcontroller',
+      'fbinappbrowserlibcheckpoint',
+      'reactnativewebview',
+      'magicalfields',
+      "can't find variable: webkit",
+      "undefined is not an object (evaluating 'window.webkit",
+      'script error.',
+      'non-error promise rejection captured',
+      'resizeobserver loop limit exceeded',
+      'resizeobserver loop completed with undelivered notifications'
+    ];
+    for (const ignored of ignoredMessages) { if (m.indexOf(ignored) !== -1) return true; }
+    // Ignore errors from anything that isn't our own domain (extensions, injected scripts, etc.)
+    if (src && typeof src === 'string') {
+      const s = src.toLowerCase();
+      if (s && s.indexOf('clairbeautyco.com') === -1 && s.indexOf('localhost') === -1 && s.indexOf('vercel.app') === -1 && s !== '') {
+        if (s.indexOf('chrome-extension') !== -1 || s.indexOf('moz-extension') !== -1 || s.indexOf('safari-extension') !== -1 || s.indexOf('safari-web-extension') !== -1) return true;
+      }
+    }
+    return false;
+  }
+
+  // Throttle: never send more than 5 error emails per browser session.
+  let errorEmailCount = 0;
+  const MAX_ERROR_EMAILS = 5;
+
   window.onerror = function(msg, src, line, col, err) {
-    const payload = { type: 'send_email', email: 'anthony.earley@gmail.com', subject: 'Clair JS Error: ' + msg.substring(0, 60), html: '<p>' + msg + '</p><p>' + (err && err.stack ? err.stack : '') + '</p><p>' + window.location.href + '</p>' };
+    if (shouldIgnoreError(msg, src)) return false;
+    if (errorEmailCount >= MAX_ERROR_EMAILS) return false;
+    errorEmailCount++;
+    const payload = { type: 'send_email', email: 'anthony.earley@gmail.com', subject: 'Clair JS Error: ' + String(msg).substring(0, 60), html: '<p>' + msg + '</p><p>Source: ' + (src||'') + ':' + (line||'') + '</p><p>' + (err && err.stack ? err.stack : '') + '</p><p>' + window.location.href + '</p>' };
     try { fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) }); } catch(e) {}
     return false;
   };
   window.addEventListener('unhandledrejection', function(event) {
     const msg = event.reason && event.reason.message ? event.reason.message : String(event.reason);
+    if (shouldIgnoreError(msg, '')) return;
+    if (errorEmailCount >= MAX_ERROR_EMAILS) return;
+    errorEmailCount++;
     const payload = { type: 'send_email', email: 'anthony.earley@gmail.com', subject: 'Clair Async Error: ' + msg.substring(0, 60), html: '<p>' + msg + '</p><p>' + window.location.href + '</p>' };
     try { fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) }); } catch(e) {}
   });
