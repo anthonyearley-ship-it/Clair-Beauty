@@ -10,6 +10,36 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://js.stripe.com/v3/"></script>
 <script defer src="/_vercel/insights/script.js"></script>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1478460890455321');
+fbq('track', 'PageView');
+// clairTrack: safe wrapper. Standard events use track(); custom events use trackCustom().
+// Failures never throw — Pixel issues should never break the app.
+window.clairTrack = function(eventName, params) {
+  try {
+    if (typeof window.fbq !== 'function') return;
+    var standardEvents = ['PageView','ViewContent','Lead','CompleteRegistration','Subscribe','Purchase','InitiateCheckout','AddToCart','Search','Contact'];
+    if (standardEvents.indexOf(eventName) !== -1) {
+      window.fbq('track', eventName, params || {});
+    } else {
+      window.fbq('trackCustom', eventName, params || {});
+    }
+  } catch(e) {}
+};
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1A1410">
 <meta name="mobile-web-app-capable" content="yes">
@@ -320,7 +350,6 @@
   .w-secondary-btn { width: 100%; padding: 13px 16px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: clamp(11px, 2.8vw, 12px); letter-spacing: 0.15em; cursor: pointer; transition: all 0.3s; border-radius: 0; display: flex; align-items: center; justify-content: center; gap: 8px; -webkit-appearance: none; }
   .w-secondary-btn:hover, .w-secondary-btn:active { border-color: var(--gold); color: var(--gold); background: rgba(201,169,110,0.04); }
   .w-secondary-btn-icon { font-size: 14px; }
-  .w-secondary-btn-sub { display: block; font-size: 10px; color: var(--muted); margin-top: 3px; letter-spacing: 0.05em; }
   .w-topnav { position: sticky; top: 0; z-index: 100; width: 100%; background: rgba(26,20,16,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; flex-shrink: 0; }
   .w-topnav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--gold); letter-spacing: 0.12em; cursor: pointer; }
   .w-topnav-logo span { font-style: italic; }
@@ -1200,6 +1229,7 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
     const input = document.getElementById('landingQuestion');
     const question = input ? input.value.trim() : '';
     if (!question) { if (input) input.focus(); return; }
+    track('landing_question_submitted');
     consultationType = 'ask'; freeQuestionUsed = false; conversationHistory = [];
     show('chat');
     document.getElementById('messages').innerHTML = '';
@@ -1225,7 +1255,24 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
   function showWhyClair() { document.getElementById('whyClairOverlay').classList.add('visible'); }
   function hideWhyClair() { document.getElementById('whyClairOverlay').classList.remove('visible'); }
   function show(id) { document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); }
-  function track(event, data) { try { if (window.va) window.va('event', { name: event, ...data }); } catch(e) {} }
+  function track(event, data) {
+    try { if (window.va) window.va('event', { name: event, ...data }); } catch(e) {}
+    // Mirror to Meta Pixel — map Clair events to Meta standard events where they fit
+    try {
+      var metaEventMap = {
+        'begin_clicked': 'ViewContent',
+        'go_deeper_clicked': 'ViewContent',
+        'landing_question_submitted': 'Lead',
+        'quick_win_completed': 'Lead',
+        'deep_analysis_completed': 'Lead',
+        'account_created': 'CompleteRegistration',
+        'report_generated': 'Subscribe',
+        'report_emailed': 'Contact'
+      };
+      var metaEvent = metaEventMap[event] || event;
+      if (window.clairTrack) window.clairTrack(metaEvent, data || {});
+    } catch(e) {}
+  }
 
   function addShareInsightButton(insightText) {
     const messages = document.getElementById('messages');
