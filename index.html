@@ -1181,6 +1181,17 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
   }
 
   function showAccountGate(type) {
+    // If user is already logged in, skip the signup gate entirely and go straight to chat.
+    // This prevents the endless-loop bug where logged-in users get prompted to create an account
+    // they already have when clicking "New Consultation," landing CTAs, or the Why Clair button.
+    if (currentUserId) {
+      consultationType = type;
+      conversationHistory = []; questionCount = 0; isWaiting = false;
+      document.getElementById('messages').innerHTML = '';
+      updateProgress(0);
+      startChat();
+      return;
+    }
     consultationType = type;
     const isQuickWin = type === 'quickwin', isAsk = type === 'ask';
     document.getElementById('gateIcon').textContent = isAsk ? '\u2726' : isQuickWin ? '\u26a1' : '\u2726';
