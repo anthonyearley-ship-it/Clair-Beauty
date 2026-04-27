@@ -65,18 +65,43 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
   .w-headline { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 7vw, 48px); font-weight: 300; font-style: italic; color: var(--cream); max-width: 560px; line-height: 1.4; animation: fadeUp 1.2s 0.5s ease forwards; position: relative; padding: 0 8px; }
   .w-headline em { color: var(--gold); font-style: normal; }
   .w-subhead { font-size: clamp(14px, 3.5vw, 16px); color: var(--muted); margin-top: 18px; max-width: 400px; line-height: 1.8; animation: fadeUp 1.2s 0.7s ease forwards; position: relative; padding: 0 8px; }
-  .w-cta-block { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: clamp(28px, 7vw, 40px); animation: fadeUp 1.2s 0.9s ease forwards; position: relative; width: 100%; max-width: 320px; }
+  .w-cta-block { display: flex; flex-direction: column; align-items: center; gap: 16px; margin-top: clamp(28px, 7vw, 40px); animation: fadeUp 1.2s 0.9s ease forwards; position: relative; width: 100%; max-width: 380px; }
   .begin-btn { width: 100%; padding: 18px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(11px, 3vw, 12px); letter-spacing: 0.4em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; font-weight: 500; }
   .begin-btn:hover, .begin-btn:active { background: var(--gold-light); }
-  .w-social-proof { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 100%; }
-  .w-proof-names { display: flex; align-items: center; gap: 6px; }
-  .w-proof-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--charcoal); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 11px; color: var(--gold); font-style: italic; margin-left: -6px; }
-  .w-proof-avatar:first-child { margin-left: 0; }
-  .w-proof-text { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.04em; }
-  .w-proof-text strong { color: var(--cream); font-weight: 400; }
-  .signin-link { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: none; background: none; transition: color 0.3s; margin-top: 4px; }
+  /* PRIMARY HERO CTA — large, bold, dominant */
+  .w-primary-cta { width: 100%; padding: 22px 24px; background: var(--gold); color: var(--deep); border: none; font-family: 'Jost', sans-serif; font-size: clamp(13px, 3.4vw, 14px); letter-spacing: 0.32em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; font-weight: 500; border-radius: 2px; -webkit-appearance: none; box-shadow: 0 0 0 1px rgba(201,169,110,0.3); }
+  .w-primary-cta:hover, .w-primary-cta:active { background: var(--gold-light); transform: translateY(-1px); }
+  .w-cta-reassurance { font-size: clamp(11px, 2.8vw, 12px); color: var(--muted); letter-spacing: 0.18em; margin-top: -2px; line-height: 1.6; }
+  .w-cta-reassurance strong { color: var(--gold-light); font-weight: 400; }
+  .signin-link { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; border: none; background: none; transition: color 0.3s; margin-top: 8px; }
   .signin-link:hover { color: var(--gold); }
-  .w-vs { position: relative; z-index: 1; width: 100%; padding: clamp(36px, 9vw, 56px) 24px; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+  /* SECTION 1 — WHAT YOU'LL GET */
+  .w-deliverables { position: relative; z-index: 1; width: 100%; padding: clamp(40px, 10vw, 64px) 24px; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
+  .w-section-eyebrow { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; text-align: center; }
+  .w-section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 6vw, 34px); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.3; text-align: center; margin-bottom: clamp(28px, 6vw, 36px); max-width: 540px; padding: 0 8px; }
+  .w-deliverable-list { display: flex; flex-direction: column; gap: 12px; max-width: 560px; width: 100%; }
+  .w-deliverable { border: 1px solid var(--border); padding: clamp(18px, 4.5vw, 24px) clamp(20px, 5vw, 28px); display: flex; gap: 18px; align-items: flex-start; text-align: left; transition: border-color 0.3s; }
+  .w-deliverable:hover { border-color: rgba(201,169,110,0.4); }
+  .w-deliverable-num { font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 6.5vw, 32px); font-style: italic; color: var(--gold); opacity: 0.5; line-height: 1; min-width: 32px; flex-shrink: 0; }
+  .w-deliverable-content { flex: 1; }
+  .w-deliverable-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(18px, 4.5vw, 22px); font-weight: 400; color: var(--cream); margin-bottom: 6px; line-height: 1.3; }
+  .w-deliverable-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.7; }
+  /* SECTION 2 — EXAMPLE CONVERSATION */
+  .w-example { position: relative; z-index: 1; width: 100%; padding: clamp(40px, 10vw, 64px) 24px; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; background: rgba(201,169,110,0.02); }
+  .w-example-card { max-width: 560px; width: 100%; background: var(--warm-white); border-radius: 8px; padding: clamp(20px, 5vw, 28px) clamp(18px, 4.5vw, 24px); }
+  .w-msg-row { display: flex; gap: 10px; margin-bottom: 14px; align-items: flex-start; }
+  .w-msg-row.user { justify-content: flex-end; flex-direction: row-reverse; }
+  .w-msg-avatar { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+  .w-msg-avatar.ai { background: var(--deep); color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 14px; font-style: italic; }
+  .w-msg-avatar.user { background: var(--blush); color: var(--charcoal); font-family: 'Jost', sans-serif; font-weight: 500; }
+  .w-msg-bubble { padding: 12px 16px; font-size: clamp(13px, 3.4vw, 14px); line-height: 1.7; max-width: calc(100% - 50px); }
+  .w-msg-bubble.ai { background: white; color: var(--charcoal); border: 1px solid rgba(0,0,0,0.06); border-radius: 0 12px 12px 12px; }
+  .w-msg-bubble.user { background: var(--charcoal); color: var(--cream); border-radius: 12px 0 12px 12px; }
+  .w-msg-bubble em { color: var(--gold); font-style: italic; }
+  .w-msg-bubble.user em { color: var(--gold-light); }
+  .w-example-caption { font-size: clamp(12px, 3vw, 13px); color: var(--muted); font-style: italic; text-align: center; margin-top: 18px; max-width: 480px; line-height: 1.6; }
+  /* WHY-CLAIR-VS-GOOGLE GRID — kept from previous version */
+  .w-vs { position: relative; z-index: 1; width: 100%; padding: clamp(36px, 9vw, 56px) 24px; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; }
   .w-vs-label { font-size: clamp(9px, 2.2vw, 10px); letter-spacing: 0.5em; text-transform: uppercase; color: var(--gold); margin-bottom: 28px; text-align: center; }
   .w-vs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 560px; width: 100%; border: 1px solid var(--border); }
   .w-vs-col { padding: clamp(20px, 5vw, 32px) clamp(16px, 4vw, 28px); text-align: left; }
@@ -99,6 +124,11 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
   .w-promise-col.after .w-promise-item { color: var(--cream); }
   .w-promise-col.before .w-promise-marker { color: var(--muted); opacity: 0.4; }
   .w-promise-col.after .w-promise-marker { color: var(--gold); }
+  /* FINAL CTA AT BOTTOM OF PAGE */
+  .w-final-cta { position: relative; z-index: 1; width: 100%; padding: clamp(40px, 10vw, 64px) 24px; border-top: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(201,169,110,0.03); }
+  .w-final-cta-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(24px, 6vw, 32px); font-weight: 300; font-style: italic; color: var(--cream); line-height: 1.3; margin-bottom: 12px; max-width: 480px; }
+  .w-final-cta-sub { font-size: clamp(13px, 3.3vw, 14px); color: var(--muted); margin-bottom: 28px; max-width: 420px; line-height: 1.7; }
+  .w-final-cta-btn-wrap { width: 100%; max-width: 380px; display: flex; flex-direction: column; gap: 10px; }
   .w-footer { position: relative; z-index: 1; width: 100%; padding: clamp(32px, 8vw, 48px) 24px clamp(28px, 7vw, 40px); display: flex; flex-direction: column; align-items: center; gap: 12px; border-top: 1px solid var(--border); background: rgba(201,169,110,0.03); }
   .disclaimer { font-size: clamp(10px, 2.5vw, 11px); color: var(--muted); opacity: 0.5; max-width: 90vw; text-align: center; line-height: 1.7; width: 100%; }
 </style>
@@ -134,7 +164,6 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
   .action-btn:hover, .action-btn:active { background: var(--gold); color: var(--deep); }
   .action-btn.primary { background: var(--deep); color: var(--gold); border-color: var(--deep); }
   .action-btn.primary:hover, .action-btn.primary:active { background: var(--gold); color: var(--deep); }
-  /* FIX 1: .chat-input-area was missing its CSS selector in original — styles were orphaned */
   .chat-input-area { border-top: 1px solid var(--border); background: rgba(253,249,244,0.97); flex-shrink: 0; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
   .chat-input-wrap { display: flex; gap: 8px; align-items: flex-end; max-width: 700px; margin: 0 auto; padding: 12px 12px 0; }
   .photo-btn { width: 46px; height: 46px; background: transparent; border: 1px solid var(--border); color: var(--muted); cursor: pointer; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.3s; -webkit-appearance: none; font-size: 18px; }
@@ -340,16 +369,6 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
   .why-clair-item-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(17px, 4.5vw, 20px); font-weight: 400; color: var(--cream); margin-bottom: 6px; font-style: italic; }
   .why-clair-item-body { font-size: clamp(13px, 3.2vw, 14px); color: var(--muted); line-height: 1.75; }
   .why-clair-btn-wrap { padding: 24px; display: flex; justify-content: center; flex-shrink: 0; }
-  /* SIMPLIFIED LANDING — optimized for FB IAB mobile traffic */
-  .w-trust-strip { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin: 18px 0 4px; padding: 10px 16px; }
-  .w-trust-item { display: flex; align-items: center; gap: 6px; font-size: clamp(10px, 2.6vw, 11px); color: var(--gold-light); letter-spacing: 0.05em; white-space: nowrap; }
-  .w-trust-check { color: var(--gold); font-size: 12px; font-weight: 500; }
-  .w-trust-divider { width: 3px; height: 3px; border-radius: 50%; background: var(--border); flex-shrink: 0; }
-  .w-secondary-ctas { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 18px; padding-top: 20px; border-top: 1px solid var(--border); }
-  .w-secondary-label { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--muted); text-align: center; margin-bottom: 4px; }
-  .w-secondary-btn { width: 100%; padding: 13px 16px; background: transparent; border: 1px solid var(--border); color: var(--cream); font-family: 'Jost', sans-serif; font-size: clamp(11px, 2.8vw, 12px); letter-spacing: 0.15em; cursor: pointer; transition: all 0.3s; border-radius: 0; display: flex; align-items: center; justify-content: center; gap: 8px; -webkit-appearance: none; }
-  .w-secondary-btn:hover, .w-secondary-btn:active { border-color: var(--gold); color: var(--gold); background: rgba(201,169,110,0.04); }
-  .w-secondary-btn-icon { font-size: 14px; }
   .w-topnav { position: sticky; top: 0; z-index: 100; width: 100%; background: rgba(26,20,16,0.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 12px 20px; flex-shrink: 0; }
   .w-topnav-logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 300; color: var(--gold); letter-spacing: 0.12em; cursor: pointer; }
   .w-topnav-logo span { font-style: italic; }
@@ -358,16 +377,6 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
   .w-topnav-btn:hover, .w-topnav-btn:active { border-color: var(--border); color: var(--gold); }
   .w-topnav-btn.primary { background: var(--gold); color: var(--deep); border-color: var(--gold); }
   .w-topnav-btn.primary:hover { background: var(--gold-light); }
-  .landing-question-wrap { width: 100%; max-width: 480px; margin: 0 auto; position: relative; }
-  .landing-question-input { width: 100%; padding: 18px 64px 18px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(201,169,110,0.4); color: var(--cream); font-family: 'Jost', sans-serif; font-size: clamp(14px,3.5vw,16px); outline: none; border-radius: 2px; -webkit-appearance: none; transition: border-color 0.3s; box-sizing: border-box; }
-  .landing-question-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.09); }
-  .landing-question-input::placeholder { color: var(--muted); font-size: clamp(13px,3.2vw,15px); }
-  .landing-question-send { position: absolute; right: 0; top: 0; bottom: 0; width: 56px; background: var(--gold); border: none; color: var(--deep); font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: opacity 0.3s; border-radius: 0 2px 2px 0; -webkit-tap-highlight-color: transparent; }
-  .landing-divider { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 480px; margin: 4px 0; }
-  .landing-divider-line { flex: 1; height: 1px; background: var(--border); }
-  .landing-divider-text { font-size: 10px; color: var(--muted); letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; }
-  .landing-photo-btn { display: flex; align-items: center; gap: 10px; padding: 14px 24px; background: transparent; border: 1px solid var(--border); color: var(--muted); font-family: 'Jost', sans-serif; font-size: clamp(10px, 2.5vw, 11px); letter-spacing: 0.25em; text-transform: uppercase; cursor: pointer; transition: all 0.4s ease; width: 100%; justify-content: center; border-radius: 0; }
-  .landing-photo-btn:hover, .landing-photo-btn:active { border-color: var(--gold); color: var(--gold); }
   .medspa-overlay { position: fixed; inset: 0; background: rgba(26,20,16,0.92); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; overflow-y: auto; }
   .medspa-overlay.visible { opacity: 1; pointer-events: all; }
   .medspa-box { background: var(--deep); border: 1px solid var(--border); padding: 36px 28px; max-width: 460px; width: 100%; border-radius: 2px; position: relative; }
@@ -427,7 +436,7 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
 <!-- HIDDEN PHOTO INPUT — single shared instance used everywhere -->
 <input type="file" id="photoInput" accept="image/*" style="display:none;" onchange="handlePhotoSelect(this)">
 
-<!-- WELCOME -->
+<!-- WELCOME — REBUILT FOR SINGLE-CTA CONVERSION -->
 <div class="screen" id="welcome">
   <div class="welcome-glow"></div>
   <div class="welcome-noise"></div>
@@ -438,48 +447,76 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
       <button class="w-topnav-btn" onclick="show('signin')">Sign In</button>
     </div>
   </div>
+
+  <!-- HERO: single bold CTA -->
   <div class="w-hero">
     <div class="w-eyebrow">For Women Who Want Real Answers</div>
     <div class="logo">Clair</div>
     <div class="logo-tag">The skincare advisor with no products to sell</div>
-    <div class="w-headline">Your skin deserves better than <em>guesswork</em>.</div>
-    <div class="w-trust-strip">
-      <span class="w-trust-item"><span class="w-trust-check">&#10003;</span>Free</span>
-      <span class="w-trust-divider"></span>
-      <span class="w-trust-item"><span class="w-trust-check">&#10003;</span>No medspa visit</span>
-      <span class="w-trust-divider"></span>
-      <span class="w-trust-item"><span class="w-trust-check">&#10003;</span>Built around you</span>
-    </div>
-    <div class="w-subhead">Ask Clair anything about your skin &mdash; or get a complete personalized routine in minutes.</div>
+    <div class="w-headline">A free, custom skincare analysis &mdash; built around <em>your</em> skin.</div>
+    <div class="w-subhead">Answer 12 questions and Clair will deliver your complete skin profile, routine, and product matches. No brand allegiances. No products to sell.</div>
     <div class="w-cta-block">
-      <div class="landing-question-wrap">
-        <input class="landing-question-input" id="landingQuestion" type="text"
-          placeholder="e.g. Why is my skin always dry?"
-          onkeydown="handleLandingQuestion(event)" autocomplete="off" />
-        <button class="landing-question-send" onclick="submitLandingQuestion()"
-          ontouchend="event.preventDefault();submitLandingQuestion();" title="Ask Clair">&#8594;</button>
-      </div>
-      <div style="font-size:clamp(10px,2.5vw,11px);color:var(--muted);text-align:center;line-height:1.6;margin-top:-4px;">Type a question &middot; Get an instant answer</div>
-      <div class="w-secondary-ctas">
-        <div class="w-secondary-label">Or go deeper</div>
-        <button class="w-secondary-btn" onclick="showAccountGate('full')">
-          <span class="w-secondary-btn-icon">&#10022;</span>
-          <span>Full Beauty Consultation</span>
-        </button>
-        <button class="w-secondary-btn" onclick="handleLandingPhotoClick()">
-          <span class="w-secondary-btn-icon">&#128247;</span>
-          <span>Analyze a Product Photo</span>
-        </button>
-      </div>
-      <div class="w-social-proof" style="margin-top:20px;">
-        <div class="w-proof-names">
-          <div class="w-proof-avatar">S</div><div class="w-proof-avatar">M</div><div class="w-proof-avatar">A</div>
-          <div class="w-proof-avatar">B</div><div class="w-proof-avatar">C</div>
+      <button class="w-primary-cta" onclick="showAccountGate('full')">Begin My Free Analysis &nbsp;&rarr;</button>
+      <div class="w-cta-reassurance"><strong>12 questions</strong> &middot; <strong>5 minutes</strong> &middot; <strong>Free forever</strong></div>
+      <button class="signin-link" onclick="show('signin')">Already have an account &mdash; Sign In</button>
+    </div>
+  </div>
+
+  <!-- SECTION 1: What you'll get -->
+  <div class="w-deliverables">
+    <div class="w-section-eyebrow">What you&rsquo;ll receive</div>
+    <div class="w-section-title">Your complete skin analysis, delivered in three parts.</div>
+    <div class="w-deliverable-list">
+      <div class="w-deliverable">
+        <div class="w-deliverable-num">i</div>
+        <div class="w-deliverable-content">
+          <div class="w-deliverable-title">Your morning &amp; evening routine</div>
+          <div class="w-deliverable-body">A step-by-step routine built around your specific skin type, age, climate, and concerns &mdash; with timing and exact order of application.</div>
         </div>
-        <div class="w-proof-text"><strong>Women on three continents</strong> are using Clair</div>
+      </div>
+      <div class="w-deliverable">
+        <div class="w-deliverable-num">ii</div>
+        <div class="w-deliverable-content">
+          <div class="w-deliverable-title">Your top 5 product matches</div>
+          <div class="w-deliverable-body">Five specific products matched to your exact monthly budget &mdash; with the reason each one made the list and where to buy it.</div>
+        </div>
+      </div>
+      <div class="w-deliverable">
+        <div class="w-deliverable-num">iii</div>
+        <div class="w-deliverable-content">
+          <div class="w-deliverable-title">Your ingredient guide</div>
+          <div class="w-deliverable-body">The exact ingredients to seek out and the ones to avoid &mdash; built around your sensitivities, your goals, and your 90-day plan.</div>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- SECTION 2: Example conversation — Clair in action -->
+  <div class="w-example">
+    <div class="w-section-eyebrow">A real conversation</div>
+    <div class="w-section-title">Here&rsquo;s how Clair thinks.</div>
+    <div class="w-example-card">
+      <div class="w-msg-row user">
+        <div class="w-msg-avatar user">M</div>
+        <div class="w-msg-bubble user">My skin is so dry no matter what I try. I&rsquo;ve used every moisturizer and nothing works.</div>
+      </div>
+      <div class="w-msg-row">
+        <div class="w-msg-avatar ai">C</div>
+        <div class="w-msg-bubble ai">Before I send you to another moisturizer &mdash; let me ask one thing. When your skin feels dry, does it feel <em>tight</em>, or does it feel <em>flaky</em>?<br><br>Because those are two completely different problems, and they need opposite ingredients. Most women are buying for the wrong one.</div>
+      </div>
+      <div class="w-msg-row user">
+        <div class="w-msg-avatar user">M</div>
+        <div class="w-msg-bubble user">Tight. Especially after I wash my face.</div>
+      </div>
+      <div class="w-msg-row">
+        <div class="w-msg-avatar ai">C</div>
+        <div class="w-msg-bubble ai">That&rsquo;s dehydration, not dryness. Your skin barrier is intact &mdash; it just can&rsquo;t hold water. Which means richer creams will sit on top and do nothing.<br><br>What you actually need is a humectant layer underneath whatever you&rsquo;re using. Hyaluronic acid, applied to damp skin, before your moisturizer. It&rsquo;ll change your skin in about ten days.</div>
+      </div>
+    </div>
+    <div class="w-example-caption">Every conversation is built around your specific skin, your history, and your life.</div>
+  </div>
+
+  <!-- SECTION 3: Why Clair beats googling it -->
   <div class="w-vs">
     <div class="w-vs-label">Why Clair beats googling it</div>
     <div class="w-vs-grid">
@@ -499,6 +536,19 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
       </div>
     </div>
   </div>
+
+  <!-- SECTION 4: Final CTA at bottom -->
+  <div class="w-final-cta">
+    <div class="w-section-eyebrow">Ready when you are</div>
+    <div class="w-final-cta-title">Your skin deserves better than guesswork.</div>
+    <div class="w-final-cta-sub">12 questions. 5 minutes. A complete analysis built only for you.</div>
+    <div class="w-final-cta-btn-wrap">
+      <button class="w-primary-cta" onclick="showAccountGate('full')">Begin My Free Analysis &nbsp;&rarr;</button>
+      <div class="w-cta-reassurance"><strong>Free forever</strong> &middot; No medspa visit &middot; No products to sell</div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
   <div class="w-footer">
     <div class="disclaimer">Clair is for cosmetic guidance only &mdash; not medical advice. No brand partnerships. No sponsored recommendations.</div>
     <div style="display:flex;gap:18px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
@@ -547,7 +597,7 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
   </div>
 </div>
 
-<!-- PHOTO SIGNUP OVERLAY (for logged-out users clicking photo from landing) -->
+<!-- PHOTO SIGNUP OVERLAY (kept for in-app photo flows) -->
 <div class="photo-signup-overlay" id="photoSignupOverlay">
   <div class="photo-signup-box">
     <div class="photo-signup-icon">&#128247;</div>
@@ -593,7 +643,7 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
     <div class="why-clair-item"><div class="why-clair-num">IV</div><div class="why-clair-content"><div class="why-clair-item-title">She was made for your skin — exactly as it is now</div><div class="why-clair-item-body">Every question, every recommendation, every insight is built around your specific skin, your life, and where you are right now.</div></div></div>
   </div>
   <div class="why-clair-btn-wrap">
-    <button class="begin-btn" style="max-width:280px;width:100%;" onclick="hideWhyClair(); startChat()">Begin My Consultation</button>
+    <button class="begin-btn" style="max-width:280px;width:100%;" onclick="hideWhyClair(); showAccountGate('full')">Begin My Free Analysis</button>
   </div>
 </div>
 
@@ -730,7 +780,6 @@ src="https://www.facebook.com/tr?id=1478460890455321&ev=PageView&noscript=1"
           <div class="dash-action-title">Ask Clair</div>
           <div class="dash-action-sub">Ask anything about your skin or a product</div>
         </div>
-        <!-- FIX 2: calls goToPhotoAnalysis() — navigates to chat screen first, then opens picker -->
         <div class="dash-action-card" onclick="goToPhotoAnalysis()">
           <div class="dash-action-icon">&#128247;</div>
           <div class="dash-action-title">Analyze a Product</div>
@@ -1028,9 +1077,6 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
     }
   });
 
-  // ── PHOTO HANDLING — single shared input, works from anywhere ──
-  // The #photoInput element is always in the DOM (outside all screens)
-  // so triggering it works regardless of which screen is visible.
   function handlePhotoSelect(input) {
     const file = input.files[0];
     if (!file) return;
@@ -1057,8 +1103,6 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
     document.getElementById('userInput').placeholder = 'Ask Clair anything about your skin...';
   }
 
-  // ── goToPhotoAnalysis: the single function all photo entry points call ──
-  // Navigates to chat (making #photoInput accessible), then opens picker.
   function goToPhotoAnalysis() {
     consultationType = 'ask';
     conversationHistory = [];
@@ -1070,7 +1114,6 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
     setTimeout(() => { document.getElementById('photoInput').click(); }, 400);
   }
 
-  // Called when a logged-out user clicks the landing photo button
   function handleLandingPhotoClick() {
     if (currentUserId) {
       goToPhotoAnalysis();
@@ -1141,8 +1184,8 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
     consultationType = type;
     const isQuickWin = type === 'quickwin', isAsk = type === 'ask';
     document.getElementById('gateIcon').textContent = isAsk ? '\u2726' : isQuickWin ? '\u26a1' : '\u2726';
-    document.getElementById('gateTitle').textContent = isAsk ? 'Ask Clair Anything' : isQuickWin ? 'Your 3-Question Quick Win' : 'Begin Your Full Consultation';
-    document.getElementById('gateSub').textContent = isAsk ? 'Create your free account and ask Clair anything about your skin.' : isQuickWin ? 'Create your free account and Clair will give you one powerful insight you can act on today.' : 'Create your free account to begin your complete Beauty Intelligence consultation. Your skin profile and report will be saved and yours to keep.';
+    document.getElementById('gateTitle').textContent = isAsk ? 'Ask Clair Anything' : isQuickWin ? 'Your 3-Question Quick Win' : 'Begin Your Free Analysis';
+    document.getElementById('gateSub').textContent = isAsk ? 'Create your free account and ask Clair anything about your skin.' : isQuickWin ? 'Create your free account and Clair will give you one powerful insight you can act on today.' : 'Create your free account to begin your free 12-question analysis. Your skin profile and report will be saved and yours to keep.';
     document.getElementById('gateError').textContent = '';
     document.getElementById('gateEmail').value = '';
     document.getElementById('gatePassword').value = '';
@@ -1223,8 +1266,8 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
     document.getElementById('medspaSuccess').style.display = 'block';
   }
 
+  // Legacy landing question handlers (no longer wired to UI but kept for safety)
   function handleLandingQuestion(e) { if (e.key === 'Enter') { e.preventDefault(); submitLandingQuestion(); } }
-
   function submitLandingQuestion() {
     const input = document.getElementById('landingQuestion');
     const question = input ? input.value.trim() : '';
@@ -1498,7 +1541,7 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
   async function callClaude(messages) {
     const isAsk = consultationType === 'ask';
     const useHaiku = consultationType === 'quickwin' || (questionCount < 5 && !isAsk);
-    const model = useHaiku ? 'claude-haiku-4-5-20251001' : 'claude-opus-4-5';
+    const model = useHaiku ? 'claude-haiku-4-5-20251001' : 'claude-opus-4-7';
     const activePrompt = isAsk ? ASK_PROMPT : consultationType === 'quickwin' ? QUICK_WIN_PROMPT : SYSTEM_PROMPT;
     const response = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ model, max_tokens: 1200, system: activePrompt, messages }) });
     const data = await response.json();
@@ -1508,14 +1551,14 @@ After Q3: deliver QUICK INSIGHT (warm paragraph + 2-3 products matched to budget
 
   async function generateReport() {
     const prompt = 'Based on this conversation generate a complete personalized beauty intelligence report in HTML. Use only h3, p, ul, li, strong, a tags. Match all product recommendations to the user\'s stated budget. For each product create an Amazon affiliate link: <a href="https://www.amazon.com/s?k=PRODUCT+NAME+BRAND&tag=clairbeauty-20" target="_blank">Product Name</a>. Include Fitzpatrick skin type, barrier health, ingredients to seek and avoid.\n\n' + conversationHistory.map(m => m.role.toUpperCase() + ': ' + (typeof m.content === 'string' ? m.content : JSON.stringify(m.content))).join('\n\n');
-    const response = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 3000, system: SYSTEM_PROMPT, messages: [{ role: 'user', content: prompt }] }) });
+    const response = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ model: 'claude-opus-4-7', max_tokens: 3000, system: SYSTEM_PROMPT, messages: [{ role: 'user', content: prompt }] }) });
     const data = await response.json();
     return data.content[0].text;
   }
 
   async function generateTeaser() {
     const summary = conversationHistory.map(m => m.role.toUpperCase() + ': ' + (typeof m.content === 'string' ? m.content : '[image]')).join('\n\n');
-    const response = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ model: 'claude-opus-4-5', max_tokens: 500, system: TEASER_PROMPT, messages: [{ role: 'user', content: summary }] }) });
+    const response = await fetch('/api/chat', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ model: 'claude-opus-4-7', max_tokens: 500, system: TEASER_PROMPT, messages: [{ role: 'user', content: summary }] }) });
     const data = await response.json();
     try { return JSON.parse(data.content[0].text.trim().replace(/```json|```/g,'').trim()); } catch(e) { return null; }
   }
